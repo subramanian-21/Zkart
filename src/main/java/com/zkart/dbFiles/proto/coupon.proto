@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option java_package = "com.zkart.model";
+option java_outer_classname = "CouponProto";
+
+message Coupon {
+  string id = 1;
+  string date = 2;
+  string validTill = 3;
+  string userId = 4;
+  int32 remainingCount = 5;
+}
+message Coupons {
+  repeated Coupon coupons = 1;
+}

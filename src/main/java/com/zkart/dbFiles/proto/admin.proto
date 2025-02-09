@@ -1,0 +1,9 @@
+syntax = "proto3";
+option java_package = "com.zkart.model";
+option java_outer_classname = "AdminProto";
+message Admin {
+  string id = 1;
+  string email = 2;
+  string fullname = 3;
+  string password = 4;
+}
