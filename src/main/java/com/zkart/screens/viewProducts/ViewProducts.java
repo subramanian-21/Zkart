@@ -98,9 +98,14 @@ public class ViewProducts extends BaseScreen {
         System.out.println("Product Id :"+product.getId());
         System.out.print("Product Name :"+product.getName()+"     ");
         System.out.println("Category :"+product.getCategory());
-
         System.out.println("Description :"+product.getDescription());
-        System.out.println("Price :"+product.getPrice());
+        if(product.getIsInDeal()) {
+            System.out.println("***   Deal of the Minute   ***");
+            System.out.println("10 Percent Discount applied...");
+            System.out.println("Actual Price :" +product.getPrice()+"    discounted price :"+ (product.getPrice() - (product.getPrice()/10)));
+        }else {
+            System.out.println("Price :"+product.getPrice()+"   stock :"+ product.getStock());
+        }
         if(product.getStock() == 0) {
             System.out.println("Availablity : Out Of Stock");
         }

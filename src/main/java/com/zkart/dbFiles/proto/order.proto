@@ -13,9 +13,12 @@ message Order {
   int32 id = 1;
   int32 userId = 4;
   int32 totalPrice = 2;
+  bool isCouponApplied = 5;
+  string couponCode = 8;
+  int32 discountPercent = 6;
+  int32 finalPrice = 7;
   repeated int32 productIds = 3;
 }
 message Orders {
   repeated Order orders = 1;
-
 }

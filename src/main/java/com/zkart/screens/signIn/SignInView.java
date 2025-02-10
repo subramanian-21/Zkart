@@ -22,7 +22,7 @@ public class SignInView extends BaseScreen {
     @Override
     public void display() {
         try {
-            header("User Sign In");
+            header("User Sign Up");
 
             if(getBoolean("Do You already have an account ?")) {
                 navigate(new LoginView());
@@ -33,7 +33,7 @@ public class SignInView extends BaseScreen {
             String passwd = getPasswordInput();
             while(true) {
                 String confirmPassword = getString("Confirm Password :");
-                if(!passwd.equals(PasswordHandler.encryptPassword(confirmPassword))) {
+                if(!passwd.equals(confirmPassword)) {
                     System.out.println("Password Not Matching.");
                     if(!getBoolean("Do you want to Enter again ?")){
                         return;
