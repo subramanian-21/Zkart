@@ -7,8 +7,6 @@ message User {
   string email = 2;
   string fullname = 4;
   string password = 5;
-  int32 totalTransaction = 6;
-  int32 transactionCount = 7;
   repeated string prePasswords = 8;
 }
 message Users {

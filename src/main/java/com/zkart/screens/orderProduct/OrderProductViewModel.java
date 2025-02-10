@@ -2,6 +2,7 @@ package com.zkart.screens.orderProduct;
 
 import com.zkart.model.CouponProto;
 import com.zkart.dto.OrderStatusDTO;
+import com.zkart.model.OrderProto;
 import com.zkart.model.ProductProto;
 import com.zkart.repository.ZkartRepository;
 import com.zkart.utils.exceptions.IncompleteCouponCreationException;
@@ -29,11 +30,9 @@ public class OrderProductViewModel {
 
             }
         }
+        List< OrderProto.Order> userOrderList = ZkartRepository.getUserOrders(userId);
 
-        int userTransactionCount = ZkartRepository.loggedInUser.getTransactionCount()+1;
-        int userTransactionAmount = ZkartRepository.loggedInUser.getTotalTransaction()+total;
-
-        if(userTransactionAmount >= 2000 || userTransactionCount == 3) {
+        if(userOrderList.size() == 3 || total >= 20000) {
             if(!ZkartRepository.createCoupon(userId)) {
                 System.out.println("Coupon Obtained");
                 throw new IncompleteCouponCreationException();
@@ -53,7 +52,7 @@ public class OrderProductViewModel {
             throw new IncompleteOrderException();
         }
 
-        if(ZkartRepository.createOrder(userId, products, stock, total, userTransactionCount, userTransactionAmount)){
+        if(ZkartRepository.createOrder(userId, products, stock, total)){
             return new OrderStatusDTO(true, userId, false, null,0,total, finalPrice);
         }
 

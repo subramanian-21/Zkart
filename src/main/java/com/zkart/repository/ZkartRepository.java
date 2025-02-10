@@ -261,8 +261,6 @@ public class ZkartRepository {
                 .setFullname(name)
                 .setEmail(email)
                 .setPassword(PasswordHandler.encryptPassword(password))
-                .setTotalTransaction(0)
-                .setTransactionCount(0)
                 .addPrePasswords(PasswordHandler.encryptPassword(password))
                 .build();
 
@@ -510,20 +508,11 @@ public class ZkartRepository {
         }
         return tempList;
     }
-    public static boolean createOrder(int userId, List<ProductProto.Product> productsList, List<Integer> stocks, int totalPrice, int userTransactionCount, int userTransactionAmount) {
+    public static boolean createOrder(int userId, List<ProductProto.Product> productsList, List<Integer> stocks, int totalPrice) {
         int id = orders.getOrdersCount();
-        List<Integer> productIds = new ArrayList<>();
-        for(int i = 0;i<productsList.size();i++) {
-            ProductProto.Product product = productsList.get(i);
-            productIds.add(product.getId());
-//            if(product.getIsInDeal()) {
-//                int sum = (product.getPrice()*10)/100;
-//                totalPrice -= sum;
-//            }
-            int newStock = product.getStock() - stocks.get(i);
-            product = product.toBuilder().setStock(newStock).build();
-            products = products.toBuilder().setProducts(product.getId(), product).build();
-        }
+        List<Integer> productIds = updateProductStockAndGetProductIdList(productsList, stocks);
+        Thread productUpdateThread = new Thread(()->updateDealProduct());
+        productUpdateThread.start();
         OrderProto.Order order = OrderProto
                 .Order
                 .newBuilder()
@@ -536,21 +525,14 @@ public class ZkartRepository {
                 .build();
         FileOutputStream fosOrder = null;
         FileOutputStream fosProduct = null;
-        FileOutputStream fosUser = null;
         try {
             fosOrder = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "order_db.txt"));
             fosProduct = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "product_db.txt"));
-            fosUser = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "user_db.txt"));
             orders = orders.toBuilder().addOrders(order).build();
             orders.writeTo(fosOrder);
             products.writeTo(fosProduct);
-            // coupon generation and user details updation
-            loggedInUser = loggedInUser.toBuilder().setTransactionCount(userTransactionCount).setTotalTransaction(userTransactionAmount).build();
-            users = users.toBuilder().setUsers(userId, loggedInUser).build();
-            users.writeTo(fosUser);
         }
         catch (IOException e) {
-
             return false;
         }
         finally {
@@ -568,28 +550,15 @@ public class ZkartRepository {
                     throw new RuntimeException("Exception in FOSProduct");
                 }
             }
-            if(fosUser != null) {
-                try {
-                    fosUser.close();
-                }catch (IOException e) {
-                    throw new RuntimeException("Exception at FOS USER");
-                }
-            }
         }
-        updateDealProduct();
+
         return true;
     }
     public static boolean createOrder(int userId, List<ProductProto.Product> productsList, List<Integer> stocks, int totalPrice, int finalPrice, CouponProto.Coupon coupon) throws InvalidCouponException {
         int id = orders.getOrdersCount();
-        List<Integer> productIds = new ArrayList<>();
-
-        for(int i = 0;i<productsList.size();i++) {
-            ProductProto.Product product = productsList.get(i);
-            productIds.add(product.getId());
-            int newStock = product.getStock() - stocks.get(i);
-            product = product.toBuilder().setStock(newStock).build();
-            products = products.toBuilder().setProducts(product.getId(), product).build();
-        }
+        List<Integer> productIds = updateProductStockAndGetProductIdList(productsList, stocks);
+        Thread productUpdateThread = new Thread(()->updateDealProduct());
+        productUpdateThread.start();
         OrderProto.Order order = OrderProto
                 .Order
                 .newBuilder()
@@ -605,12 +574,10 @@ public class ZkartRepository {
                 .build();
         FileOutputStream fosOrder = null;
         FileOutputStream fosProduct = null;
-        FileOutputStream fosUser = null;
         FileOutputStream fosCoupon = null;
         try {
             fosOrder = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "order_db.txt"));
             fosProduct = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "product_db.txt"));
-            fosUser = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "user_db.txt"));
             fosCoupon = new FileOutputStream(new File(DB_FILE_ROOT_PATH +"coupon_db.txt"));
             coupon = coupon.toBuilder().setRemainingCount(coupon.getRemainingCount()-1).build();
             coupons = coupons.toBuilder().setCoupons(getCouponIndex(coupon.getId()), coupon).build();
@@ -618,9 +585,6 @@ public class ZkartRepository {
             orders.writeTo(fosOrder);
             products.writeTo(fosProduct);
             coupons.writeTo(fosCoupon);
-            loggedInUser = loggedInUser.toBuilder().setTransactionCount(0).setTotalTransaction(0).build();
-            users = users.toBuilder().setUsers(userId, loggedInUser).build();
-            users.writeTo(fosUser);
         }
         catch (IOException e) {
             return false;
@@ -640,15 +604,7 @@ public class ZkartRepository {
                     throw new RuntimeException("Exception in FOSProduct");
                 }
             }
-            if(fosUser != null) {
-                try {
-                    fosUser.close();
-                }catch (IOException e) {
-                    throw new RuntimeException("Exception at FOS USER");
-                }
-            }
         }
-        updateDealProduct();
         return true;
     }
     public static boolean createCoupon(int userId) {
@@ -758,5 +714,16 @@ public class ZkartRepository {
         }catch (IOException e) {
             System.out.println("Exception at Deal of moment");
         }
+    }
+    public static List<Integer> updateProductStockAndGetProductIdList(List<ProductProto.Product> productsList, List<Integer> stocks) {
+        List<Integer> productIds = new ArrayList<>();
+        for(int i = 0;i<productsList.size();i++) {
+            ProductProto.Product product = productsList.get(i);
+            productIds.add(product.getId());
+            int newStock = product.getStock() - stocks.get(i);
+            product = product.toBuilder().setStock(newStock).build();
+            products = products.toBuilder().setProducts(product.getId(), product).build();
+        }
+        return productIds;
     }
 }

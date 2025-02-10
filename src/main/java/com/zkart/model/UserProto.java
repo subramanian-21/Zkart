@@ -72,18 +72,6 @@ public final class UserProto {
         getPasswordBytes();
 
     /**
-     * <code>int32 totalTransaction = 6;</code>
-     * @return The totalTransaction.
-     */
-    int getTotalTransaction();
-
-    /**
-     * <code>int32 transactionCount = 7;</code>
-     * @return The transactionCount.
-     */
-    int getTransactionCount();
-
-    /**
      * <code>repeated string prePasswords = 8;</code>
      * @return A list containing the prePasswords.
      */
@@ -278,28 +266,6 @@ public final class UserProto {
       }
     }
 
-    public static final int TOTALTRANSACTION_FIELD_NUMBER = 6;
-    private int totalTransaction_ = 0;
-    /**
-     * <code>int32 totalTransaction = 6;</code>
-     * @return The totalTransaction.
-     */
-    @java.lang.Override
-    public int getTotalTransaction() {
-      return totalTransaction_;
-    }
-
-    public static final int TRANSACTIONCOUNT_FIELD_NUMBER = 7;
-    private int transactionCount_ = 0;
-    /**
-     * <code>int32 transactionCount = 7;</code>
-     * @return The transactionCount.
-     */
-    @java.lang.Override
-    public int getTransactionCount() {
-      return transactionCount_;
-    }
-
     public static final int PREPASSWORDS_FIELD_NUMBER = 8;
     @SuppressWarnings("serial")
     private com.google.protobuf.LazyStringArrayList prePasswords_ =
@@ -363,12 +329,6 @@ public final class UserProto {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 5, password_);
       }
-      if (totalTransaction_ != 0) {
-        output.writeInt32(6, totalTransaction_);
-      }
-      if (transactionCount_ != 0) {
-        output.writeInt32(7, transactionCount_);
-      }
       for (int i = 0; i < prePasswords_.size(); i++) {
         com.google.protobuf.GeneratedMessage.writeString(output, 8, prePasswords_.getRaw(i));
       }
@@ -393,14 +353,6 @@ public final class UserProto {
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(5, password_);
-      }
-      if (totalTransaction_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, totalTransaction_);
-      }
-      if (transactionCount_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, transactionCount_);
       }
       {
         int dataSize = 0;
@@ -433,10 +385,6 @@ public final class UserProto {
           .equals(other.getFullname())) return false;
       if (!getPassword()
           .equals(other.getPassword())) return false;
-      if (getTotalTransaction()
-          != other.getTotalTransaction()) return false;
-      if (getTransactionCount()
-          != other.getTransactionCount()) return false;
       if (!getPrePasswordsList()
           .equals(other.getPrePasswordsList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
@@ -458,10 +406,6 @@ public final class UserProto {
       hash = (53 * hash) + getFullname().hashCode();
       hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
       hash = (53 * hash) + getPassword().hashCode();
-      hash = (37 * hash) + TOTALTRANSACTION_FIELD_NUMBER;
-      hash = (53 * hash) + getTotalTransaction();
-      hash = (37 * hash) + TRANSACTIONCOUNT_FIELD_NUMBER;
-      hash = (53 * hash) + getTransactionCount();
       if (getPrePasswordsCount() > 0) {
         hash = (37 * hash) + PREPASSWORDS_FIELD_NUMBER;
         hash = (53 * hash) + getPrePasswordsList().hashCode();
@@ -601,8 +545,6 @@ public final class UserProto {
         email_ = "";
         fullname_ = "";
         password_ = "";
-        totalTransaction_ = 0;
-        transactionCount_ = 0;
         prePasswords_ =
             com.google.protobuf.LazyStringArrayList.emptyList();
         return this;
@@ -651,12 +593,6 @@ public final class UserProto {
           result.password_ = password_;
         }
         if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.totalTransaction_ = totalTransaction_;
-        }
-        if (((from_bitField0_ & 0x00000020) != 0)) {
-          result.transactionCount_ = transactionCount_;
-        }
-        if (((from_bitField0_ & 0x00000040) != 0)) {
           prePasswords_.makeImmutable();
           result.prePasswords_ = prePasswords_;
         }
@@ -692,16 +628,10 @@ public final class UserProto {
           bitField0_ |= 0x00000008;
           onChanged();
         }
-        if (other.getTotalTransaction() != 0) {
-          setTotalTransaction(other.getTotalTransaction());
-        }
-        if (other.getTransactionCount() != 0) {
-          setTransactionCount(other.getTransactionCount());
-        }
         if (!other.prePasswords_.isEmpty()) {
           if (prePasswords_.isEmpty()) {
             prePasswords_ = other.prePasswords_;
-            bitField0_ |= 0x00000040;
+            bitField0_ |= 0x00000010;
           } else {
             ensurePrePasswordsIsMutable();
             prePasswords_.addAll(other.prePasswords_);
@@ -754,16 +684,6 @@ public final class UserProto {
                 bitField0_ |= 0x00000008;
                 break;
               } // case 42
-              case 48: {
-                totalTransaction_ = input.readInt32();
-                bitField0_ |= 0x00000010;
-                break;
-              } // case 48
-              case 56: {
-                transactionCount_ = input.readInt32();
-                bitField0_ |= 0x00000020;
-                break;
-              } // case 56
               case 66: {
                 java.lang.String s = input.readStringRequireUtf8();
                 ensurePrePasswordsIsMutable();
@@ -1035,77 +955,13 @@ public final class UserProto {
         return this;
       }
 
-      private int totalTransaction_ ;
-      /**
-       * <code>int32 totalTransaction = 6;</code>
-       * @return The totalTransaction.
-       */
-      @java.lang.Override
-      public int getTotalTransaction() {
-        return totalTransaction_;
-      }
-      /**
-       * <code>int32 totalTransaction = 6;</code>
-       * @param value The totalTransaction to set.
-       * @return This builder for chaining.
-       */
-      public Builder setTotalTransaction(int value) {
-
-        totalTransaction_ = value;
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 totalTransaction = 6;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearTotalTransaction() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        totalTransaction_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private int transactionCount_ ;
-      /**
-       * <code>int32 transactionCount = 7;</code>
-       * @return The transactionCount.
-       */
-      @java.lang.Override
-      public int getTransactionCount() {
-        return transactionCount_;
-      }
-      /**
-       * <code>int32 transactionCount = 7;</code>
-       * @param value The transactionCount to set.
-       * @return This builder for chaining.
-       */
-      public Builder setTransactionCount(int value) {
-
-        transactionCount_ = value;
-        bitField0_ |= 0x00000020;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 transactionCount = 7;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearTransactionCount() {
-        bitField0_ = (bitField0_ & ~0x00000020);
-        transactionCount_ = 0;
-        onChanged();
-        return this;
-      }
-
       private com.google.protobuf.LazyStringArrayList prePasswords_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
       private void ensurePrePasswordsIsMutable() {
         if (!prePasswords_.isModifiable()) {
           prePasswords_ = new com.google.protobuf.LazyStringArrayList(prePasswords_);
         }
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000010;
       }
       /**
        * <code>repeated string prePasswords = 8;</code>
@@ -1151,7 +1007,7 @@ public final class UserProto {
         if (value == null) { throw new NullPointerException(); }
         ensurePrePasswordsIsMutable();
         prePasswords_.set(index, value);
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -1165,7 +1021,7 @@ public final class UserProto {
         if (value == null) { throw new NullPointerException(); }
         ensurePrePasswordsIsMutable();
         prePasswords_.add(value);
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -1179,7 +1035,7 @@ public final class UserProto {
         ensurePrePasswordsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
             values, prePasswords_);
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -1190,7 +1046,7 @@ public final class UserProto {
       public Builder clearPrePasswords() {
         prePasswords_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000040);;
+        bitField0_ = (bitField0_ & ~0x00000010);;
         onChanged();
         return this;
       }
@@ -1205,7 +1061,7 @@ public final class UserProto {
         checkByteStringIsUtf8(value);
         ensurePrePasswordsIsMutable();
         prePasswords_.add(value);
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -2020,13 +1876,11 @@ public final class UserProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\"com/zkart/dbFiles/proto/user.proto\"\217\001\n" +
-      "\004User\022\n\n\002id\030\001 \001(\005\022\r\n\005email\030\002 \001(\t\022\020\n\010full" +
-      "name\030\004 \001(\t\022\020\n\010password\030\005 \001(\t\022\030\n\020totalTra" +
-      "nsaction\030\006 \001(\005\022\030\n\020transactionCount\030\007 \001(\005" +
-      "\022\024\n\014prePasswords\030\010 \003(\t\"\035\n\005Users\022\024\n\005users" +
-      "\030\001 \003(\0132\005.UserB\034\n\017com.zkart.modelB\tUserPr" +
-      "otob\006proto3"
+      "\n\"com/zkart/dbFiles/proto/user.proto\"[\n\004" +
+      "User\022\n\n\002id\030\001 \001(\005\022\r\n\005email\030\002 \001(\t\022\020\n\010fulln" +
+      "ame\030\004 \001(\t\022\020\n\010password\030\005 \001(\t\022\024\n\014prePasswo" +
+      "rds\030\010 \003(\t\"\035\n\005Users\022\024\n\005users\030\001 \003(\0132\005.User" +
+      "B\034\n\017com.zkart.modelB\tUserProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2037,7 +1891,7 @@ public final class UserProto {
     internal_static_User_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_User_descriptor,
-        new java.lang.String[] { "Id", "Email", "Fullname", "Password", "TotalTransaction", "TransactionCount", "PrePasswords", });
+        new java.lang.String[] { "Id", "Email", "Fullname", "Password", "PrePasswords", });
     internal_static_Users_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_Users_fieldAccessorTable = new
