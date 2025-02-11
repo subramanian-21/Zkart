@@ -11,23 +11,27 @@ import java.util.List;
 public class MyOrdersView extends BaseScreen {
     @Override
     public void display() {
-        if(!ZkartRepository.isUserLogin) {
-            navigate(new LoginView());
-        }
-        if(ZkartRepository.isUserLogin) {
-            header("My Orders");
-            List<OrderProto.Order> orders = ZkartRepository.getUserOrders(ZkartRepository.loggedInUser.getId());
-            if(orders.isEmpty()) {
-                alert("No Orders Found");
-                return;
+        try {
+            if(!ZkartRepository.isUserLogin) {
+                navigate(new LoginView());
             }
-            for (OrderProto.Order order : orders) {
-                printOrders(order);
+            if(ZkartRepository.isUserLogin) {
+                header("My Orders");
+                List<OrderProto.Order> orders = ZkartRepository.getUserOrders(ZkartRepository.loggedInUser.getId());
+                if (orders.isEmpty()) {
+                    alert("No Orders Found");
+                    return;
+                }
+                for (OrderProto.Order order : orders) {
+                    printOrders(order);
+                }
             }
+        }catch (Exception e) {
+
         }
     }
 
-    public void printOrders(OrderProto.Order order) {
+    public static void printOrders(OrderProto.Order order) throws Exception{
         System.out.println("=======================================================");
         System.out.println("Invoice Number :"+order.getId());
         System.out.println("Total Price :"+order.getTotalPrice());

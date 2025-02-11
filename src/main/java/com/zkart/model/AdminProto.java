@@ -76,6 +76,31 @@ public final class AdminProto {
      */
     com.google.protobuf.ByteString
         getPasswordBytes();
+
+    /**
+     * <code>repeated string prePasswords = 5;</code>
+     * @return A list containing the prePasswords.
+     */
+    java.util.List<java.lang.String>
+        getPrePasswordsList();
+    /**
+     * <code>repeated string prePasswords = 5;</code>
+     * @return The count of prePasswords.
+     */
+    int getPrePasswordsCount();
+    /**
+     * <code>repeated string prePasswords = 5;</code>
+     * @param index The index of the element to return.
+     * @return The prePasswords at the given index.
+     */
+    java.lang.String getPrePasswords(int index);
+    /**
+     * <code>repeated string prePasswords = 5;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the prePasswords at the given index.
+     */
+    com.google.protobuf.ByteString
+        getPrePasswordsBytes(int index);
   }
   /**
    * Protobuf type {@code Admin}
@@ -103,6 +128,8 @@ public final class AdminProto {
       email_ = "";
       fullname_ = "";
       password_ = "";
+      prePasswords_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -274,6 +301,43 @@ public final class AdminProto {
       }
     }
 
+    public static final int PREPASSWORDS_FIELD_NUMBER = 5;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringArrayList prePasswords_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    /**
+     * <code>repeated string prePasswords = 5;</code>
+     * @return A list containing the prePasswords.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getPrePasswordsList() {
+      return prePasswords_;
+    }
+    /**
+     * <code>repeated string prePasswords = 5;</code>
+     * @return The count of prePasswords.
+     */
+    public int getPrePasswordsCount() {
+      return prePasswords_.size();
+    }
+    /**
+     * <code>repeated string prePasswords = 5;</code>
+     * @param index The index of the element to return.
+     * @return The prePasswords at the given index.
+     */
+    public java.lang.String getPrePasswords(int index) {
+      return prePasswords_.get(index);
+    }
+    /**
+     * <code>repeated string prePasswords = 5;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the prePasswords at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getPrePasswordsBytes(int index) {
+      return prePasswords_.getByteString(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -300,6 +364,9 @@ public final class AdminProto {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 4, password_);
       }
+      for (int i = 0; i < prePasswords_.size(); i++) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 5, prePasswords_.getRaw(i));
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -320,6 +387,14 @@ public final class AdminProto {
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(4, password_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < prePasswords_.size(); i++) {
+          dataSize += computeStringSizeNoTag(prePasswords_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getPrePasswordsList().size();
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -344,6 +419,8 @@ public final class AdminProto {
           .equals(other.getFullname())) return false;
       if (!getPassword()
           .equals(other.getPassword())) return false;
+      if (!getPrePasswordsList()
+          .equals(other.getPrePasswordsList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -363,6 +440,10 @@ public final class AdminProto {
       hash = (53 * hash) + getFullname().hashCode();
       hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
       hash = (53 * hash) + getPassword().hashCode();
+      if (getPrePasswordsCount() > 0) {
+        hash = (37 * hash) + PREPASSWORDS_FIELD_NUMBER;
+        hash = (53 * hash) + getPrePasswordsList().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -498,6 +579,8 @@ public final class AdminProto {
         email_ = "";
         fullname_ = "";
         password_ = "";
+        prePasswords_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
         return this;
       }
 
@@ -543,6 +626,10 @@ public final class AdminProto {
         if (((from_bitField0_ & 0x00000008) != 0)) {
           result.password_ = password_;
         }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          prePasswords_.makeImmutable();
+          result.prePasswords_ = prePasswords_;
+        }
       }
 
       @java.lang.Override
@@ -575,6 +662,16 @@ public final class AdminProto {
         if (!other.getPassword().isEmpty()) {
           password_ = other.password_;
           bitField0_ |= 0x00000008;
+          onChanged();
+        }
+        if (!other.prePasswords_.isEmpty()) {
+          if (prePasswords_.isEmpty()) {
+            prePasswords_ = other.prePasswords_;
+            bitField0_ |= 0x00000010;
+          } else {
+            ensurePrePasswordsIsMutable();
+            prePasswords_.addAll(other.prePasswords_);
+          }
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -623,6 +720,12 @@ public final class AdminProto {
                 bitField0_ |= 0x00000008;
                 break;
               } // case 34
+              case 42: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensurePrePasswordsIsMutable();
+                prePasswords_.add(s);
+                break;
+              } // case 42
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -928,6 +1031,117 @@ public final class AdminProto {
         return this;
       }
 
+      private com.google.protobuf.LazyStringArrayList prePasswords_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      private void ensurePrePasswordsIsMutable() {
+        if (!prePasswords_.isModifiable()) {
+          prePasswords_ = new com.google.protobuf.LazyStringArrayList(prePasswords_);
+        }
+        bitField0_ |= 0x00000010;
+      }
+      /**
+       * <code>repeated string prePasswords = 5;</code>
+       * @return A list containing the prePasswords.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getPrePasswordsList() {
+        prePasswords_.makeImmutable();
+        return prePasswords_;
+      }
+      /**
+       * <code>repeated string prePasswords = 5;</code>
+       * @return The count of prePasswords.
+       */
+      public int getPrePasswordsCount() {
+        return prePasswords_.size();
+      }
+      /**
+       * <code>repeated string prePasswords = 5;</code>
+       * @param index The index of the element to return.
+       * @return The prePasswords at the given index.
+       */
+      public java.lang.String getPrePasswords(int index) {
+        return prePasswords_.get(index);
+      }
+      /**
+       * <code>repeated string prePasswords = 5;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the prePasswords at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getPrePasswordsBytes(int index) {
+        return prePasswords_.getByteString(index);
+      }
+      /**
+       * <code>repeated string prePasswords = 5;</code>
+       * @param index The index to set the value at.
+       * @param value The prePasswords to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPrePasswords(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensurePrePasswordsIsMutable();
+        prePasswords_.set(index, value);
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string prePasswords = 5;</code>
+       * @param value The prePasswords to add.
+       * @return This builder for chaining.
+       */
+      public Builder addPrePasswords(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensurePrePasswordsIsMutable();
+        prePasswords_.add(value);
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string prePasswords = 5;</code>
+       * @param values The prePasswords to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllPrePasswords(
+          java.lang.Iterable<java.lang.String> values) {
+        ensurePrePasswordsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, prePasswords_);
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string prePasswords = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPrePasswords() {
+        prePasswords_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000010);;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string prePasswords = 5;</code>
+       * @param value The bytes of the prePasswords to add.
+       * @return This builder for chaining.
+       */
+      public Builder addPrePasswordsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensurePrePasswordsIsMutable();
+        prePasswords_.add(value);
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:Admin)
     }
 
@@ -993,10 +1207,11 @@ public final class AdminProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n#com/zkart/dbFiles/proto/admin.proto\"F\n" +
+      "\n#com/zkart/dbFiles/proto/admin.proto\"\\\n" +
       "\005Admin\022\n\n\002id\030\001 \001(\t\022\r\n\005email\030\002 \001(\t\022\020\n\010ful" +
-      "lname\030\003 \001(\t\022\020\n\010password\030\004 \001(\tB\035\n\017com.zka" +
-      "rt.modelB\nAdminProtob\006proto3"
+      "lname\030\003 \001(\t\022\020\n\010password\030\004 \001(\t\022\024\n\014prePass" +
+      "words\030\005 \003(\tB\035\n\017com.zkart.modelB\nAdminPro" +
+      "tob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1007,7 +1222,7 @@ public final class AdminProto {
     internal_static_Admin_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Admin_descriptor,
-        new java.lang.String[] { "Id", "Email", "Fullname", "Password", });
+        new java.lang.String[] { "Id", "Email", "Fullname", "Password", "PrePasswords", });
     descriptor.resolveAllFeaturesImmutable();
   }
 

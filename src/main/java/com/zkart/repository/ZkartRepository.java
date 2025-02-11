@@ -9,12 +9,8 @@ import com.zkart.utils.UniqueId;
 import com.zkart.utils.exceptions.InitialAdminLoginException;
 import com.zkart.utils.exceptions.InvalidCouponException;
 import com.zkart.utils.exceptions.InvalidCredentialsException;
-import java.io.FileInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,16 +19,14 @@ import java.util.stream.Collectors;
 public class ZkartRepository {
     public static final String DEFAULT_ADMIN_PASSWORD = "12345";
     public static final String DB_FILE_ROOT_PATH = "/Users/subramani-22949/IdeaProjects/z-kart/src/main/java/com/zkart/dbFiles/";
-    public static final int COUPON_USAGE_COUNT = 3;
     public static final  int COUPON_EXPIRATION_DAYS = 1;
     public static final  int COUPON_DISCOUNT_PERCENT_START = 20;
     public static final  int COUPON_DISCOUNT_PERCENT_END = 30;
     public static final int PRODUCT_CRITICAL_COUNT = 10;
-    public static final int DEAL_DISCOUNT_PERCENT = 10;
 
     private static ProductProto.Products products;
     private static OrderProto.Orders orders;
-    private static AdminProto.Admin admin;
+    public static AdminProto.Admin admin;
     private static UserProto.Users users;
     private static CouponProto.Coupons coupons;
 
@@ -66,6 +60,7 @@ public class ZkartRepository {
                         .setFullname("admin")
                         .setEmail("admin@zoho.com")
                         .setPassword(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))
+                        .addPrePasswords(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))
                         .build();
 
                 adminFos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "admin_db.txt"));
@@ -92,8 +87,6 @@ public class ZkartRepository {
                     productFos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "product_db.txt"));
                     bufferedReader = new BufferedReader(new FileReader(new File(DB_FILE_ROOT_PATH + "default_products.txt")));
                     String product = null;
-                    int maxStock = 0;
-                    ProductProto.Product maxStockProduct = null;
                     while (bufferedReader.ready()) {
                         product = bufferedReader.readLine();
                         String[] splitProduct = product.split("\\|");
@@ -110,13 +103,8 @@ public class ZkartRepository {
                                 .setStock(Integer.parseInt(splitProduct[7]))
                                 .build();
                         productList.add(productProto);
-                        if(maxStock < productProto.getStock()) {
-                            maxStockProduct = productProto;
-                            maxStock = productProto.getStock();
-                        }
                     }
-                    maxStockProduct = maxStockProduct.toBuilder().setIsInDeal(true).build();
-                    products = ProductProto.Products.newBuilder().addAllProducts(productList).setProducts(maxStockProduct.getId(), maxStockProduct).build();
+                    products = ProductProto.Products.newBuilder().addAllProducts(productList).build();
                     products.writeTo(productFos);
 
                 }catch (IOException e1) {
@@ -139,11 +127,52 @@ public class ZkartRepository {
                 }
             }
             // USER INITIALIZATION
+
             try {
                 users = UserProto.Users.parseFrom(userFis);
             }catch (Exception e) {
-                users = UserProto.Users.newBuilder().build();
-                System.out.println("User Initializing for the first time");
+                FileOutputStream userFos = null;
+                BufferedReader userBr = null;
+                List<UserProto.User> userList = new ArrayList<>();
+                try{
+                userFos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "user_db.txt"));
+                userBr = new BufferedReader(new FileReader(new File(DB_FILE_ROOT_PATH + "default_users.txt")));
+                String user = null;
+                while (userBr.ready()) {
+                    user = userBr.readLine();
+                    String[] userArr = user.split("\\|");
+//                    1|123@zoho.com|CboljoH12|Anitha
+                    UserProto.User userProto = UserProto
+                            .User
+                            .newBuilder()
+                            .setId(Integer.parseInt(userArr[0]))
+                            .setEmail(userArr[1])
+                            .setPassword(userArr[2])
+                            .setFullname(userArr[3])
+                            .build();
+                    userList.add(userProto);
+                }
+                users = UserProto.Users.newBuilder().addAllUsers(userList).build();
+                users.writeTo(userFos);
+
+            }catch (Exception e1) {
+                e1.printStackTrace();
+            }finally {
+                if(userBr != null) {
+                    try{
+                        userBr.close();
+                    }catch (Exception e2) {
+                        throw new RuntimeException("Error Occured in Buffered Reader");
+                    }
+                }
+                if(userFos != null) {
+                    try {
+                        userFos.close();
+                    }catch (Exception e2) {
+                        throw new RuntimeException("Error occured in Product FIS");
+                    }
+                }
+            }
             }
             // COUPON INITIALIZATION
             try {
@@ -209,7 +238,10 @@ public class ZkartRepository {
     public static int getProductCount() {
         return products.getProductsCount();
     }
-    public static ProductProto.Product getProductById(int id) {
+    public static ProductProto.Product getProductById(int id) throws Exception{
+        if(id < 0 || id >= products.getProductsCount()) {
+            throw new Exception("Invalid Product Id");
+        }
         return products.getProducts(id);
     }
 
@@ -293,16 +325,8 @@ public class ZkartRepository {
         return true;
     }
 
-    public static List<ProductProto.Product> getAllProducts(int limit, int offset){
-        List<ProductProto.Product> productList = products.getProductsList();
-
-        if(offset >= productList.size()) {
-            return new ArrayList<>();
-        }
-
-        System.out.println(productList.size());
-//        return productList.subList(offset, Math.min(offset+limit, productList.size()));
-        return productList;
+    public static List<ProductProto.Product> getAllProducts(){
+        return  products.getProductsList();
     }
     public static List<ProductProto.Product> searchProductOnCategory(String category) {
         return products
@@ -319,7 +343,7 @@ public class ZkartRepository {
                 .collect(Collectors.toList());
     }
 
-    public static void updateAdminPassword(String password) {
+    public static boolean updateAdminPassword(String password) {
         FileOutputStream fos = null;
         try{
             fos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "admin_db.txt"));
@@ -336,6 +360,7 @@ public class ZkartRepository {
                 }
             }
         }
+        return true;
     }
     public static boolean updateUserPassword(String password) {
         if(!isUserLogin) {
@@ -361,7 +386,7 @@ public class ZkartRepository {
         return true;
     }
     public static boolean addProduct(String category, String name, String description, String model, String brand, int price, int stock) throws Exception{
-        new AdminLoginView().display();
+
        if(isAdminLogin) {
            if(admin.getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))) {
                String newPassword = new ChangePasswordView().getPasswords(DEFAULT_ADMIN_PASSWORD);
@@ -399,10 +424,9 @@ public class ZkartRepository {
        return false;
     }
     public static boolean updateProductStock(int productId, int stock) throws Exception {
-        if(stock <= 0) {
+        if(stock < 0) {
             throw new Exception("Invalid Stock Count");
         }
-        new AdminLoginView().display();
         if(isAdminLogin) {
             if(admin.getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))) {
                 String newPassword = new ChangePasswordView().getPasswords(DEFAULT_ADMIN_PASSWORD);
@@ -431,7 +455,7 @@ public class ZkartRepository {
         if(price < 0) {
             throw new Exception("Invalid Price Amount");
         }
-        new AdminLoginView().display();
+
         if(isAdminLogin) {
             if(admin.getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))) {
                 String newPassword = new ChangePasswordView().getPasswords(DEFAULT_ADMIN_PASSWORD);
@@ -456,8 +480,33 @@ public class ZkartRepository {
         }
         return false;
     }
+    public static boolean deleteProduct(int productId) throws Exception {
+        if(isAdminLogin) {
+            if(admin.getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))) {
+                String newPassword = new ChangePasswordView().getPasswords(DEFAULT_ADMIN_PASSWORD);
+                if(newPassword == null) {
+                    throw new Exception("Adding Product Terminated.");
+                }
+                updateAdminPassword(newPassword);
+            }
+            ProductProto.Product product = products.getProducts(productId).toBuilder().setStock(-1).build();
+            products = products.toBuilder().setProducts(productId, product).build();
+            FileOutputStream fos = null;
+            try {
+                String filePath = DB_FILE_ROOT_PATH + "product_db.txt";
+                fos = new FileOutputStream(new File(filePath));
+                products.writeTo(fos);
+            }catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                fos.close();
+            }
+            return true;
+        }
+        return false;
+    }
     public static boolean updateProduct(int productId, String category, String name, String description, String model, String brand, int price, int stock) throws Exception {
-        new AdminLoginView().display();
+        if(price < 0 || stock < 0) throw new Exception("Invalid Price or count");
         if(isAdminLogin) {
             if(admin.getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))) {
                 String newPassword = new ChangePasswordView().getPasswords(DEFAULT_ADMIN_PASSWORD);
@@ -508,11 +557,8 @@ public class ZkartRepository {
         }
         return tempList;
     }
-    public static boolean createOrder(int userId, List<ProductProto.Product> productsList, List<Integer> stocks, int totalPrice) {
-        int id = orders.getOrdersCount();
+    public static boolean createOrder(int orderId, int userId, List<ProductProto.Product> productsList, List<Integer> stocks, int totalPrice) {
         List<Integer> productIds = updateProductStockAndGetProductIdList(productsList, stocks);
-        Thread productUpdateThread = new Thread(()->updateDealProduct());
-        productUpdateThread.start();
         OrderProto.Order order = OrderProto
                 .Order
                 .newBuilder()
@@ -521,7 +567,7 @@ public class ZkartRepository {
                 .setFinalPrice(totalPrice)
                 .addAllProductIds(productIds)
                 .setIsCouponApplied(false)
-                .setId(id+100)
+                .setId(orderId)
                 .build();
         FileOutputStream fosOrder = null;
         FileOutputStream fosProduct = null;
@@ -554,11 +600,8 @@ public class ZkartRepository {
 
         return true;
     }
-    public static boolean createOrder(int userId, List<ProductProto.Product> productsList, List<Integer> stocks, int totalPrice, int finalPrice, CouponProto.Coupon coupon) throws InvalidCouponException {
-        int id = orders.getOrdersCount();
+    public static boolean createOrder(int orderId, int userId, List<ProductProto.Product> productsList, List<Integer> stocks, int totalPrice, int finalPrice, CouponProto.Coupon coupon) throws InvalidCouponException {
         List<Integer> productIds = updateProductStockAndGetProductIdList(productsList, stocks);
-        Thread productUpdateThread = new Thread(()->updateDealProduct());
-        productUpdateThread.start();
         OrderProto.Order order = OrderProto
                 .Order
                 .newBuilder()
@@ -570,7 +613,7 @@ public class ZkartRepository {
                 .setCouponCode(coupon.getId())
                 .setDiscountPercent(coupon.getDiscountPercent())
                 .setFinalPrice(finalPrice)
-                .setId(id+100)
+                .setId(orderId)
                 .build();
         FileOutputStream fosOrder = null;
         FileOutputStream fosProduct = null;
@@ -579,7 +622,7 @@ public class ZkartRepository {
             fosOrder = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "order_db.txt"));
             fosProduct = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "product_db.txt"));
             fosCoupon = new FileOutputStream(new File(DB_FILE_ROOT_PATH +"coupon_db.txt"));
-            coupon = coupon.toBuilder().setRemainingCount(coupon.getRemainingCount()-1).build();
+            coupon = coupon.toBuilder().setIsUsed(true).setUsedOnOrderId(orderId).build();
             coupons = coupons.toBuilder().setCoupons(getCouponIndex(coupon.getId()), coupon).build();
             orders = orders.toBuilder().addOrders(order).build();
             orders.writeTo(fosOrder);
@@ -601,16 +644,22 @@ public class ZkartRepository {
                 try {
                     fosProduct.close();
                 }catch (IOException e) {
-                    throw new RuntimeException("Exception in FOSProduct");
+                    throw new RuntimeException("Exception in FOS Product");
+                }
+            }
+            if(fosCoupon != null) {
+                try {
+                    fosCoupon.close();
+                }catch (IOException e) {
+                    throw new RuntimeException("Exception in FOS coupon");
                 }
             }
         }
         return true;
     }
-    public static boolean createCoupon(int userId) {
+    public static boolean createCoupon(int userId, int orderId) {
         FileOutputStream fosCoupon = null;
         try {
-
             fosCoupon = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "coupon_db.txt"));
             CouponProto.Coupon coupon = CouponProto
                         .Coupon
@@ -620,9 +669,9 @@ public class ZkartRepository {
                         .setValidTill(DateHandler.getDateAfter(COUPON_EXPIRATION_DAYS))
                         .setUserId(userId)
                         .setDiscountPercent(UniqueId.generateRandomInt(COUPON_DISCOUNT_PERCENT_START, COUPON_DISCOUNT_PERCENT_END))
-                        .setRemainingCount(COUPON_USAGE_COUNT)
+                        .setIsUsed(false)
+                        .setIssuedForOrderId(orderId)
                         .build();
-
                 coupons = coupons.toBuilder().addCoupons(coupon).build();
                 coupons.writeTo(fosCoupon);
                 return true;
@@ -648,6 +697,9 @@ public class ZkartRepository {
             }
         }
         throw new InvalidCouponException();
+    }
+    public static int getOrdersSize() {
+        return ZkartRepository.orders.getOrdersCount();
     }
     public static List<CouponProto.Coupon> getUserCoupons() {
         List<CouponProto.Coupon> couponList = new ArrayList<>();
@@ -679,41 +731,6 @@ public class ZkartRepository {
             }
         }
         return null;
-    }
-    public static void updateDealProduct() {
-        ProductProto.Product dealProduct = null;
-        int maxStock = 0;
-        ProductProto.Product newDealProduct = null;
-
-        List<ProductProto.Product> productList = products.getProductsList();
-
-        for(ProductProto.Product temp : productList) {
-            if(temp.getStock() > maxStock) {
-                maxStock = temp.getStock();
-                newDealProduct = temp;
-            }
-            if(temp.getIsInDeal()) {
-                dealProduct = temp;
-            }
-        }
-        if(dealProduct == null && newDealProduct == null) return;
-        if(newDealProduct != null) {
-            newDealProduct = newDealProduct.toBuilder().setIsInDeal(true).build();
-            return;
-        }
-        if(dealProduct.getId() == newDealProduct.getId() || dealProduct.getStock() == newDealProduct.getStock()) {
-            return;
-        }
-        dealProduct = dealProduct.toBuilder().setIsInDeal(false).build();
-        newDealProduct = newDealProduct.toBuilder().setIsInDeal(true).build();
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "product_db.txt"));
-            products = products.toBuilder().setProducts(dealProduct.getId(), dealProduct).setProducts(newDealProduct.getId(), newDealProduct).build();
-            products.writeTo(fos);
-        }catch (IOException e) {
-            System.out.println("Exception at Deal of moment");
-        }
     }
     public static List<Integer> updateProductStockAndGetProductIdList(List<ProductProto.Product> productsList, List<Integer> stocks) {
         List<Integer> productIds = new ArrayList<>();

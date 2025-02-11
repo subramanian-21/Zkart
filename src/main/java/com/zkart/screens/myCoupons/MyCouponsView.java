@@ -36,10 +36,12 @@ public class MyCouponsView extends BaseScreen {
         System.out.println("Discount Percent :"+ coupon.getDiscountPercent()+"%");
         System.out.print("Issued Date :"+coupon.getDateIssued()+"    ");
         System.out.println("Valid till :"+coupon.getValidTill());
-        if(coupon.getRemainingCount() == 0) {
+        System.out.println("Obtained from Order :"+coupon.getIssuedForOrderId());
+        if(coupon.getIsUsed()) {
             System.out.println("Coupon Status : Not Available");
+            System.out.println("Coupon used on OrderId :"+coupon.getUsedOnOrderId());
         }else {
-            System.out.println("Available Chances : "+coupon.getRemainingCount());
+            System.out.println("Coupon status : Available");
         }
         System.out.println("=================================================");
         System.out.println();

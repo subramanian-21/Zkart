@@ -6,6 +6,7 @@ import com.zkart.model.OrderProto;
 import com.zkart.model.ProductProto;
 import com.zkart.repository.ZkartRepository;
 import com.zkart.screens.myCoupons.MyCouponsView;
+import com.zkart.screens.myOrders.MyOrdersView;
 import com.zkart.screens.userLogin.LoginView;
 import com.zkart.screens.viewProducts.ViewProducts;
 import com.zkart.utils.BaseScreen;
@@ -39,10 +40,6 @@ public class OrderProductView extends BaseScreen {
                 int opt = getInt("Select Option :");
                 if(opt == 1) {
                     int id = getInt("Enter Product Id :");
-                    if(id >= ZkartRepository.getProductsCount()) {
-                        System.out.println("Invalid product Id");
-                        continue;
-                    }
                     ProductProto.Product product = ZkartRepository.getProductById(id);
                     if(product.getStock() != 0){
                         int stock = getInt("Enter Count :");
@@ -95,8 +92,6 @@ public class OrderProductView extends BaseScreen {
                             }catch (InvalidCouponException e) {
                                 alert(e.getMessage());
                             }
-
-
                 } else if (opt == 2) {
                     navigate(new ViewProducts());
                 }else if(opt == 3) {
@@ -111,6 +106,9 @@ public class OrderProductView extends BaseScreen {
         }
         catch (IncompleteCouponCreationException | UnknownUserException | IncompleteOrderException e) {
             alert(e.getMessage());
+        }catch (Exception e) {
+            alert(e.getMessage());
+            display();
         }
     }
 

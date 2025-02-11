@@ -6,4 +6,5 @@ message Admin {
   string email = 2;
   string fullname = 3;
   string password = 4;
+  repeated string prePasswords = 5;
 }

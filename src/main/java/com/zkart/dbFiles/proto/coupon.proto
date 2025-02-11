@@ -6,10 +6,12 @@ option java_outer_classname = "CouponProto";
 message Coupon {
   string id = 1;
   string dateIssued = 2;
-  string validTill = 6;
+  string validTill = 3;
   int32 userId = 4;
-  int32 discountPercent = 7;
-  int32 remainingCount = 5;
+  int32 issuedForOrderId = 5;
+  int32 discountPercent = 6;
+  bool isUsed = 7;
+  int32 usedOnOrderId = 8;
 }
 message Coupons {
   repeated Coupon coupons = 1;

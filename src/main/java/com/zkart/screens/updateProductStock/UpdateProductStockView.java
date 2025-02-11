@@ -9,6 +9,8 @@ public class UpdateProductStockView extends BaseScreen {
         try {
             header("Admin Product stock Update");
             int productId = getInt("Enter product Id :");
+            System.out.println("Current stock :"+ZkartRepository.getProductById(productId).getStock());
+
             int stock = getInt("Enter Stock to update :");
             if(getBoolean("Do you want to update price also ? ")){
                 int price = getInt("Enter product price :");
@@ -23,7 +25,8 @@ public class UpdateProductStockView extends BaseScreen {
             if(ZkartRepository.updateProductStock(productId,  stock))
                 alert("Product Updated Successfully");
         }catch (Exception e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            display();
         }
     }
 }

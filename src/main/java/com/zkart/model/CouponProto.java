@@ -54,12 +54,12 @@ public final class CouponProto {
         getDateIssuedBytes();
 
     /**
-     * <code>string validTill = 6;</code>
+     * <code>string validTill = 3;</code>
      * @return The validTill.
      */
     java.lang.String getValidTill();
     /**
-     * <code>string validTill = 6;</code>
+     * <code>string validTill = 3;</code>
      * @return The bytes for validTill.
      */
     com.google.protobuf.ByteString
@@ -72,16 +72,28 @@ public final class CouponProto {
     int getUserId();
 
     /**
-     * <code>int32 discountPercent = 7;</code>
+     * <code>int32 issuedForOrderId = 5;</code>
+     * @return The issuedForOrderId.
+     */
+    int getIssuedForOrderId();
+
+    /**
+     * <code>int32 discountPercent = 6;</code>
      * @return The discountPercent.
      */
     int getDiscountPercent();
 
     /**
-     * <code>int32 remainingCount = 5;</code>
-     * @return The remainingCount.
+     * <code>bool isUsed = 7;</code>
+     * @return The isUsed.
      */
-    int getRemainingCount();
+    boolean getIsUsed();
+
+    /**
+     * <code>int32 usedOnOrderId = 8;</code>
+     * @return The usedOnOrderId.
+     */
+    int getUsedOnOrderId();
   }
   /**
    * Protobuf type {@code Coupon}
@@ -201,11 +213,11 @@ public final class CouponProto {
       }
     }
 
-    public static final int VALIDTILL_FIELD_NUMBER = 6;
+    public static final int VALIDTILL_FIELD_NUMBER = 3;
     @SuppressWarnings("serial")
     private volatile java.lang.Object validTill_ = "";
     /**
-     * <code>string validTill = 6;</code>
+     * <code>string validTill = 3;</code>
      * @return The validTill.
      */
     @java.lang.Override
@@ -222,7 +234,7 @@ public final class CouponProto {
       }
     }
     /**
-     * <code>string validTill = 6;</code>
+     * <code>string validTill = 3;</code>
      * @return The bytes for validTill.
      */
     @java.lang.Override
@@ -251,10 +263,21 @@ public final class CouponProto {
       return userId_;
     }
 
-    public static final int DISCOUNTPERCENT_FIELD_NUMBER = 7;
+    public static final int ISSUEDFORORDERID_FIELD_NUMBER = 5;
+    private int issuedForOrderId_ = 0;
+    /**
+     * <code>int32 issuedForOrderId = 5;</code>
+     * @return The issuedForOrderId.
+     */
+    @java.lang.Override
+    public int getIssuedForOrderId() {
+      return issuedForOrderId_;
+    }
+
+    public static final int DISCOUNTPERCENT_FIELD_NUMBER = 6;
     private int discountPercent_ = 0;
     /**
-     * <code>int32 discountPercent = 7;</code>
+     * <code>int32 discountPercent = 6;</code>
      * @return The discountPercent.
      */
     @java.lang.Override
@@ -262,15 +285,26 @@ public final class CouponProto {
       return discountPercent_;
     }
 
-    public static final int REMAININGCOUNT_FIELD_NUMBER = 5;
-    private int remainingCount_ = 0;
+    public static final int ISUSED_FIELD_NUMBER = 7;
+    private boolean isUsed_ = false;
     /**
-     * <code>int32 remainingCount = 5;</code>
-     * @return The remainingCount.
+     * <code>bool isUsed = 7;</code>
+     * @return The isUsed.
      */
     @java.lang.Override
-    public int getRemainingCount() {
-      return remainingCount_;
+    public boolean getIsUsed() {
+      return isUsed_;
+    }
+
+    public static final int USEDONORDERID_FIELD_NUMBER = 8;
+    private int usedOnOrderId_ = 0;
+    /**
+     * <code>int32 usedOnOrderId = 8;</code>
+     * @return The usedOnOrderId.
+     */
+    @java.lang.Override
+    public int getUsedOnOrderId() {
+      return usedOnOrderId_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -293,17 +327,23 @@ public final class CouponProto {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(dateIssued_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 2, dateIssued_);
       }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(validTill_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 3, validTill_);
+      }
       if (userId_ != 0) {
         output.writeInt32(4, userId_);
       }
-      if (remainingCount_ != 0) {
-        output.writeInt32(5, remainingCount_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(validTill_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 6, validTill_);
+      if (issuedForOrderId_ != 0) {
+        output.writeInt32(5, issuedForOrderId_);
       }
       if (discountPercent_ != 0) {
-        output.writeInt32(7, discountPercent_);
+        output.writeInt32(6, discountPercent_);
+      }
+      if (isUsed_ != false) {
+        output.writeBool(7, isUsed_);
+      }
+      if (usedOnOrderId_ != 0) {
+        output.writeInt32(8, usedOnOrderId_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -320,20 +360,28 @@ public final class CouponProto {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(dateIssued_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(2, dateIssued_);
       }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(validTill_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, validTill_);
+      }
       if (userId_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, userId_);
       }
-      if (remainingCount_ != 0) {
+      if (issuedForOrderId_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, remainingCount_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(validTill_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(6, validTill_);
+          .computeInt32Size(5, issuedForOrderId_);
       }
       if (discountPercent_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, discountPercent_);
+          .computeInt32Size(6, discountPercent_);
+      }
+      if (isUsed_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(7, isUsed_);
+      }
+      if (usedOnOrderId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(8, usedOnOrderId_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -358,10 +406,14 @@ public final class CouponProto {
           .equals(other.getValidTill())) return false;
       if (getUserId()
           != other.getUserId()) return false;
+      if (getIssuedForOrderId()
+          != other.getIssuedForOrderId()) return false;
       if (getDiscountPercent()
           != other.getDiscountPercent()) return false;
-      if (getRemainingCount()
-          != other.getRemainingCount()) return false;
+      if (getIsUsed()
+          != other.getIsUsed()) return false;
+      if (getUsedOnOrderId()
+          != other.getUsedOnOrderId()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -381,10 +433,15 @@ public final class CouponProto {
       hash = (53 * hash) + getValidTill().hashCode();
       hash = (37 * hash) + USERID_FIELD_NUMBER;
       hash = (53 * hash) + getUserId();
+      hash = (37 * hash) + ISSUEDFORORDERID_FIELD_NUMBER;
+      hash = (53 * hash) + getIssuedForOrderId();
       hash = (37 * hash) + DISCOUNTPERCENT_FIELD_NUMBER;
       hash = (53 * hash) + getDiscountPercent();
-      hash = (37 * hash) + REMAININGCOUNT_FIELD_NUMBER;
-      hash = (53 * hash) + getRemainingCount();
+      hash = (37 * hash) + ISUSED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsUsed());
+      hash = (37 * hash) + USEDONORDERID_FIELD_NUMBER;
+      hash = (53 * hash) + getUsedOnOrderId();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -520,8 +577,10 @@ public final class CouponProto {
         dateIssued_ = "";
         validTill_ = "";
         userId_ = 0;
+        issuedForOrderId_ = 0;
         discountPercent_ = 0;
-        remainingCount_ = 0;
+        isUsed_ = false;
+        usedOnOrderId_ = 0;
         return this;
       }
 
@@ -568,10 +627,16 @@ public final class CouponProto {
           result.userId_ = userId_;
         }
         if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.discountPercent_ = discountPercent_;
+          result.issuedForOrderId_ = issuedForOrderId_;
         }
         if (((from_bitField0_ & 0x00000020) != 0)) {
-          result.remainingCount_ = remainingCount_;
+          result.discountPercent_ = discountPercent_;
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.isUsed_ = isUsed_;
+        }
+        if (((from_bitField0_ & 0x00000080) != 0)) {
+          result.usedOnOrderId_ = usedOnOrderId_;
         }
       }
 
@@ -605,11 +670,17 @@ public final class CouponProto {
         if (other.getUserId() != 0) {
           setUserId(other.getUserId());
         }
+        if (other.getIssuedForOrderId() != 0) {
+          setIssuedForOrderId(other.getIssuedForOrderId());
+        }
         if (other.getDiscountPercent() != 0) {
           setDiscountPercent(other.getDiscountPercent());
         }
-        if (other.getRemainingCount() != 0) {
-          setRemainingCount(other.getRemainingCount());
+        if (other.getIsUsed() != false) {
+          setIsUsed(other.getIsUsed());
+        }
+        if (other.getUsedOnOrderId() != 0) {
+          setUsedOnOrderId(other.getUsedOnOrderId());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -647,26 +718,36 @@ public final class CouponProto {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 26: {
+                validTill_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
               case 32: {
                 userId_ = input.readInt32();
                 bitField0_ |= 0x00000008;
                 break;
               } // case 32
               case 40: {
-                remainingCount_ = input.readInt32();
-                bitField0_ |= 0x00000020;
-                break;
-              } // case 40
-              case 50: {
-                validTill_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 50
-              case 56: {
-                discountPercent_ = input.readInt32();
+                issuedForOrderId_ = input.readInt32();
                 bitField0_ |= 0x00000010;
                 break;
+              } // case 40
+              case 48: {
+                discountPercent_ = input.readInt32();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 48
+              case 56: {
+                isUsed_ = input.readBool();
+                bitField0_ |= 0x00000040;
+                break;
               } // case 56
+              case 64: {
+                usedOnOrderId_ = input.readInt32();
+                bitField0_ |= 0x00000080;
+                break;
+              } // case 64
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -830,7 +911,7 @@ public final class CouponProto {
 
       private java.lang.Object validTill_ = "";
       /**
-       * <code>string validTill = 6;</code>
+       * <code>string validTill = 3;</code>
        * @return The validTill.
        */
       public java.lang.String getValidTill() {
@@ -846,7 +927,7 @@ public final class CouponProto {
         }
       }
       /**
-       * <code>string validTill = 6;</code>
+       * <code>string validTill = 3;</code>
        * @return The bytes for validTill.
        */
       public com.google.protobuf.ByteString
@@ -863,7 +944,7 @@ public final class CouponProto {
         }
       }
       /**
-       * <code>string validTill = 6;</code>
+       * <code>string validTill = 3;</code>
        * @param value The validTill to set.
        * @return This builder for chaining.
        */
@@ -876,7 +957,7 @@ public final class CouponProto {
         return this;
       }
       /**
-       * <code>string validTill = 6;</code>
+       * <code>string validTill = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearValidTill() {
@@ -886,7 +967,7 @@ public final class CouponProto {
         return this;
       }
       /**
-       * <code>string validTill = 6;</code>
+       * <code>string validTill = 3;</code>
        * @param value The bytes for validTill to set.
        * @return This builder for chaining.
        */
@@ -932,9 +1013,41 @@ public final class CouponProto {
         return this;
       }
 
+      private int issuedForOrderId_ ;
+      /**
+       * <code>int32 issuedForOrderId = 5;</code>
+       * @return The issuedForOrderId.
+       */
+      @java.lang.Override
+      public int getIssuedForOrderId() {
+        return issuedForOrderId_;
+      }
+      /**
+       * <code>int32 issuedForOrderId = 5;</code>
+       * @param value The issuedForOrderId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIssuedForOrderId(int value) {
+
+        issuedForOrderId_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 issuedForOrderId = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIssuedForOrderId() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        issuedForOrderId_ = 0;
+        onChanged();
+        return this;
+      }
+
       private int discountPercent_ ;
       /**
-       * <code>int32 discountPercent = 7;</code>
+       * <code>int32 discountPercent = 6;</code>
        * @return The discountPercent.
        */
       @java.lang.Override
@@ -942,56 +1055,88 @@ public final class CouponProto {
         return discountPercent_;
       }
       /**
-       * <code>int32 discountPercent = 7;</code>
+       * <code>int32 discountPercent = 6;</code>
        * @param value The discountPercent to set.
        * @return This builder for chaining.
        */
       public Builder setDiscountPercent(int value) {
 
         discountPercent_ = value;
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 discountPercent = 7;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearDiscountPercent() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        discountPercent_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private int remainingCount_ ;
-      /**
-       * <code>int32 remainingCount = 5;</code>
-       * @return The remainingCount.
-       */
-      @java.lang.Override
-      public int getRemainingCount() {
-        return remainingCount_;
-      }
-      /**
-       * <code>int32 remainingCount = 5;</code>
-       * @param value The remainingCount to set.
-       * @return This builder for chaining.
-       */
-      public Builder setRemainingCount(int value) {
-
-        remainingCount_ = value;
         bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 remainingCount = 5;</code>
+       * <code>int32 discountPercent = 6;</code>
        * @return This builder for chaining.
        */
-      public Builder clearRemainingCount() {
+      public Builder clearDiscountPercent() {
         bitField0_ = (bitField0_ & ~0x00000020);
-        remainingCount_ = 0;
+        discountPercent_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private boolean isUsed_ ;
+      /**
+       * <code>bool isUsed = 7;</code>
+       * @return The isUsed.
+       */
+      @java.lang.Override
+      public boolean getIsUsed() {
+        return isUsed_;
+      }
+      /**
+       * <code>bool isUsed = 7;</code>
+       * @param value The isUsed to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsUsed(boolean value) {
+
+        isUsed_ = value;
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool isUsed = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsUsed() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        isUsed_ = false;
+        onChanged();
+        return this;
+      }
+
+      private int usedOnOrderId_ ;
+      /**
+       * <code>int32 usedOnOrderId = 8;</code>
+       * @return The usedOnOrderId.
+       */
+      @java.lang.Override
+      public int getUsedOnOrderId() {
+        return usedOnOrderId_;
+      }
+      /**
+       * <code>int32 usedOnOrderId = 8;</code>
+       * @param value The usedOnOrderId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUsedOnOrderId(int value) {
+
+        usedOnOrderId_ = value;
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 usedOnOrderId = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUsedOnOrderId() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        usedOnOrderId_ = 0;
         onChanged();
         return this;
       }
@@ -1806,13 +1951,14 @@ public final class CouponProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n$com/zkart/dbFiles/proto/coupon.proto\"|" +
-      "\n\006Coupon\022\n\n\002id\030\001 \001(\t\022\022\n\ndateIssued\030\002 \001(\t" +
-      "\022\021\n\tvalidTill\030\006 \001(\t\022\016\n\006userId\030\004 \001(\005\022\027\n\017d" +
-      "iscountPercent\030\007 \001(\005\022\026\n\016remainingCount\030\005" +
-      " \001(\005\"#\n\007Coupons\022\030\n\007coupons\030\001 \003(\0132\007.Coupo" +
-      "nB\036\n\017com.zkart.modelB\013CouponProtob\006proto" +
-      "3"
+      "\n$com/zkart/dbFiles/proto/coupon.proto\"\245" +
+      "\001\n\006Coupon\022\n\n\002id\030\001 \001(\t\022\022\n\ndateIssued\030\002 \001(" +
+      "\t\022\021\n\tvalidTill\030\003 \001(\t\022\016\n\006userId\030\004 \001(\005\022\030\n\020" +
+      "issuedForOrderId\030\005 \001(\005\022\027\n\017discountPercen" +
+      "t\030\006 \001(\005\022\016\n\006isUsed\030\007 \001(\010\022\025\n\rusedOnOrderId" +
+      "\030\010 \001(\005\"#\n\007Coupons\022\030\n\007coupons\030\001 \003(\0132\007.Cou" +
+      "ponB\036\n\017com.zkart.modelB\013CouponProtob\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1823,7 +1969,7 @@ public final class CouponProto {
     internal_static_Coupon_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Coupon_descriptor,
-        new java.lang.String[] { "Id", "DateIssued", "ValidTill", "UserId", "DiscountPercent", "RemainingCount", });
+        new java.lang.String[] { "Id", "DateIssued", "ValidTill", "UserId", "IssuedForOrderId", "DiscountPercent", "IsUsed", "UsedOnOrderId", });
     internal_static_Coupons_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_Coupons_fieldAccessorTable = new

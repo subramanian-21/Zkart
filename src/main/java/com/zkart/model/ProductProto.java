@@ -84,12 +84,6 @@ public final class ProductProto {
         getModelBytes();
 
     /**
-     * <code>bool isInDeal = 6;</code>
-     * @return The isInDeal.
-     */
-    boolean getIsInDeal();
-
-    /**
      * <code>string brand = 7;</code>
      * @return The brand.
      */
@@ -322,17 +316,6 @@ public final class ProductProto {
       }
     }
 
-    public static final int ISINDEAL_FIELD_NUMBER = 6;
-    private boolean isInDeal_ = false;
-    /**
-     * <code>bool isInDeal = 6;</code>
-     * @return The isInDeal.
-     */
-    @java.lang.Override
-    public boolean getIsInDeal() {
-      return isInDeal_;
-    }
-
     public static final int BRAND_FIELD_NUMBER = 7;
     @SuppressWarnings("serial")
     private volatile java.lang.Object brand_ = "";
@@ -423,9 +406,6 @@ public final class ProductProto {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(model_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 5, model_);
       }
-      if (isInDeal_ != false) {
-        output.writeBool(6, isInDeal_);
-      }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(brand_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 7, brand_);
       }
@@ -459,10 +439,6 @@ public final class ProductProto {
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(model_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(5, model_);
-      }
-      if (isInDeal_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(6, isInDeal_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(brand_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(7, brand_);
@@ -500,8 +476,6 @@ public final class ProductProto {
           .equals(other.getDescription())) return false;
       if (!getModel()
           .equals(other.getModel())) return false;
-      if (getIsInDeal()
-          != other.getIsInDeal()) return false;
       if (!getBrand()
           .equals(other.getBrand())) return false;
       if (getPrice()
@@ -529,9 +503,6 @@ public final class ProductProto {
       hash = (53 * hash) + getDescription().hashCode();
       hash = (37 * hash) + MODEL_FIELD_NUMBER;
       hash = (53 * hash) + getModel().hashCode();
-      hash = (37 * hash) + ISINDEAL_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getIsInDeal());
       hash = (37 * hash) + BRAND_FIELD_NUMBER;
       hash = (53 * hash) + getBrand().hashCode();
       hash = (37 * hash) + PRICE_FIELD_NUMBER;
@@ -674,7 +645,6 @@ public final class ProductProto {
         name_ = "";
         description_ = "";
         model_ = "";
-        isInDeal_ = false;
         brand_ = "";
         price_ = 0;
         stock_ = 0;
@@ -727,15 +697,12 @@ public final class ProductProto {
           result.model_ = model_;
         }
         if (((from_bitField0_ & 0x00000020) != 0)) {
-          result.isInDeal_ = isInDeal_;
-        }
-        if (((from_bitField0_ & 0x00000040) != 0)) {
           result.brand_ = brand_;
         }
-        if (((from_bitField0_ & 0x00000080) != 0)) {
+        if (((from_bitField0_ & 0x00000040) != 0)) {
           result.price_ = price_;
         }
-        if (((from_bitField0_ & 0x00000100) != 0)) {
+        if (((from_bitField0_ & 0x00000080) != 0)) {
           result.stock_ = stock_;
         }
       }
@@ -775,12 +742,9 @@ public final class ProductProto {
           bitField0_ |= 0x00000010;
           onChanged();
         }
-        if (other.getIsInDeal() != false) {
-          setIsInDeal(other.getIsInDeal());
-        }
         if (!other.getBrand().isEmpty()) {
           brand_ = other.brand_;
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000020;
           onChanged();
         }
         if (other.getPrice() != 0) {
@@ -840,24 +804,19 @@ public final class ProductProto {
                 bitField0_ |= 0x00000010;
                 break;
               } // case 42
-              case 48: {
-                isInDeal_ = input.readBool();
-                bitField0_ |= 0x00000020;
-                break;
-              } // case 48
               case 58: {
                 brand_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000040;
+                bitField0_ |= 0x00000020;
                 break;
               } // case 58
               case 64: {
                 price_ = input.readInt32();
-                bitField0_ |= 0x00000080;
+                bitField0_ |= 0x00000040;
                 break;
               } // case 64
               case 72: {
                 stock_ = input.readInt32();
-                bitField0_ |= 0x00000100;
+                bitField0_ |= 0x00000080;
                 break;
               } // case 72
               default: {
@@ -1197,38 +1156,6 @@ public final class ProductProto {
         return this;
       }
 
-      private boolean isInDeal_ ;
-      /**
-       * <code>bool isInDeal = 6;</code>
-       * @return The isInDeal.
-       */
-      @java.lang.Override
-      public boolean getIsInDeal() {
-        return isInDeal_;
-      }
-      /**
-       * <code>bool isInDeal = 6;</code>
-       * @param value The isInDeal to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIsInDeal(boolean value) {
-
-        isInDeal_ = value;
-        bitField0_ |= 0x00000020;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bool isInDeal = 6;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearIsInDeal() {
-        bitField0_ = (bitField0_ & ~0x00000020);
-        isInDeal_ = false;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object brand_ = "";
       /**
        * <code>string brand = 7;</code>
@@ -1272,7 +1199,7 @@ public final class ProductProto {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         brand_ = value;
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -1282,7 +1209,7 @@ public final class ProductProto {
        */
       public Builder clearBrand() {
         brand_ = getDefaultInstance().getBrand();
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000020);
         onChanged();
         return this;
       }
@@ -1296,7 +1223,7 @@ public final class ProductProto {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         brand_ = value;
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -1318,7 +1245,7 @@ public final class ProductProto {
       public Builder setPrice(int value) {
 
         price_ = value;
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
@@ -1327,7 +1254,7 @@ public final class ProductProto {
        * @return This builder for chaining.
        */
       public Builder clearPrice() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000040);
         price_ = 0;
         onChanged();
         return this;
@@ -1350,7 +1277,7 @@ public final class ProductProto {
       public Builder setStock(int value) {
 
         stock_ = value;
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000080;
         onChanged();
         return this;
       }
@@ -1359,7 +1286,7 @@ public final class ProductProto {
        * @return This builder for chaining.
        */
       public Builder clearStock() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000080);
         stock_ = 0;
         onChanged();
         return this;
@@ -2176,12 +2103,12 @@ public final class ProductProto {
   static {
     java.lang.String[] descriptorData = {
       "\n%com/zkart/dbFiles/proto/product.proto\"" +
-      "\230\001\n\007Product\022\n\n\002id\030\001 \001(\005\022\020\n\010category\030\002 \001(" +
+      "\206\001\n\007Product\022\n\n\002id\030\001 \001(\005\022\020\n\010category\030\002 \001(" +
       "\t\022\014\n\004name\030\003 \001(\t\022\023\n\013description\030\004 \001(\t\022\r\n\005" +
-      "model\030\005 \001(\t\022\020\n\010isInDeal\030\006 \001(\010\022\r\n\005brand\030\007" +
-      " \001(\t\022\r\n\005price\030\010 \001(\005\022\r\n\005stock\030\t \001(\005\"&\n\010Pr" +
-      "oducts\022\032\n\010products\030\001 \003(\0132\010.ProductB\037\n\017co" +
-      "m.zkart.modelB\014ProductProtob\006proto3"
+      "model\030\005 \001(\t\022\r\n\005brand\030\007 \001(\t\022\r\n\005price\030\010 \001(" +
+      "\005\022\r\n\005stock\030\t \001(\005\"&\n\010Products\022\032\n\010products" +
+      "\030\001 \003(\0132\010.ProductB\037\n\017com.zkart.modelB\014Pro" +
+      "ductProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2192,7 +2119,7 @@ public final class ProductProto {
     internal_static_Product_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Product_descriptor,
-        new java.lang.String[] { "Id", "Category", "Name", "Description", "Model", "IsInDeal", "Brand", "Price", "Stock", });
+        new java.lang.String[] { "Id", "Category", "Name", "Description", "Model", "Brand", "Price", "Stock", });
     internal_static_Products_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_Products_fieldAccessorTable = new

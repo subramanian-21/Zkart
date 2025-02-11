@@ -9,7 +9,6 @@ message Product {
   string name = 3;
   string description = 4;
   string model = 5;
-  bool isInDeal = 6;
   string brand = 7;
   int32 price = 8;
   int32 stock = 9;

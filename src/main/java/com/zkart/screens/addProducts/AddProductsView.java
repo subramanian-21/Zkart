@@ -17,9 +17,13 @@ public class AddProductsView extends BaseScreen {
             String brand = getString("Enter Product Brand :");
             int price = getInt("Enter Product Price :");
             int stock = getInt("Enter Product Count :");
-            System.out.println("Confirm Adding product");
-            if(ZkartRepository.addProduct(category, name, description, model, brand, price, stock))
-                alert("Product Added Successfully");
+            if(getBoolean("confirm add :")) {
+                if(ZkartRepository.addProduct(category, name, description, model, brand, price, stock))
+                    alert("Product Added Successfully");
+            }else {
+                alert("product addition unsuccessful");
+            }
+
         }catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Add Products page Terminated");
