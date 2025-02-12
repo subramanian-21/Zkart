@@ -30,71 +30,19 @@ public final class UserProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 id = 1;</code>
-     * @return The id.
+     * <code>.BaseUser userDetails = 1;</code>
+     * @return Whether the userDetails field is set.
      */
-    int getId();
-
+    boolean hasUserDetails();
     /**
-     * <code>string email = 2;</code>
-     * @return The email.
+     * <code>.BaseUser userDetails = 1;</code>
+     * @return The userDetails.
      */
-    java.lang.String getEmail();
+    com.zkart.model.BaseUserProto.BaseUser getUserDetails();
     /**
-     * <code>string email = 2;</code>
-     * @return The bytes for email.
+     * <code>.BaseUser userDetails = 1;</code>
      */
-    com.google.protobuf.ByteString
-        getEmailBytes();
-
-    /**
-     * <code>string fullname = 4;</code>
-     * @return The fullname.
-     */
-    java.lang.String getFullname();
-    /**
-     * <code>string fullname = 4;</code>
-     * @return The bytes for fullname.
-     */
-    com.google.protobuf.ByteString
-        getFullnameBytes();
-
-    /**
-     * <code>string password = 5;</code>
-     * @return The password.
-     */
-    java.lang.String getPassword();
-    /**
-     * <code>string password = 5;</code>
-     * @return The bytes for password.
-     */
-    com.google.protobuf.ByteString
-        getPasswordBytes();
-
-    /**
-     * <code>repeated string prePasswords = 8;</code>
-     * @return A list containing the prePasswords.
-     */
-    java.util.List<java.lang.String>
-        getPrePasswordsList();
-    /**
-     * <code>repeated string prePasswords = 8;</code>
-     * @return The count of prePasswords.
-     */
-    int getPrePasswordsCount();
-    /**
-     * <code>repeated string prePasswords = 8;</code>
-     * @param index The index of the element to return.
-     * @return The prePasswords at the given index.
-     */
-    java.lang.String getPrePasswords(int index);
-    /**
-     * <code>repeated string prePasswords = 8;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the prePasswords at the given index.
-     */
-    com.google.protobuf.ByteString
-        getPrePasswordsBytes(int index);
+    com.zkart.model.BaseUserProto.BaseUserOrBuilder getUserDetailsOrBuilder();
   }
   /**
    * Protobuf type {@code User}
@@ -118,11 +66,6 @@ public final class UserProto {
       super(builder);
     }
     private User() {
-      email_ = "";
-      fullname_ = "";
-      password_ = "";
-      prePasswords_ =
-          com.google.protobuf.LazyStringArrayList.emptyList();
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -138,169 +81,31 @@ public final class UserProto {
               com.zkart.model.UserProto.User.class, com.zkart.model.UserProto.User.Builder.class);
     }
 
-    public static final int ID_FIELD_NUMBER = 1;
-    private int id_ = 0;
+    private int bitField0_;
+    public static final int USERDETAILS_FIELD_NUMBER = 1;
+    private com.zkart.model.BaseUserProto.BaseUser userDetails_;
     /**
-     * <code>int32 id = 1;</code>
-     * @return The id.
+     * <code>.BaseUser userDetails = 1;</code>
+     * @return Whether the userDetails field is set.
      */
     @java.lang.Override
-    public int getId() {
-      return id_;
+    public boolean hasUserDetails() {
+      return ((bitField0_ & 0x00000001) != 0);
     }
-
-    public static final int EMAIL_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object email_ = "";
     /**
-     * <code>string email = 2;</code>
-     * @return The email.
+     * <code>.BaseUser userDetails = 1;</code>
+     * @return The userDetails.
      */
     @java.lang.Override
-    public java.lang.String getEmail() {
-      java.lang.Object ref = email_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        email_ = s;
-        return s;
-      }
+    public com.zkart.model.BaseUserProto.BaseUser getUserDetails() {
+      return userDetails_ == null ? com.zkart.model.BaseUserProto.BaseUser.getDefaultInstance() : userDetails_;
     }
     /**
-     * <code>string email = 2;</code>
-     * @return The bytes for email.
+     * <code>.BaseUser userDetails = 1;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString
-        getEmailBytes() {
-      java.lang.Object ref = email_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        email_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FULLNAME_FIELD_NUMBER = 4;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object fullname_ = "";
-    /**
-     * <code>string fullname = 4;</code>
-     * @return The fullname.
-     */
-    @java.lang.Override
-    public java.lang.String getFullname() {
-      java.lang.Object ref = fullname_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        fullname_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string fullname = 4;</code>
-     * @return The bytes for fullname.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFullnameBytes() {
-      java.lang.Object ref = fullname_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        fullname_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PASSWORD_FIELD_NUMBER = 5;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object password_ = "";
-    /**
-     * <code>string password = 5;</code>
-     * @return The password.
-     */
-    @java.lang.Override
-    public java.lang.String getPassword() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        password_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string password = 5;</code>
-     * @return The bytes for password.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getPasswordBytes() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        password_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PREPASSWORDS_FIELD_NUMBER = 8;
-    @SuppressWarnings("serial")
-    private com.google.protobuf.LazyStringArrayList prePasswords_ =
-        com.google.protobuf.LazyStringArrayList.emptyList();
-    /**
-     * <code>repeated string prePasswords = 8;</code>
-     * @return A list containing the prePasswords.
-     */
-    public com.google.protobuf.ProtocolStringList
-        getPrePasswordsList() {
-      return prePasswords_;
-    }
-    /**
-     * <code>repeated string prePasswords = 8;</code>
-     * @return The count of prePasswords.
-     */
-    public int getPrePasswordsCount() {
-      return prePasswords_.size();
-    }
-    /**
-     * <code>repeated string prePasswords = 8;</code>
-     * @param index The index of the element to return.
-     * @return The prePasswords at the given index.
-     */
-    public java.lang.String getPrePasswords(int index) {
-      return prePasswords_.get(index);
-    }
-    /**
-     * <code>repeated string prePasswords = 8;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the prePasswords at the given index.
-     */
-    public com.google.protobuf.ByteString
-        getPrePasswordsBytes(int index) {
-      return prePasswords_.getByteString(index);
+    public com.zkart.model.BaseUserProto.BaseUserOrBuilder getUserDetailsOrBuilder() {
+      return userDetails_ == null ? com.zkart.model.BaseUserProto.BaseUser.getDefaultInstance() : userDetails_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -317,20 +122,8 @@ public final class UserProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (id_ != 0) {
-        output.writeInt32(1, id_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(email_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, email_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(fullname_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 4, fullname_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 5, password_);
-      }
-      for (int i = 0; i < prePasswords_.size(); i++) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 8, prePasswords_.getRaw(i));
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getUserDetails());
       }
       getUnknownFields().writeTo(output);
     }
@@ -341,26 +134,9 @@ public final class UserProto {
       if (size != -1) return size;
 
       size = 0;
-      if (id_ != 0) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, id_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(email_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, email_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(fullname_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(4, fullname_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(5, password_);
-      }
-      {
-        int dataSize = 0;
-        for (int i = 0; i < prePasswords_.size(); i++) {
-          dataSize += computeStringSizeNoTag(prePasswords_.getRaw(i));
-        }
-        size += dataSize;
-        size += 1 * getPrePasswordsList().size();
+          .computeMessageSize(1, getUserDetails());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -377,16 +153,11 @@ public final class UserProto {
       }
       com.zkart.model.UserProto.User other = (com.zkart.model.UserProto.User) obj;
 
-      if (getId()
-          != other.getId()) return false;
-      if (!getEmail()
-          .equals(other.getEmail())) return false;
-      if (!getFullname()
-          .equals(other.getFullname())) return false;
-      if (!getPassword()
-          .equals(other.getPassword())) return false;
-      if (!getPrePasswordsList()
-          .equals(other.getPrePasswordsList())) return false;
+      if (hasUserDetails() != other.hasUserDetails()) return false;
+      if (hasUserDetails()) {
+        if (!getUserDetails()
+            .equals(other.getUserDetails())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -398,17 +169,9 @@ public final class UserProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId();
-      hash = (37 * hash) + EMAIL_FIELD_NUMBER;
-      hash = (53 * hash) + getEmail().hashCode();
-      hash = (37 * hash) + FULLNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getFullname().hashCode();
-      hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
-      hash = (53 * hash) + getPassword().hashCode();
-      if (getPrePasswordsCount() > 0) {
-        hash = (37 * hash) + PREPASSWORDS_FIELD_NUMBER;
-        hash = (53 * hash) + getPrePasswordsList().hashCode();
+      if (hasUserDetails()) {
+        hash = (37 * hash) + USERDETAILS_FIELD_NUMBER;
+        hash = (53 * hash) + getUserDetails().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -529,24 +292,29 @@ public final class UserProto {
 
       // Construct using com.zkart.model.UserProto.User.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          getUserDetailsFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        id_ = 0;
-        email_ = "";
-        fullname_ = "";
-        password_ = "";
-        prePasswords_ =
-            com.google.protobuf.LazyStringArrayList.emptyList();
+        userDetails_ = null;
+        if (userDetailsBuilder_ != null) {
+          userDetailsBuilder_.dispose();
+          userDetailsBuilder_ = null;
+        }
         return this;
       }
 
@@ -580,22 +348,14 @@ public final class UserProto {
 
       private void buildPartial0(com.zkart.model.UserProto.User result) {
         int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.id_ = id_;
+          result.userDetails_ = userDetailsBuilder_ == null
+              ? userDetails_
+              : userDetailsBuilder_.build();
+          to_bitField0_ |= 0x00000001;
         }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.email_ = email_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.fullname_ = fullname_;
-        }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.password_ = password_;
-        }
-        if (((from_bitField0_ & 0x00000010) != 0)) {
-          prePasswords_.makeImmutable();
-          result.prePasswords_ = prePasswords_;
-        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -610,33 +370,8 @@ public final class UserProto {
 
       public Builder mergeFrom(com.zkart.model.UserProto.User other) {
         if (other == com.zkart.model.UserProto.User.getDefaultInstance()) return this;
-        if (other.getId() != 0) {
-          setId(other.getId());
-        }
-        if (!other.getEmail().isEmpty()) {
-          email_ = other.email_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        if (!other.getFullname().isEmpty()) {
-          fullname_ = other.fullname_;
-          bitField0_ |= 0x00000004;
-          onChanged();
-        }
-        if (!other.getPassword().isEmpty()) {
-          password_ = other.password_;
-          bitField0_ |= 0x00000008;
-          onChanged();
-        }
-        if (!other.prePasswords_.isEmpty()) {
-          if (prePasswords_.isEmpty()) {
-            prePasswords_ = other.prePasswords_;
-            bitField0_ |= 0x00000010;
-          } else {
-            ensurePrePasswordsIsMutable();
-            prePasswords_.addAll(other.prePasswords_);
-          }
-          onChanged();
+        if (other.hasUserDetails()) {
+          mergeUserDetails(other.getUserDetails());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -664,32 +399,13 @@ public final class UserProto {
               case 0:
                 done = true;
                 break;
-              case 8: {
-                id_ = input.readInt32();
+              case 10: {
+                input.readMessage(
+                    getUserDetailsFieldBuilder().getBuilder(),
+                    extensionRegistry);
                 bitField0_ |= 0x00000001;
                 break;
-              } // case 8
-              case 18: {
-                email_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              case 34: {
-                fullname_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 34
-              case 42: {
-                password_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000008;
-                break;
-              } // case 42
-              case 66: {
-                java.lang.String s = input.readStringRequireUtf8();
-                ensurePrePasswordsIsMutable();
-                prePasswords_.add(s);
-                break;
-              } // case 66
+              } // case 10
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -707,363 +423,125 @@ public final class UserProto {
       }
       private int bitField0_;
 
-      private int id_ ;
+      private com.zkart.model.BaseUserProto.BaseUser userDetails_;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.zkart.model.BaseUserProto.BaseUser, com.zkart.model.BaseUserProto.BaseUser.Builder, com.zkart.model.BaseUserProto.BaseUserOrBuilder> userDetailsBuilder_;
       /**
-       * <code>int32 id = 1;</code>
-       * @return The id.
+       * <code>.BaseUser userDetails = 1;</code>
+       * @return Whether the userDetails field is set.
        */
-      @java.lang.Override
-      public int getId() {
-        return id_;
+      public boolean hasUserDetails() {
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>int32 id = 1;</code>
-       * @param value The id to set.
-       * @return This builder for chaining.
+       * <code>.BaseUser userDetails = 1;</code>
+       * @return The userDetails.
        */
-      public Builder setId(int value) {
-
-        id_ = value;
+      public com.zkart.model.BaseUserProto.BaseUser getUserDetails() {
+        if (userDetailsBuilder_ == null) {
+          return userDetails_ == null ? com.zkart.model.BaseUserProto.BaseUser.getDefaultInstance() : userDetails_;
+        } else {
+          return userDetailsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.BaseUser userDetails = 1;</code>
+       */
+      public Builder setUserDetails(com.zkart.model.BaseUserProto.BaseUser value) {
+        if (userDetailsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          userDetails_ = value;
+        } else {
+          userDetailsBuilder_.setMessage(value);
+        }
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 id = 1;</code>
-       * @return This builder for chaining.
+       * <code>.BaseUser userDetails = 1;</code>
        */
-      public Builder clearId() {
+      public Builder setUserDetails(
+          com.zkart.model.BaseUserProto.BaseUser.Builder builderForValue) {
+        if (userDetailsBuilder_ == null) {
+          userDetails_ = builderForValue.build();
+        } else {
+          userDetailsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.BaseUser userDetails = 1;</code>
+       */
+      public Builder mergeUserDetails(com.zkart.model.BaseUserProto.BaseUser value) {
+        if (userDetailsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0) &&
+            userDetails_ != null &&
+            userDetails_ != com.zkart.model.BaseUserProto.BaseUser.getDefaultInstance()) {
+            getUserDetailsBuilder().mergeFrom(value);
+          } else {
+            userDetails_ = value;
+          }
+        } else {
+          userDetailsBuilder_.mergeFrom(value);
+        }
+        if (userDetails_ != null) {
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <code>.BaseUser userDetails = 1;</code>
+       */
+      public Builder clearUserDetails() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = 0;
+        userDetails_ = null;
+        if (userDetailsBuilder_ != null) {
+          userDetailsBuilder_.dispose();
+          userDetailsBuilder_ = null;
+        }
         onChanged();
         return this;
       }
-
-      private java.lang.Object email_ = "";
       /**
-       * <code>string email = 2;</code>
-       * @return The email.
+       * <code>.BaseUser userDetails = 1;</code>
        */
-      public java.lang.String getEmail() {
-        java.lang.Object ref = email_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          email_ = s;
-          return s;
+      public com.zkart.model.BaseUserProto.BaseUser.Builder getUserDetailsBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getUserDetailsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.BaseUser userDetails = 1;</code>
+       */
+      public com.zkart.model.BaseUserProto.BaseUserOrBuilder getUserDetailsOrBuilder() {
+        if (userDetailsBuilder_ != null) {
+          return userDetailsBuilder_.getMessageOrBuilder();
         } else {
-          return (java.lang.String) ref;
+          return userDetails_ == null ?
+              com.zkart.model.BaseUserProto.BaseUser.getDefaultInstance() : userDetails_;
         }
       }
       /**
-       * <code>string email = 2;</code>
-       * @return The bytes for email.
+       * <code>.BaseUser userDetails = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getEmailBytes() {
-        java.lang.Object ref = email_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          email_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
+      private com.google.protobuf.SingleFieldBuilder<
+          com.zkart.model.BaseUserProto.BaseUser, com.zkart.model.BaseUserProto.BaseUser.Builder, com.zkart.model.BaseUserProto.BaseUserOrBuilder> 
+          getUserDetailsFieldBuilder() {
+        if (userDetailsBuilder_ == null) {
+          userDetailsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.zkart.model.BaseUserProto.BaseUser, com.zkart.model.BaseUserProto.BaseUser.Builder, com.zkart.model.BaseUserProto.BaseUserOrBuilder>(
+                  getUserDetails(),
+                  getParentForChildren(),
+                  isClean());
+          userDetails_ = null;
         }
-      }
-      /**
-       * <code>string email = 2;</code>
-       * @param value The email to set.
-       * @return This builder for chaining.
-       */
-      public Builder setEmail(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        email_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string email = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearEmail() {
-        email_ = getDefaultInstance().getEmail();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string email = 2;</code>
-       * @param value The bytes for email to set.
-       * @return This builder for chaining.
-       */
-      public Builder setEmailBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        email_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object fullname_ = "";
-      /**
-       * <code>string fullname = 4;</code>
-       * @return The fullname.
-       */
-      public java.lang.String getFullname() {
-        java.lang.Object ref = fullname_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          fullname_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string fullname = 4;</code>
-       * @return The bytes for fullname.
-       */
-      public com.google.protobuf.ByteString
-          getFullnameBytes() {
-        java.lang.Object ref = fullname_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          fullname_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string fullname = 4;</code>
-       * @param value The fullname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFullname(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        fullname_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fullname = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFullname() {
-        fullname_ = getDefaultInstance().getFullname();
-        bitField0_ = (bitField0_ & ~0x00000004);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fullname = 4;</code>
-       * @param value The bytes for fullname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFullnameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        fullname_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object password_ = "";
-      /**
-       * <code>string password = 5;</code>
-       * @return The password.
-       */
-      public java.lang.String getPassword() {
-        java.lang.Object ref = password_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          password_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string password = 5;</code>
-       * @return The bytes for password.
-       */
-      public com.google.protobuf.ByteString
-          getPasswordBytes() {
-        java.lang.Object ref = password_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          password_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string password = 5;</code>
-       * @param value The password to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPassword(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        password_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string password = 5;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPassword() {
-        password_ = getDefaultInstance().getPassword();
-        bitField0_ = (bitField0_ & ~0x00000008);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string password = 5;</code>
-       * @param value The bytes for password to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPasswordBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        password_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-
-      private com.google.protobuf.LazyStringArrayList prePasswords_ =
-          com.google.protobuf.LazyStringArrayList.emptyList();
-      private void ensurePrePasswordsIsMutable() {
-        if (!prePasswords_.isModifiable()) {
-          prePasswords_ = new com.google.protobuf.LazyStringArrayList(prePasswords_);
-        }
-        bitField0_ |= 0x00000010;
-      }
-      /**
-       * <code>repeated string prePasswords = 8;</code>
-       * @return A list containing the prePasswords.
-       */
-      public com.google.protobuf.ProtocolStringList
-          getPrePasswordsList() {
-        prePasswords_.makeImmutable();
-        return prePasswords_;
-      }
-      /**
-       * <code>repeated string prePasswords = 8;</code>
-       * @return The count of prePasswords.
-       */
-      public int getPrePasswordsCount() {
-        return prePasswords_.size();
-      }
-      /**
-       * <code>repeated string prePasswords = 8;</code>
-       * @param index The index of the element to return.
-       * @return The prePasswords at the given index.
-       */
-      public java.lang.String getPrePasswords(int index) {
-        return prePasswords_.get(index);
-      }
-      /**
-       * <code>repeated string prePasswords = 8;</code>
-       * @param index The index of the value to return.
-       * @return The bytes of the prePasswords at the given index.
-       */
-      public com.google.protobuf.ByteString
-          getPrePasswordsBytes(int index) {
-        return prePasswords_.getByteString(index);
-      }
-      /**
-       * <code>repeated string prePasswords = 8;</code>
-       * @param index The index to set the value at.
-       * @param value The prePasswords to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPrePasswords(
-          int index, java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        ensurePrePasswordsIsMutable();
-        prePasswords_.set(index, value);
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string prePasswords = 8;</code>
-       * @param value The prePasswords to add.
-       * @return This builder for chaining.
-       */
-      public Builder addPrePasswords(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        ensurePrePasswordsIsMutable();
-        prePasswords_.add(value);
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string prePasswords = 8;</code>
-       * @param values The prePasswords to add.
-       * @return This builder for chaining.
-       */
-      public Builder addAllPrePasswords(
-          java.lang.Iterable<java.lang.String> values) {
-        ensurePrePasswordsIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, prePasswords_);
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string prePasswords = 8;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPrePasswords() {
-        prePasswords_ =
-          com.google.protobuf.LazyStringArrayList.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000010);;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string prePasswords = 8;</code>
-       * @param value The bytes of the prePasswords to add.
-       * @return This builder for chaining.
-       */
-      public Builder addPrePasswordsBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        ensurePrePasswordsIsMutable();
-        prePasswords_.add(value);
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
+        return userDetailsBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:User)
@@ -1876,22 +1354,23 @@ public final class UserProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\"com/zkart/dbFiles/proto/user.proto\"[\n\004" +
-      "User\022\n\n\002id\030\001 \001(\005\022\r\n\005email\030\002 \001(\t\022\020\n\010fulln" +
-      "ame\030\004 \001(\t\022\020\n\010password\030\005 \001(\t\022\024\n\014prePasswo" +
-      "rds\030\010 \003(\t\"\035\n\005Users\022\024\n\005users\030\001 \003(\0132\005.User" +
-      "B\034\n\017com.zkart.modelB\tUserProtob\006proto3"
+      "\n\"com/zkart/dbFiles/proto/user.proto\032&co" +
+      "m/zkart/dbFiles/proto/baseUser.proto\"&\n\004" +
+      "User\022\036\n\013userDetails\030\001 \001(\0132\t.BaseUser\"\035\n\005" +
+      "Users\022\024\n\005users\030\001 \003(\0132\005.UserB\034\n\017com.zkart" +
+      ".modelB\tUserProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.zkart.model.BaseUserProto.getDescriptor(),
         });
     internal_static_User_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_User_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_User_descriptor,
-        new java.lang.String[] { "Id", "Email", "Fullname", "Password", "PrePasswords", });
+        new java.lang.String[] { "UserDetails", });
     internal_static_Users_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_Users_fieldAccessorTable = new
@@ -1899,6 +1378,7 @@ public final class UserProto {
         internal_static_Users_descriptor,
         new java.lang.String[] { "Users", });
     descriptor.resolveAllFeaturesImmutable();
+    com.zkart.model.BaseUserProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -1,10 +1,13 @@
 syntax = "proto3";
 option java_package = "com.zkart.model";
 option java_outer_classname = "AdminProto";
+import "com/zkart/dbFiles/proto/baseUser.proto";
+
 message Admin {
-  string id = 1;
-  string email = 2;
-  string fullname = 3;
-  string password = 4;
-  repeated string prePasswords = 5;
+  BaseUser adminUser = 1;
+  AdminUserType userType = 2;
+}
+enum AdminUserType{
+  SUPER_USER = 0;
+  ROOT_USER = 1;
 }

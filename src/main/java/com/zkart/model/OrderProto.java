@@ -36,30 +36,30 @@ public final class OrderProto {
     int getId();
 
     /**
-     * <code>int32 userId = 4;</code>
+     * <code>int32 userId = 2;</code>
      * @return The userId.
      */
     int getUserId();
 
     /**
-     * <code>int32 totalPrice = 2;</code>
+     * <code>int32 totalPrice = 3;</code>
      * @return The totalPrice.
      */
     int getTotalPrice();
 
     /**
-     * <code>bool isCouponApplied = 5;</code>
+     * <code>bool isCouponApplied = 4;</code>
      * @return The isCouponApplied.
      */
     boolean getIsCouponApplied();
 
     /**
-     * <code>string couponCode = 8;</code>
+     * <code>string couponCode = 5;</code>
      * @return The couponCode.
      */
     java.lang.String getCouponCode();
     /**
-     * <code>string couponCode = 8;</code>
+     * <code>string couponCode = 5;</code>
      * @return The bytes for couponCode.
      */
     com.google.protobuf.ByteString
@@ -78,21 +78,40 @@ public final class OrderProto {
     int getFinalPrice();
 
     /**
-     * <code>repeated int32 productIds = 3;</code>
-     * @return A list containing the productIds.
+     * <code>string timeStamps = 8;</code>
+     * @return The timeStamps.
      */
-    java.util.List<java.lang.Integer> getProductIdsList();
+    java.lang.String getTimeStamps();
     /**
-     * <code>repeated int32 productIds = 3;</code>
-     * @return The count of productIds.
+     * <code>string timeStamps = 8;</code>
+     * @return The bytes for timeStamps.
      */
-    int getProductIdsCount();
+    com.google.protobuf.ByteString
+        getTimeStampsBytes();
+
     /**
-     * <code>repeated int32 productIds = 3;</code>
-     * @param index The index of the element to return.
-     * @return The productIds at the given index.
+     * <code>repeated .ProductDetails productDetailsList = 9;</code>
      */
-    int getProductIds(int index);
+    java.util.List<com.zkart.model.OrderProto.ProductDetails> 
+        getProductDetailsListList();
+    /**
+     * <code>repeated .ProductDetails productDetailsList = 9;</code>
+     */
+    com.zkart.model.OrderProto.ProductDetails getProductDetailsList(int index);
+    /**
+     * <code>repeated .ProductDetails productDetailsList = 9;</code>
+     */
+    int getProductDetailsListCount();
+    /**
+     * <code>repeated .ProductDetails productDetailsList = 9;</code>
+     */
+    java.util.List<? extends com.zkart.model.OrderProto.ProductDetailsOrBuilder> 
+        getProductDetailsListOrBuilderList();
+    /**
+     * <code>repeated .ProductDetails productDetailsList = 9;</code>
+     */
+    com.zkart.model.OrderProto.ProductDetailsOrBuilder getProductDetailsListOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code Order}
@@ -117,7 +136,8 @@ public final class OrderProto {
     }
     private Order() {
       couponCode_ = "";
-      productIds_ = emptyIntList();
+      timeStamps_ = "";
+      productDetailsList_ = java.util.Collections.emptyList();
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -144,10 +164,10 @@ public final class OrderProto {
       return id_;
     }
 
-    public static final int USERID_FIELD_NUMBER = 4;
+    public static final int USERID_FIELD_NUMBER = 2;
     private int userId_ = 0;
     /**
-     * <code>int32 userId = 4;</code>
+     * <code>int32 userId = 2;</code>
      * @return The userId.
      */
     @java.lang.Override
@@ -155,10 +175,10 @@ public final class OrderProto {
       return userId_;
     }
 
-    public static final int TOTALPRICE_FIELD_NUMBER = 2;
+    public static final int TOTALPRICE_FIELD_NUMBER = 3;
     private int totalPrice_ = 0;
     /**
-     * <code>int32 totalPrice = 2;</code>
+     * <code>int32 totalPrice = 3;</code>
      * @return The totalPrice.
      */
     @java.lang.Override
@@ -166,10 +186,10 @@ public final class OrderProto {
       return totalPrice_;
     }
 
-    public static final int ISCOUPONAPPLIED_FIELD_NUMBER = 5;
+    public static final int ISCOUPONAPPLIED_FIELD_NUMBER = 4;
     private boolean isCouponApplied_ = false;
     /**
-     * <code>bool isCouponApplied = 5;</code>
+     * <code>bool isCouponApplied = 4;</code>
      * @return The isCouponApplied.
      */
     @java.lang.Override
@@ -177,11 +197,11 @@ public final class OrderProto {
       return isCouponApplied_;
     }
 
-    public static final int COUPONCODE_FIELD_NUMBER = 8;
+    public static final int COUPONCODE_FIELD_NUMBER = 5;
     @SuppressWarnings("serial")
     private volatile java.lang.Object couponCode_ = "";
     /**
-     * <code>string couponCode = 8;</code>
+     * <code>string couponCode = 5;</code>
      * @return The couponCode.
      */
     @java.lang.Override
@@ -198,7 +218,7 @@ public final class OrderProto {
       }
     }
     /**
-     * <code>string couponCode = 8;</code>
+     * <code>string couponCode = 5;</code>
      * @return The bytes for couponCode.
      */
     @java.lang.Override
@@ -238,35 +258,85 @@ public final class OrderProto {
       return finalPrice_;
     }
 
-    public static final int PRODUCTIDS_FIELD_NUMBER = 3;
+    public static final int TIMESTAMPS_FIELD_NUMBER = 8;
     @SuppressWarnings("serial")
-    private com.google.protobuf.Internal.IntList productIds_ =
-        emptyIntList();
+    private volatile java.lang.Object timeStamps_ = "";
     /**
-     * <code>repeated int32 productIds = 3;</code>
-     * @return A list containing the productIds.
+     * <code>string timeStamps = 8;</code>
+     * @return The timeStamps.
      */
     @java.lang.Override
-    public java.util.List<java.lang.Integer>
-        getProductIdsList() {
-      return productIds_;
+    public java.lang.String getTimeStamps() {
+      java.lang.Object ref = timeStamps_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        timeStamps_ = s;
+        return s;
+      }
     }
     /**
-     * <code>repeated int32 productIds = 3;</code>
-     * @return The count of productIds.
+     * <code>string timeStamps = 8;</code>
+     * @return The bytes for timeStamps.
      */
-    public int getProductIdsCount() {
-      return productIds_.size();
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTimeStampsBytes() {
+      java.lang.Object ref = timeStamps_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        timeStamps_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PRODUCTDETAILSLIST_FIELD_NUMBER = 9;
+    @SuppressWarnings("serial")
+    private java.util.List<com.zkart.model.OrderProto.ProductDetails> productDetailsList_;
+    /**
+     * <code>repeated .ProductDetails productDetailsList = 9;</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.zkart.model.OrderProto.ProductDetails> getProductDetailsListList() {
+      return productDetailsList_;
     }
     /**
-     * <code>repeated int32 productIds = 3;</code>
-     * @param index The index of the element to return.
-     * @return The productIds at the given index.
+     * <code>repeated .ProductDetails productDetailsList = 9;</code>
      */
-    public int getProductIds(int index) {
-      return productIds_.getInt(index);
+    @java.lang.Override
+    public java.util.List<? extends com.zkart.model.OrderProto.ProductDetailsOrBuilder> 
+        getProductDetailsListOrBuilderList() {
+      return productDetailsList_;
     }
-    private int productIdsMemoizedSerializedSize = -1;
+    /**
+     * <code>repeated .ProductDetails productDetailsList = 9;</code>
+     */
+    @java.lang.Override
+    public int getProductDetailsListCount() {
+      return productDetailsList_.size();
+    }
+    /**
+     * <code>repeated .ProductDetails productDetailsList = 9;</code>
+     */
+    @java.lang.Override
+    public com.zkart.model.OrderProto.ProductDetails getProductDetailsList(int index) {
+      return productDetailsList_.get(index);
+    }
+    /**
+     * <code>repeated .ProductDetails productDetailsList = 9;</code>
+     */
+    @java.lang.Override
+    public com.zkart.model.OrderProto.ProductDetailsOrBuilder getProductDetailsListOrBuilder(
+        int index) {
+      return productDetailsList_.get(index);
+    }
 
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
@@ -282,25 +352,20 @@ public final class OrderProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       if (id_ != 0) {
         output.writeInt32(1, id_);
       }
-      if (totalPrice_ != 0) {
-        output.writeInt32(2, totalPrice_);
-      }
-      if (getProductIdsList().size() > 0) {
-        output.writeUInt32NoTag(26);
-        output.writeUInt32NoTag(productIdsMemoizedSerializedSize);
-      }
-      for (int i = 0; i < productIds_.size(); i++) {
-        output.writeInt32NoTag(productIds_.getInt(i));
-      }
       if (userId_ != 0) {
-        output.writeInt32(4, userId_);
+        output.writeInt32(2, userId_);
+      }
+      if (totalPrice_ != 0) {
+        output.writeInt32(3, totalPrice_);
       }
       if (isCouponApplied_ != false) {
-        output.writeBool(5, isCouponApplied_);
+        output.writeBool(4, isCouponApplied_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(couponCode_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 5, couponCode_);
       }
       if (discountPercent_ != 0) {
         output.writeInt32(6, discountPercent_);
@@ -308,8 +373,11 @@ public final class OrderProto {
       if (finalPrice_ != 0) {
         output.writeInt32(7, finalPrice_);
       }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(couponCode_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 8, couponCode_);
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(timeStamps_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 8, timeStamps_);
+      }
+      for (int i = 0; i < productDetailsList_.size(); i++) {
+        output.writeMessage(9, productDetailsList_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -324,31 +392,20 @@ public final class OrderProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(1, id_);
       }
-      if (totalPrice_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, totalPrice_);
-      }
-      {
-        int dataSize = 0;
-        for (int i = 0; i < productIds_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeInt32SizeNoTag(productIds_.getInt(i));
-        }
-        size += dataSize;
-        if (!getProductIdsList().isEmpty()) {
-          size += 1;
-          size += com.google.protobuf.CodedOutputStream
-              .computeInt32SizeNoTag(dataSize);
-        }
-        productIdsMemoizedSerializedSize = dataSize;
-      }
       if (userId_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, userId_);
+          .computeInt32Size(2, userId_);
+      }
+      if (totalPrice_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, totalPrice_);
       }
       if (isCouponApplied_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(5, isCouponApplied_);
+          .computeBoolSize(4, isCouponApplied_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(couponCode_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(5, couponCode_);
       }
       if (discountPercent_ != 0) {
         size += com.google.protobuf.CodedOutputStream
@@ -358,8 +415,12 @@ public final class OrderProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(7, finalPrice_);
       }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(couponCode_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(8, couponCode_);
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(timeStamps_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(8, timeStamps_);
+      }
+      for (int i = 0; i < productDetailsList_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(9, productDetailsList_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -390,8 +451,10 @@ public final class OrderProto {
           != other.getDiscountPercent()) return false;
       if (getFinalPrice()
           != other.getFinalPrice()) return false;
-      if (!getProductIdsList()
-          .equals(other.getProductIdsList())) return false;
+      if (!getTimeStamps()
+          .equals(other.getTimeStamps())) return false;
+      if (!getProductDetailsListList()
+          .equals(other.getProductDetailsListList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -418,9 +481,11 @@ public final class OrderProto {
       hash = (53 * hash) + getDiscountPercent();
       hash = (37 * hash) + FINALPRICE_FIELD_NUMBER;
       hash = (53 * hash) + getFinalPrice();
-      if (getProductIdsCount() > 0) {
-        hash = (37 * hash) + PRODUCTIDS_FIELD_NUMBER;
-        hash = (53 * hash) + getProductIdsList().hashCode();
+      hash = (37 * hash) + TIMESTAMPS_FIELD_NUMBER;
+      hash = (53 * hash) + getTimeStamps().hashCode();
+      if (getProductDetailsListCount() > 0) {
+        hash = (37 * hash) + PRODUCTDETAILSLIST_FIELD_NUMBER;
+        hash = (53 * hash) + getProductDetailsListList().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -560,7 +625,14 @@ public final class OrderProto {
         couponCode_ = "";
         discountPercent_ = 0;
         finalPrice_ = 0;
-        productIds_ = emptyIntList();
+        timeStamps_ = "";
+        if (productDetailsListBuilder_ == null) {
+          productDetailsList_ = java.util.Collections.emptyList();
+        } else {
+          productDetailsList_ = null;
+          productDetailsListBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000100);
         return this;
       }
 
@@ -587,9 +659,22 @@ public final class OrderProto {
       @java.lang.Override
       public com.zkart.model.OrderProto.Order buildPartial() {
         com.zkart.model.OrderProto.Order result = new com.zkart.model.OrderProto.Order(this);
+        buildPartialRepeatedFields(result);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartialRepeatedFields(com.zkart.model.OrderProto.Order result) {
+        if (productDetailsListBuilder_ == null) {
+          if (((bitField0_ & 0x00000100) != 0)) {
+            productDetailsList_ = java.util.Collections.unmodifiableList(productDetailsList_);
+            bitField0_ = (bitField0_ & ~0x00000100);
+          }
+          result.productDetailsList_ = productDetailsList_;
+        } else {
+          result.productDetailsList_ = productDetailsListBuilder_.build();
+        }
       }
 
       private void buildPartial0(com.zkart.model.OrderProto.Order result) {
@@ -616,8 +701,7 @@ public final class OrderProto {
           result.finalPrice_ = finalPrice_;
         }
         if (((from_bitField0_ & 0x00000080) != 0)) {
-          productIds_.makeImmutable();
-          result.productIds_ = productIds_;
+          result.timeStamps_ = timeStamps_;
         }
       }
 
@@ -656,16 +740,36 @@ public final class OrderProto {
         if (other.getFinalPrice() != 0) {
           setFinalPrice(other.getFinalPrice());
         }
-        if (!other.productIds_.isEmpty()) {
-          if (productIds_.isEmpty()) {
-            productIds_ = other.productIds_;
-            productIds_.makeImmutable();
-            bitField0_ |= 0x00000080;
-          } else {
-            ensureProductIdsIsMutable();
-            productIds_.addAll(other.productIds_);
-          }
+        if (!other.getTimeStamps().isEmpty()) {
+          timeStamps_ = other.timeStamps_;
+          bitField0_ |= 0x00000080;
           onChanged();
+        }
+        if (productDetailsListBuilder_ == null) {
+          if (!other.productDetailsList_.isEmpty()) {
+            if (productDetailsList_.isEmpty()) {
+              productDetailsList_ = other.productDetailsList_;
+              bitField0_ = (bitField0_ & ~0x00000100);
+            } else {
+              ensureProductDetailsListIsMutable();
+              productDetailsList_.addAll(other.productDetailsList_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.productDetailsList_.isEmpty()) {
+            if (productDetailsListBuilder_.isEmpty()) {
+              productDetailsListBuilder_.dispose();
+              productDetailsListBuilder_ = null;
+              productDetailsList_ = other.productDetailsList_;
+              bitField0_ = (bitField0_ & ~0x00000100);
+              productDetailsListBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getProductDetailsListFieldBuilder() : null;
+            } else {
+              productDetailsListBuilder_.addAllMessages(other.productDetailsList_);
+            }
+          }
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -699,36 +803,25 @@ public final class OrderProto {
                 break;
               } // case 8
               case 16: {
-                totalPrice_ = input.readInt32();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 16
-              case 24: {
-                int v = input.readInt32();
-                ensureProductIdsIsMutable();
-                productIds_.addInt(v);
-                break;
-              } // case 24
-              case 26: {
-                int length = input.readRawVarint32();
-                int limit = input.pushLimit(length);
-                ensureProductIdsIsMutable();
-                while (input.getBytesUntilLimit() > 0) {
-                  productIds_.addInt(input.readInt32());
-                }
-                input.popLimit(limit);
-                break;
-              } // case 26
-              case 32: {
                 userId_ = input.readInt32();
                 bitField0_ |= 0x00000002;
                 break;
-              } // case 32
-              case 40: {
+              } // case 16
+              case 24: {
+                totalPrice_ = input.readInt32();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
+              case 32: {
                 isCouponApplied_ = input.readBool();
                 bitField0_ |= 0x00000008;
                 break;
-              } // case 40
+              } // case 32
+              case 42: {
+                couponCode_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
               case 48: {
                 discountPercent_ = input.readInt32();
                 bitField0_ |= 0x00000020;
@@ -740,10 +833,23 @@ public final class OrderProto {
                 break;
               } // case 56
               case 66: {
-                couponCode_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000010;
+                timeStamps_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000080;
                 break;
               } // case 66
+              case 74: {
+                com.zkart.model.OrderProto.ProductDetails m =
+                    input.readMessage(
+                        com.zkart.model.OrderProto.ProductDetails.parser(),
+                        extensionRegistry);
+                if (productDetailsListBuilder_ == null) {
+                  ensureProductDetailsListIsMutable();
+                  productDetailsList_.add(m);
+                } else {
+                  productDetailsListBuilder_.addMessage(m);
+                }
+                break;
+              } // case 74
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -795,7 +901,7 @@ public final class OrderProto {
 
       private int userId_ ;
       /**
-       * <code>int32 userId = 4;</code>
+       * <code>int32 userId = 2;</code>
        * @return The userId.
        */
       @java.lang.Override
@@ -803,7 +909,7 @@ public final class OrderProto {
         return userId_;
       }
       /**
-       * <code>int32 userId = 4;</code>
+       * <code>int32 userId = 2;</code>
        * @param value The userId to set.
        * @return This builder for chaining.
        */
@@ -815,7 +921,7 @@ public final class OrderProto {
         return this;
       }
       /**
-       * <code>int32 userId = 4;</code>
+       * <code>int32 userId = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearUserId() {
@@ -827,7 +933,7 @@ public final class OrderProto {
 
       private int totalPrice_ ;
       /**
-       * <code>int32 totalPrice = 2;</code>
+       * <code>int32 totalPrice = 3;</code>
        * @return The totalPrice.
        */
       @java.lang.Override
@@ -835,7 +941,7 @@ public final class OrderProto {
         return totalPrice_;
       }
       /**
-       * <code>int32 totalPrice = 2;</code>
+       * <code>int32 totalPrice = 3;</code>
        * @param value The totalPrice to set.
        * @return This builder for chaining.
        */
@@ -847,7 +953,7 @@ public final class OrderProto {
         return this;
       }
       /**
-       * <code>int32 totalPrice = 2;</code>
+       * <code>int32 totalPrice = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearTotalPrice() {
@@ -859,7 +965,7 @@ public final class OrderProto {
 
       private boolean isCouponApplied_ ;
       /**
-       * <code>bool isCouponApplied = 5;</code>
+       * <code>bool isCouponApplied = 4;</code>
        * @return The isCouponApplied.
        */
       @java.lang.Override
@@ -867,7 +973,7 @@ public final class OrderProto {
         return isCouponApplied_;
       }
       /**
-       * <code>bool isCouponApplied = 5;</code>
+       * <code>bool isCouponApplied = 4;</code>
        * @param value The isCouponApplied to set.
        * @return This builder for chaining.
        */
@@ -879,7 +985,7 @@ public final class OrderProto {
         return this;
       }
       /**
-       * <code>bool isCouponApplied = 5;</code>
+       * <code>bool isCouponApplied = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearIsCouponApplied() {
@@ -891,7 +997,7 @@ public final class OrderProto {
 
       private java.lang.Object couponCode_ = "";
       /**
-       * <code>string couponCode = 8;</code>
+       * <code>string couponCode = 5;</code>
        * @return The couponCode.
        */
       public java.lang.String getCouponCode() {
@@ -907,7 +1013,7 @@ public final class OrderProto {
         }
       }
       /**
-       * <code>string couponCode = 8;</code>
+       * <code>string couponCode = 5;</code>
        * @return The bytes for couponCode.
        */
       public com.google.protobuf.ByteString
@@ -924,7 +1030,7 @@ public final class OrderProto {
         }
       }
       /**
-       * <code>string couponCode = 8;</code>
+       * <code>string couponCode = 5;</code>
        * @param value The couponCode to set.
        * @return This builder for chaining.
        */
@@ -937,7 +1043,7 @@ public final class OrderProto {
         return this;
       }
       /**
-       * <code>string couponCode = 8;</code>
+       * <code>string couponCode = 5;</code>
        * @return This builder for chaining.
        */
       public Builder clearCouponCode() {
@@ -947,7 +1053,7 @@ public final class OrderProto {
         return this;
       }
       /**
-       * <code>string couponCode = 8;</code>
+       * <code>string couponCode = 5;</code>
        * @param value The bytes for couponCode to set.
        * @return This builder for chaining.
        */
@@ -1025,88 +1131,316 @@ public final class OrderProto {
         return this;
       }
 
-      private com.google.protobuf.Internal.IntList productIds_ = emptyIntList();
-      private void ensureProductIdsIsMutable() {
-        if (!productIds_.isModifiable()) {
-          productIds_ = makeMutableCopy(productIds_);
+      private java.lang.Object timeStamps_ = "";
+      /**
+       * <code>string timeStamps = 8;</code>
+       * @return The timeStamps.
+       */
+      public java.lang.String getTimeStamps() {
+        java.lang.Object ref = timeStamps_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          timeStamps_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
         }
-        bitField0_ |= 0x00000080;
       }
       /**
-       * <code>repeated int32 productIds = 3;</code>
-       * @return A list containing the productIds.
+       * <code>string timeStamps = 8;</code>
+       * @return The bytes for timeStamps.
        */
-      public java.util.List<java.lang.Integer>
-          getProductIdsList() {
-        productIds_.makeImmutable();
-        return productIds_;
+      public com.google.protobuf.ByteString
+          getTimeStampsBytes() {
+        java.lang.Object ref = timeStamps_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          timeStamps_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
-       * <code>repeated int32 productIds = 3;</code>
-       * @return The count of productIds.
-       */
-      public int getProductIdsCount() {
-        return productIds_.size();
-      }
-      /**
-       * <code>repeated int32 productIds = 3;</code>
-       * @param index The index of the element to return.
-       * @return The productIds at the given index.
-       */
-      public int getProductIds(int index) {
-        return productIds_.getInt(index);
-      }
-      /**
-       * <code>repeated int32 productIds = 3;</code>
-       * @param index The index to set the value at.
-       * @param value The productIds to set.
+       * <code>string timeStamps = 8;</code>
+       * @param value The timeStamps to set.
        * @return This builder for chaining.
        */
-      public Builder setProductIds(
-          int index, int value) {
-
-        ensureProductIdsIsMutable();
-        productIds_.setInt(index, value);
+      public Builder setTimeStamps(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        timeStamps_ = value;
         bitField0_ |= 0x00000080;
         onChanged();
         return this;
       }
       /**
-       * <code>repeated int32 productIds = 3;</code>
-       * @param value The productIds to add.
+       * <code>string timeStamps = 8;</code>
        * @return This builder for chaining.
        */
-      public Builder addProductIds(int value) {
-
-        ensureProductIdsIsMutable();
-        productIds_.addInt(value);
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated int32 productIds = 3;</code>
-       * @param values The productIds to add.
-       * @return This builder for chaining.
-       */
-      public Builder addAllProductIds(
-          java.lang.Iterable<? extends java.lang.Integer> values) {
-        ensureProductIdsIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, productIds_);
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated int32 productIds = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearProductIds() {
-        productIds_ = emptyIntList();
+      public Builder clearTimeStamps() {
+        timeStamps_ = getDefaultInstance().getTimeStamps();
         bitField0_ = (bitField0_ & ~0x00000080);
         onChanged();
         return this;
+      }
+      /**
+       * <code>string timeStamps = 8;</code>
+       * @param value The bytes for timeStamps to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTimeStampsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        timeStamps_ = value;
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<com.zkart.model.OrderProto.ProductDetails> productDetailsList_ =
+        java.util.Collections.emptyList();
+      private void ensureProductDetailsListIsMutable() {
+        if (!((bitField0_ & 0x00000100) != 0)) {
+          productDetailsList_ = new java.util.ArrayList<com.zkart.model.OrderProto.ProductDetails>(productDetailsList_);
+          bitField0_ |= 0x00000100;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.zkart.model.OrderProto.ProductDetails, com.zkart.model.OrderProto.ProductDetails.Builder, com.zkart.model.OrderProto.ProductDetailsOrBuilder> productDetailsListBuilder_;
+
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public java.util.List<com.zkart.model.OrderProto.ProductDetails> getProductDetailsListList() {
+        if (productDetailsListBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(productDetailsList_);
+        } else {
+          return productDetailsListBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public int getProductDetailsListCount() {
+        if (productDetailsListBuilder_ == null) {
+          return productDetailsList_.size();
+        } else {
+          return productDetailsListBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public com.zkart.model.OrderProto.ProductDetails getProductDetailsList(int index) {
+        if (productDetailsListBuilder_ == null) {
+          return productDetailsList_.get(index);
+        } else {
+          return productDetailsListBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public Builder setProductDetailsList(
+          int index, com.zkart.model.OrderProto.ProductDetails value) {
+        if (productDetailsListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureProductDetailsListIsMutable();
+          productDetailsList_.set(index, value);
+          onChanged();
+        } else {
+          productDetailsListBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public Builder setProductDetailsList(
+          int index, com.zkart.model.OrderProto.ProductDetails.Builder builderForValue) {
+        if (productDetailsListBuilder_ == null) {
+          ensureProductDetailsListIsMutable();
+          productDetailsList_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          productDetailsListBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public Builder addProductDetailsList(com.zkart.model.OrderProto.ProductDetails value) {
+        if (productDetailsListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureProductDetailsListIsMutable();
+          productDetailsList_.add(value);
+          onChanged();
+        } else {
+          productDetailsListBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public Builder addProductDetailsList(
+          int index, com.zkart.model.OrderProto.ProductDetails value) {
+        if (productDetailsListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureProductDetailsListIsMutable();
+          productDetailsList_.add(index, value);
+          onChanged();
+        } else {
+          productDetailsListBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public Builder addProductDetailsList(
+          com.zkart.model.OrderProto.ProductDetails.Builder builderForValue) {
+        if (productDetailsListBuilder_ == null) {
+          ensureProductDetailsListIsMutable();
+          productDetailsList_.add(builderForValue.build());
+          onChanged();
+        } else {
+          productDetailsListBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public Builder addProductDetailsList(
+          int index, com.zkart.model.OrderProto.ProductDetails.Builder builderForValue) {
+        if (productDetailsListBuilder_ == null) {
+          ensureProductDetailsListIsMutable();
+          productDetailsList_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          productDetailsListBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public Builder addAllProductDetailsList(
+          java.lang.Iterable<? extends com.zkart.model.OrderProto.ProductDetails> values) {
+        if (productDetailsListBuilder_ == null) {
+          ensureProductDetailsListIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, productDetailsList_);
+          onChanged();
+        } else {
+          productDetailsListBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public Builder clearProductDetailsList() {
+        if (productDetailsListBuilder_ == null) {
+          productDetailsList_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000100);
+          onChanged();
+        } else {
+          productDetailsListBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public Builder removeProductDetailsList(int index) {
+        if (productDetailsListBuilder_ == null) {
+          ensureProductDetailsListIsMutable();
+          productDetailsList_.remove(index);
+          onChanged();
+        } else {
+          productDetailsListBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public com.zkart.model.OrderProto.ProductDetails.Builder getProductDetailsListBuilder(
+          int index) {
+        return getProductDetailsListFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public com.zkart.model.OrderProto.ProductDetailsOrBuilder getProductDetailsListOrBuilder(
+          int index) {
+        if (productDetailsListBuilder_ == null) {
+          return productDetailsList_.get(index);  } else {
+          return productDetailsListBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public java.util.List<? extends com.zkart.model.OrderProto.ProductDetailsOrBuilder> 
+           getProductDetailsListOrBuilderList() {
+        if (productDetailsListBuilder_ != null) {
+          return productDetailsListBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(productDetailsList_);
+        }
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public com.zkart.model.OrderProto.ProductDetails.Builder addProductDetailsListBuilder() {
+        return getProductDetailsListFieldBuilder().addBuilder(
+            com.zkart.model.OrderProto.ProductDetails.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public com.zkart.model.OrderProto.ProductDetails.Builder addProductDetailsListBuilder(
+          int index) {
+        return getProductDetailsListFieldBuilder().addBuilder(
+            index, com.zkart.model.OrderProto.ProductDetails.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .ProductDetails productDetailsList = 9;</code>
+       */
+      public java.util.List<com.zkart.model.OrderProto.ProductDetails.Builder> 
+           getProductDetailsListBuilderList() {
+        return getProductDetailsListFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.zkart.model.OrderProto.ProductDetails, com.zkart.model.OrderProto.ProductDetails.Builder, com.zkart.model.OrderProto.ProductDetailsOrBuilder> 
+          getProductDetailsListFieldBuilder() {
+        if (productDetailsListBuilder_ == null) {
+          productDetailsListBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.zkart.model.OrderProto.ProductDetails, com.zkart.model.OrderProto.ProductDetails.Builder, com.zkart.model.OrderProto.ProductDetailsOrBuilder>(
+                  productDetailsList_,
+                  ((bitField0_ & 0x00000100) != 0),
+                  getParentForChildren(),
+                  isClean());
+          productDetailsList_ = null;
+        }
+        return productDetailsListBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:Order)
@@ -1155,6 +1489,657 @@ public final class OrderProto {
 
     @java.lang.Override
     public com.zkart.model.OrderProto.Order getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ProductDetailsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ProductDetails)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 productId = 1;</code>
+     * @return The productId.
+     */
+    int getProductId();
+
+    /**
+     * <code>int32 count = 2;</code>
+     * @return The count.
+     */
+    int getCount();
+
+    /**
+     * <code>bool isInDeal = 3;</code>
+     * @return The isInDeal.
+     */
+    boolean getIsInDeal();
+
+    /**
+     * <code>int32 dealPercent = 5;</code>
+     * @return The dealPercent.
+     */
+    int getDealPercent();
+  }
+  /**
+   * Protobuf type {@code ProductDetails}
+   */
+  public static final class ProductDetails extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:ProductDetails)
+      ProductDetailsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 29,
+        /* patch= */ 3,
+        /* suffix= */ "",
+        ProductDetails.class.getName());
+    }
+    // Use ProductDetails.newBuilder() to construct.
+    private ProductDetails(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private ProductDetails() {
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.zkart.model.OrderProto.internal_static_ProductDetails_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.zkart.model.OrderProto.internal_static_ProductDetails_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.zkart.model.OrderProto.ProductDetails.class, com.zkart.model.OrderProto.ProductDetails.Builder.class);
+    }
+
+    public static final int PRODUCTID_FIELD_NUMBER = 1;
+    private int productId_ = 0;
+    /**
+     * <code>int32 productId = 1;</code>
+     * @return The productId.
+     */
+    @java.lang.Override
+    public int getProductId() {
+      return productId_;
+    }
+
+    public static final int COUNT_FIELD_NUMBER = 2;
+    private int count_ = 0;
+    /**
+     * <code>int32 count = 2;</code>
+     * @return The count.
+     */
+    @java.lang.Override
+    public int getCount() {
+      return count_;
+    }
+
+    public static final int ISINDEAL_FIELD_NUMBER = 3;
+    private boolean isInDeal_ = false;
+    /**
+     * <code>bool isInDeal = 3;</code>
+     * @return The isInDeal.
+     */
+    @java.lang.Override
+    public boolean getIsInDeal() {
+      return isInDeal_;
+    }
+
+    public static final int DEALPERCENT_FIELD_NUMBER = 5;
+    private int dealPercent_ = 0;
+    /**
+     * <code>int32 dealPercent = 5;</code>
+     * @return The dealPercent.
+     */
+    @java.lang.Override
+    public int getDealPercent() {
+      return dealPercent_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (productId_ != 0) {
+        output.writeInt32(1, productId_);
+      }
+      if (count_ != 0) {
+        output.writeInt32(2, count_);
+      }
+      if (isInDeal_ != false) {
+        output.writeBool(3, isInDeal_);
+      }
+      if (dealPercent_ != 0) {
+        output.writeInt32(5, dealPercent_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (productId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, productId_);
+      }
+      if (count_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, count_);
+      }
+      if (isInDeal_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, isInDeal_);
+      }
+      if (dealPercent_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, dealPercent_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.zkart.model.OrderProto.ProductDetails)) {
+        return super.equals(obj);
+      }
+      com.zkart.model.OrderProto.ProductDetails other = (com.zkart.model.OrderProto.ProductDetails) obj;
+
+      if (getProductId()
+          != other.getProductId()) return false;
+      if (getCount()
+          != other.getCount()) return false;
+      if (getIsInDeal()
+          != other.getIsInDeal()) return false;
+      if (getDealPercent()
+          != other.getDealPercent()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PRODUCTID_FIELD_NUMBER;
+      hash = (53 * hash) + getProductId();
+      hash = (37 * hash) + COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + getCount();
+      hash = (37 * hash) + ISINDEAL_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsInDeal());
+      hash = (37 * hash) + DEALPERCENT_FIELD_NUMBER;
+      hash = (53 * hash) + getDealPercent();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.zkart.model.OrderProto.ProductDetails parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zkart.model.OrderProto.ProductDetails parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zkart.model.OrderProto.ProductDetails parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zkart.model.OrderProto.ProductDetails parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zkart.model.OrderProto.ProductDetails parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zkart.model.OrderProto.ProductDetails parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zkart.model.OrderProto.ProductDetails parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.zkart.model.OrderProto.ProductDetails parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.zkart.model.OrderProto.ProductDetails parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.zkart.model.OrderProto.ProductDetails parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.zkart.model.OrderProto.ProductDetails parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.zkart.model.OrderProto.ProductDetails parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.zkart.model.OrderProto.ProductDetails prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code ProductDetails}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ProductDetails)
+        com.zkart.model.OrderProto.ProductDetailsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.zkart.model.OrderProto.internal_static_ProductDetails_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.zkart.model.OrderProto.internal_static_ProductDetails_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.zkart.model.OrderProto.ProductDetails.class, com.zkart.model.OrderProto.ProductDetails.Builder.class);
+      }
+
+      // Construct using com.zkart.model.OrderProto.ProductDetails.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        productId_ = 0;
+        count_ = 0;
+        isInDeal_ = false;
+        dealPercent_ = 0;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.zkart.model.OrderProto.internal_static_ProductDetails_descriptor;
+      }
+
+      @java.lang.Override
+      public com.zkart.model.OrderProto.ProductDetails getDefaultInstanceForType() {
+        return com.zkart.model.OrderProto.ProductDetails.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.zkart.model.OrderProto.ProductDetails build() {
+        com.zkart.model.OrderProto.ProductDetails result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.zkart.model.OrderProto.ProductDetails buildPartial() {
+        com.zkart.model.OrderProto.ProductDetails result = new com.zkart.model.OrderProto.ProductDetails(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.zkart.model.OrderProto.ProductDetails result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.productId_ = productId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.count_ = count_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.isInDeal_ = isInDeal_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.dealPercent_ = dealPercent_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.zkart.model.OrderProto.ProductDetails) {
+          return mergeFrom((com.zkart.model.OrderProto.ProductDetails)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.zkart.model.OrderProto.ProductDetails other) {
+        if (other == com.zkart.model.OrderProto.ProductDetails.getDefaultInstance()) return this;
+        if (other.getProductId() != 0) {
+          setProductId(other.getProductId());
+        }
+        if (other.getCount() != 0) {
+          setCount(other.getCount());
+        }
+        if (other.getIsInDeal() != false) {
+          setIsInDeal(other.getIsInDeal());
+        }
+        if (other.getDealPercent() != 0) {
+          setDealPercent(other.getDealPercent());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                productId_ = input.readInt32();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              case 16: {
+                count_ = input.readInt32();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              case 24: {
+                isInDeal_ = input.readBool();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
+              case 40: {
+                dealPercent_ = input.readInt32();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 40
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private int productId_ ;
+      /**
+       * <code>int32 productId = 1;</code>
+       * @return The productId.
+       */
+      @java.lang.Override
+      public int getProductId() {
+        return productId_;
+      }
+      /**
+       * <code>int32 productId = 1;</code>
+       * @param value The productId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProductId(int value) {
+
+        productId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 productId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProductId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        productId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int count_ ;
+      /**
+       * <code>int32 count = 2;</code>
+       * @return The count.
+       */
+      @java.lang.Override
+      public int getCount() {
+        return count_;
+      }
+      /**
+       * <code>int32 count = 2;</code>
+       * @param value The count to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCount(int value) {
+
+        count_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 count = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCount() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        count_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private boolean isInDeal_ ;
+      /**
+       * <code>bool isInDeal = 3;</code>
+       * @return The isInDeal.
+       */
+      @java.lang.Override
+      public boolean getIsInDeal() {
+        return isInDeal_;
+      }
+      /**
+       * <code>bool isInDeal = 3;</code>
+       * @param value The isInDeal to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsInDeal(boolean value) {
+
+        isInDeal_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool isInDeal = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsInDeal() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        isInDeal_ = false;
+        onChanged();
+        return this;
+      }
+
+      private int dealPercent_ ;
+      /**
+       * <code>int32 dealPercent = 5;</code>
+       * @return The dealPercent.
+       */
+      @java.lang.Override
+      public int getDealPercent() {
+        return dealPercent_;
+      }
+      /**
+       * <code>int32 dealPercent = 5;</code>
+       * @param value The dealPercent to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDealPercent(int value) {
+
+        dealPercent_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 dealPercent = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDealPercent() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        dealPercent_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:ProductDetails)
+    }
+
+    // @@protoc_insertion_point(class_scope:ProductDetails)
+    private static final com.zkart.model.OrderProto.ProductDetails DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.zkart.model.OrderProto.ProductDetails();
+    }
+
+    public static com.zkart.model.OrderProto.ProductDetails getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ProductDetails>
+        PARSER = new com.google.protobuf.AbstractParser<ProductDetails>() {
+      @java.lang.Override
+      public ProductDetails parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ProductDetails> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ProductDetails> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.zkart.model.OrderProto.ProductDetails getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1906,6 +2891,11 @@ public final class OrderProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_Order_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ProductDetails_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_ProductDetails_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Orders_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -1919,13 +2909,17 @@ public final class OrderProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n#com/zkart/dbFiles/proto/order.proto\"\245\001" +
-      "\n\005Order\022\n\n\002id\030\001 \001(\005\022\016\n\006userId\030\004 \001(\005\022\022\n\nt" +
-      "otalPrice\030\002 \001(\005\022\027\n\017isCouponApplied\030\005 \001(\010" +
-      "\022\022\n\ncouponCode\030\010 \001(\t\022\027\n\017discountPercent\030" +
-      "\006 \001(\005\022\022\n\nfinalPrice\030\007 \001(\005\022\022\n\nproductIds\030" +
-      "\003 \003(\005\" \n\006Orders\022\026\n\006orders\030\001 \003(\0132\006.OrderB" +
-      "\035\n\017com.zkart.modelB\nOrderProtob\006proto3"
+      "\n#com/zkart/dbFiles/proto/order.proto\"\322\001" +
+      "\n\005Order\022\n\n\002id\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\022\022\n\nt" +
+      "otalPrice\030\003 \001(\005\022\027\n\017isCouponApplied\030\004 \001(\010" +
+      "\022\022\n\ncouponCode\030\005 \001(\t\022\027\n\017discountPercent\030" +
+      "\006 \001(\005\022\022\n\nfinalPrice\030\007 \001(\005\022\022\n\ntimeStamps\030" +
+      "\010 \001(\t\022+\n\022productDetailsList\030\t \003(\0132\017.Prod" +
+      "uctDetails\"Y\n\016ProductDetails\022\021\n\tproductI" +
+      "d\030\001 \001(\005\022\r\n\005count\030\002 \001(\005\022\020\n\010isInDeal\030\003 \001(\010" +
+      "\022\023\n\013dealPercent\030\005 \001(\005\" \n\006Orders\022\026\n\006order" +
+      "s\030\001 \003(\0132\006.OrderB\035\n\017com.zkart.modelB\nOrde" +
+      "rProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1936,9 +2930,15 @@ public final class OrderProto {
     internal_static_Order_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Order_descriptor,
-        new java.lang.String[] { "Id", "UserId", "TotalPrice", "IsCouponApplied", "CouponCode", "DiscountPercent", "FinalPrice", "ProductIds", });
-    internal_static_Orders_descriptor =
+        new java.lang.String[] { "Id", "UserId", "TotalPrice", "IsCouponApplied", "CouponCode", "DiscountPercent", "FinalPrice", "TimeStamps", "ProductDetailsList", });
+    internal_static_ProductDetails_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_ProductDetails_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_ProductDetails_descriptor,
+        new java.lang.String[] { "ProductId", "Count", "IsInDeal", "DealPercent", });
+    internal_static_Orders_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_Orders_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Orders_descriptor,

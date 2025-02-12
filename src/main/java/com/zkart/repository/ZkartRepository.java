@@ -1,8 +1,7 @@
 package com.zkart.repository;
 
 import com.zkart.model.*;
-import com.zkart.screens.adminLogin.AdminLoginView;
-import com.zkart.screens.changePassword.ChangePasswordView;
+
 import com.zkart.utils.DateHandler;
 import com.zkart.utils.PasswordHandler;
 import com.zkart.utils.UniqueId;
@@ -52,20 +51,25 @@ public class ZkartRepository {
             // ADMIN INITIALIZATION
             try {
                 admin = AdminProto.Admin.parseFrom(adminFis);
-            }catch (Exception e) {
-                admin = AdminProto
-                        .Admin
-                        .newBuilder()
-                        .setId("aabb")
+            }
+            catch (Exception e) {
+                BaseUserProto.BaseUser tempUser = BaseUserProto.BaseUser.newBuilder().setId(0)
                         .setFullname("admin")
                         .setEmail("admin@zoho.com")
                         .setPassword(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))
-                        .addPrePasswords(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))
+                        .addPrePasswords(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD)).build();
+
+                admin = AdminProto
+                        .Admin
+                        .newBuilder()
+                        .setAdminUser(tempUser)
+                        .setUserType(AdminProto.AdminUserType.SUPER_USER)
                         .build();
 
                 adminFos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "admin_db.txt"));
                 admin.writeTo(adminFos);
-            }finally {
+            }
+            finally {
                 if (adminFos != null) {
                     try {
                         adminFos.close();
@@ -101,6 +105,7 @@ public class ZkartRepository {
                                 .setBrand(splitProduct[5])
                                 .setPrice(Integer.parseInt(splitProduct[6]))
                                 .setStock(Integer.parseInt(splitProduct[7]))
+                                .setAddedAt(DateHandler.getTimeStamp())
                                 .build();
                         productList.add(productProto);
                     }
@@ -141,15 +146,17 @@ public class ZkartRepository {
                 while (userBr.ready()) {
                     user = userBr.readLine();
                     String[] userArr = user.split("\\|");
-//                    1|123@zoho.com|CboljoH12|Anitha
-                    UserProto.User userProto = UserProto
-                            .User
-                            .newBuilder()
-                            .setId(Integer.parseInt(userArr[0]))
+                    BaseUserProto.BaseUser temp = BaseUserProto.BaseUser.newBuilder().setId(Integer.parseInt(userArr[0]))
                             .setEmail(userArr[1])
                             .setPassword(userArr[2])
                             .setFullname(userArr[3])
                             .build();
+                    UserProto.User userProto = UserProto
+                            .User
+                            .newBuilder()
+                            .setUserDetails(temp)
+                            .build();
+
                     userList.add(userProto);
                 }
                 users = UserProto.Users.newBuilder().addAllUsers(userList).build();
@@ -250,7 +257,7 @@ public class ZkartRepository {
         for (UserProto.User user : tempList) {
 
                 String encrypt = PasswordHandler.encryptPassword(password);
-                if(user.getEmail().equals(email) && user.getPassword().equals(encrypt)) {
+                if(user.getUserDetails().getEmail().equals(email) && user.getUserDetails().getPassword().equals(encrypt)) {
                     loggedInUser = user;
                     isAdminLogin = false;
                     return isUserLogin = true;
@@ -263,12 +270,14 @@ public class ZkartRepository {
 
         boolean temp = false;
 
-        if(admin.getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD)) && password.equals(DEFAULT_ADMIN_PASSWORD)) {
+        if(admin.getAdminUser().getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD)) && password.equals(DEFAULT_ADMIN_PASSWORD)) {
             System.out.println("Initial admin login");
-                throw new InitialAdminLoginException();
-            }
-            temp = admin.getEmail().equals(email)
-                    && admin.getPassword().equals(PasswordHandler.encryptPassword(password));
+            isAdminLogin = true;
+            isUserLogin = false;
+            throw new InitialAdminLoginException();
+        }
+        temp = admin.getAdminUser().getEmail().equals(email)
+                && admin.getAdminUser().getPassword().equals(PasswordHandler.encryptPassword(password));
 
         if(temp) {
             isAdminLogin = true;
@@ -286,16 +295,17 @@ public class ZkartRepository {
     }
 
     public static boolean userSignIn(String name, String email, String password) {
-        UserProto.User user = UserProto
-                .User
-                .newBuilder()
-                .setId(users.getUsersCount())
+        BaseUserProto.BaseUser temp = BaseUserProto.BaseUser.newBuilder().setId(users.getUsersCount())
                 .setFullname(name)
                 .setEmail(email)
                 .setPassword(PasswordHandler.encryptPassword(password))
                 .addPrePasswords(PasswordHandler.encryptPassword(password))
                 .build();
-
+        UserProto.User user = UserProto
+                .User
+                .newBuilder()
+                .setUserDetails(temp)
+                .build();
         users = users.toBuilder().addUsers(user).build();
         FileOutputStream fos = null;
         try {
@@ -318,7 +328,7 @@ public class ZkartRepository {
         List<UserProto.User> userList = users.getUsersList();
 
         for(UserProto.User user : userList) {
-            if(user.getEmail().equals(email)) {
+            if(user.getUserDetails().getEmail().equals(email)) {
                 return false;
             }
         }
@@ -339,7 +349,7 @@ public class ZkartRepository {
         return products
                 .getProductsList()
                 .stream()
-                .filter(pro -> pro.getName().equalsIgnoreCase(name))
+                .filter(pro -> pro.getName().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
@@ -347,7 +357,9 @@ public class ZkartRepository {
         FileOutputStream fos = null;
         try{
             fos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "admin_db.txt"));
-            admin = admin.toBuilder().setPassword(PasswordHandler.encryptPassword(password)).build();
+            BaseUserProto.BaseUser user = admin.getAdminUser();
+            user = user.toBuilder().setPassword(PasswordHandler.encryptPassword(password)).addPrePasswords(PasswordHandler.encryptPassword(password)).build();
+            admin = admin.toBuilder().setAdminUser(user).build();
             admin.writeTo(fos);
         }catch (Exception e) {
             e.printStackTrace();
@@ -369,8 +381,10 @@ public class ZkartRepository {
         FileOutputStream fos = null;
         try{
             fos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "user_db.txt"));
-            loggedInUser = loggedInUser.toBuilder().setPassword(PasswordHandler.encryptPassword(password)).addPrePasswords(PasswordHandler.encryptPassword(password)).build();
-            users = users.toBuilder().setUsers(loggedInUser.getId(), loggedInUser).build();
+            BaseUserProto.BaseUser temp = loggedInUser.getUserDetails();
+            temp = temp.toBuilder().setPassword(PasswordHandler.encryptPassword(password)).addPrePasswords(PasswordHandler.encryptPassword(password)).build();
+            loggedInUser = loggedInUser.toBuilder().setUserDetails(temp).build();
+            users = users.toBuilder().setUsers(loggedInUser.getUserDetails().getId(), loggedInUser).build();
             users.writeTo(fos);
         }catch (Exception e) {
             e.printStackTrace();
@@ -388,13 +402,7 @@ public class ZkartRepository {
     public static boolean addProduct(String category, String name, String description, String model, String brand, int price, int stock) throws Exception{
 
        if(isAdminLogin) {
-           if(admin.getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))) {
-               String newPassword = new ChangePasswordView().getPasswords(DEFAULT_ADMIN_PASSWORD);
-               if(newPassword == null) {
-                   throw new Exception("Adding Product Terminated.");
-               }
-               updateAdminPassword(newPassword);
-           }
+
            ProductProto.Product product = ProductProto
                    .Product.newBuilder()
                    .setId(products.getProductsCount())
@@ -405,6 +413,8 @@ public class ZkartRepository {
                    .setBrand(brand)
                    .setPrice(price)
                    .setStock(stock)
+                   .setAddedBy(admin.getAdminUser().getEmail())
+                   .setAddedAt(DateHandler.getTimeStamp())
                    .build();
 
            products = products.toBuilder().addProducts(product).build();
@@ -428,14 +438,9 @@ public class ZkartRepository {
             throw new Exception("Invalid Stock Count");
         }
         if(isAdminLogin) {
-            if(admin.getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))) {
-                String newPassword = new ChangePasswordView().getPasswords(DEFAULT_ADMIN_PASSWORD);
-                if(newPassword == null) {
-                    throw new Exception("Adding Product Terminated.");
-                }
-                updateAdminPassword(newPassword);
-            }
-            ProductProto.Product product = products.getProducts(productId).toBuilder().setStock(stock).build();
+
+            ProductProto.Product product = products.getProducts(productId).toBuilder().setStock(stock).setUpdatedAt(DateHandler.getTimeStamp())
+                    .setUpdatedBy(admin.getAdminUser().getEmail()).build();
             products = products.toBuilder().setProducts(productId, product).build();
             FileOutputStream fos = null;
             try {
@@ -457,14 +462,9 @@ public class ZkartRepository {
         }
 
         if(isAdminLogin) {
-            if(admin.getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))) {
-                String newPassword = new ChangePasswordView().getPasswords(DEFAULT_ADMIN_PASSWORD);
-                if(newPassword == null) {
-                    throw new Exception("Adding Product Terminated.");
-                }
-                updateAdminPassword(newPassword);
-            }
-            ProductProto.Product product = products.getProducts(productId).toBuilder().setPrice(price).build();
+
+            ProductProto.Product product = products.getProducts(productId).toBuilder().setPrice(price).setUpdatedAt(DateHandler.getTimeStamp())
+                    .setUpdatedBy(admin.getAdminUser().getEmail()).build();
             products = products.toBuilder().setProducts(productId, product).build();
             FileOutputStream fos = null;
             try {
@@ -482,14 +482,9 @@ public class ZkartRepository {
     }
     public static boolean deleteProduct(int productId) throws Exception {
         if(isAdminLogin) {
-            if(admin.getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))) {
-                String newPassword = new ChangePasswordView().getPasswords(DEFAULT_ADMIN_PASSWORD);
-                if(newPassword == null) {
-                    throw new Exception("Adding Product Terminated.");
-                }
-                updateAdminPassword(newPassword);
-            }
-            ProductProto.Product product = products.getProducts(productId).toBuilder().setStock(-1).build();
+
+            ProductProto.Product product = products.getProducts(productId).toBuilder().setStock(-1).setUpdatedAt(DateHandler.getTimeStamp())
+                    .setUpdatedBy(admin.getAdminUser().getEmail()).build();
             products = products.toBuilder().setProducts(productId, product).build();
             FileOutputStream fos = null;
             try {
@@ -508,13 +503,7 @@ public class ZkartRepository {
     public static boolean updateProduct(int productId, String category, String name, String description, String model, String brand, int price, int stock) throws Exception {
         if(price < 0 || stock < 0) throw new Exception("Invalid Price or count");
         if(isAdminLogin) {
-            if(admin.getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD))) {
-                String newPassword = new ChangePasswordView().getPasswords(DEFAULT_ADMIN_PASSWORD);
-                if(newPassword == null) {
-                    throw new Exception("Adding Product Terminated.");
-                }
-                updateAdminPassword(newPassword);
-            }
+
             ProductProto.Product product = ProductProto
                     .Product.newBuilder()
                     .setId(productId)
@@ -525,6 +514,8 @@ public class ZkartRepository {
                     .setBrand(brand)
                     .setPrice(price)
                     .setStock(stock)
+                    .setUpdatedAt(DateHandler.getTimeStamp())
+                    .setUpdatedBy(admin.getAdminUser().getEmail())
                     .build();
 
             products = products.toBuilder().setProducts(productId, product).build();
@@ -557,7 +548,7 @@ public class ZkartRepository {
         }
         return tempList;
     }
-    public static boolean createOrder(int orderId, int userId, List<ProductProto.Product> productsList, List<Integer> stocks, int totalPrice) {
+    public static boolean createOrder(int orderId, int userId, List<ProductProto.Product> productsList, List<Integer> stocks,List<OrderProto.ProductDetails> productDetailsList, int totalPrice) {
         List<Integer> productIds = updateProductStockAndGetProductIdList(productsList, stocks);
         OrderProto.Order order = OrderProto
                 .Order
@@ -565,9 +556,10 @@ public class ZkartRepository {
                 .setUserId(userId)
                 .setTotalPrice(totalPrice)
                 .setFinalPrice(totalPrice)
-                .addAllProductIds(productIds)
+                .addAllProductDetailsList(productDetailsList)
                 .setIsCouponApplied(false)
                 .setId(orderId)
+                .setTimeStamps(DateHandler.getTimeStamp())
                 .build();
         FileOutputStream fosOrder = null;
         FileOutputStream fosProduct = null;
@@ -600,7 +592,7 @@ public class ZkartRepository {
 
         return true;
     }
-    public static boolean createOrder(int orderId, int userId, List<ProductProto.Product> productsList, List<Integer> stocks, int totalPrice, int finalPrice, CouponProto.Coupon coupon) throws InvalidCouponException {
+    public static boolean createOrder(int orderId, int userId, List<ProductProto.Product> productsList, List<Integer> stocks,List<OrderProto.ProductDetails> productDetailsList, int totalPrice, int finalPrice, CouponProto.Coupon coupon) throws InvalidCouponException {
         List<Integer> productIds = updateProductStockAndGetProductIdList(productsList, stocks);
         OrderProto.Order order = OrderProto
                 .Order
@@ -608,11 +600,12 @@ public class ZkartRepository {
                 .setUserId(userId)
                 .setTotalPrice(totalPrice)
                 .setFinalPrice(totalPrice)
-                .addAllProductIds(productIds)
+                .addAllProductDetailsList(productDetailsList)
                 .setIsCouponApplied(false)
                 .setCouponCode(coupon.getId())
                 .setDiscountPercent(coupon.getDiscountPercent())
                 .setFinalPrice(finalPrice)
+                .setTimeStamps(DateHandler.getTimeStamp())
                 .setId(orderId)
                 .build();
         FileOutputStream fosOrder = null;
@@ -705,7 +698,7 @@ public class ZkartRepository {
         List<CouponProto.Coupon> couponList = new ArrayList<>();
 
         for(CouponProto.Coupon c : coupons.getCouponsList()) {
-            if(c.getUserId() == loggedInUser.getId()) {
+            if(c.getUserId() == loggedInUser.getUserDetails().getId()) {
                 couponList.add(c);
             }
         }
@@ -717,7 +710,6 @@ public class ZkartRepository {
 
         for (OrderProto.Order temp : orderList) {
             if(temp.getUserId() == userId) {
-                System.out.println(temp.getUserId());
                 userOrderList.add(temp);
             }
         }

@@ -1,10 +1,10 @@
 package com.zkart;
 
-import com.zkart.screens.WelcomeScreen;
+import com.zkart.screens.WelcomeScreenView;
 
 public class Main {
     public static void main(String[] args) {
-        WelcomeScreen welcomeScreen = new WelcomeScreen();
+        WelcomeScreenView welcomeScreen = new WelcomeScreenView();
         welcomeScreen.display();
     }
 }

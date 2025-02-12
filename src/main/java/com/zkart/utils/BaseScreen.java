@@ -7,6 +7,10 @@ public abstract class BaseScreen implements BaseView {
     public void navigate(BaseView baseView) {
         baseView.display();
     }
+    @Override
+    public void display() {
+        System.out.println("PAGE Not Found");
+    }
     Scanner scanner;
     public BaseScreen() {
         scanner = new Scanner(System.in);

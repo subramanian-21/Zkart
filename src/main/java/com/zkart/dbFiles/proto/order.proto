@@ -1,9 +1,3 @@
-/**
-public String invoiceNumber;
-    public User user;
-    public List<Product> products;
-    public int totalPrice;
- */
 syntax = "proto3";
 
 option java_package = "com.zkart.model";
@@ -11,13 +5,20 @@ option java_outer_classname = "OrderProto";
 
 message Order {
   int32 id = 1;
-  int32 userId = 4;
-  int32 totalPrice = 2;
-  bool isCouponApplied = 5;
-  string couponCode = 8;
+  int32 userId = 2;
+  int32 totalPrice = 3;
+  bool isCouponApplied = 4;
+  string couponCode = 5;
   int32 discountPercent = 6;
   int32 finalPrice = 7;
-  repeated int32 productIds = 3;
+  string timeStamps = 8;
+  repeated ProductDetails productDetailsList = 9;
+}
+message ProductDetails {
+  int32  productId = 1;
+  int32 count = 2;
+  bool isInDeal = 3;
+  int32 dealPercent = 5;
 }
 message Orders {
   repeated Order orders = 1;

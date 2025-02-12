@@ -1,0 +1,11 @@
+syntax = "proto3";
+option java_package = "com.zkart.model";
+option java_outer_classname = "BaseUserProto";
+
+message BaseUser {
+  int32 id = 1;
+  string email = 2;
+  string fullname = 4;
+  string password = 5;
+  repeated string prePasswords = 8;
+}

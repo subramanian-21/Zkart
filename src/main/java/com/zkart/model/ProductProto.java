@@ -102,10 +102,58 @@ public final class ProductProto {
     int getPrice();
 
     /**
-     * <code>int32 stock = 9;</code>
+     * <code>sint32 stock = 9;</code>
      * @return The stock.
      */
     int getStock();
+
+    /**
+     * <code>string addedAt = 10;</code>
+     * @return The addedAt.
+     */
+    java.lang.String getAddedAt();
+    /**
+     * <code>string addedAt = 10;</code>
+     * @return The bytes for addedAt.
+     */
+    com.google.protobuf.ByteString
+        getAddedAtBytes();
+
+    /**
+     * <code>string updatedAt = 11;</code>
+     * @return The updatedAt.
+     */
+    java.lang.String getUpdatedAt();
+    /**
+     * <code>string updatedAt = 11;</code>
+     * @return The bytes for updatedAt.
+     */
+    com.google.protobuf.ByteString
+        getUpdatedAtBytes();
+
+    /**
+     * <code>string addedBy = 12;</code>
+     * @return The addedBy.
+     */
+    java.lang.String getAddedBy();
+    /**
+     * <code>string addedBy = 12;</code>
+     * @return The bytes for addedBy.
+     */
+    com.google.protobuf.ByteString
+        getAddedByBytes();
+
+    /**
+     * <code>string updatedBy = 13;</code>
+     * @return The updatedBy.
+     */
+    java.lang.String getUpdatedBy();
+    /**
+     * <code>string updatedBy = 13;</code>
+     * @return The bytes for updatedBy.
+     */
+    com.google.protobuf.ByteString
+        getUpdatedByBytes();
   }
   /**
    * Protobuf type {@code Product}
@@ -134,6 +182,10 @@ public final class ProductProto {
       description_ = "";
       model_ = "";
       brand_ = "";
+      addedAt_ = "";
+      updatedAt_ = "";
+      addedBy_ = "";
+      updatedBy_ = "";
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -369,12 +421,168 @@ public final class ProductProto {
     public static final int STOCK_FIELD_NUMBER = 9;
     private int stock_ = 0;
     /**
-     * <code>int32 stock = 9;</code>
+     * <code>sint32 stock = 9;</code>
      * @return The stock.
      */
     @java.lang.Override
     public int getStock() {
       return stock_;
+    }
+
+    public static final int ADDEDAT_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object addedAt_ = "";
+    /**
+     * <code>string addedAt = 10;</code>
+     * @return The addedAt.
+     */
+    @java.lang.Override
+    public java.lang.String getAddedAt() {
+      java.lang.Object ref = addedAt_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        addedAt_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string addedAt = 10;</code>
+     * @return The bytes for addedAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAddedAtBytes() {
+      java.lang.Object ref = addedAt_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        addedAt_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int UPDATEDAT_FIELD_NUMBER = 11;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object updatedAt_ = "";
+    /**
+     * <code>string updatedAt = 11;</code>
+     * @return The updatedAt.
+     */
+    @java.lang.Override
+    public java.lang.String getUpdatedAt() {
+      java.lang.Object ref = updatedAt_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        updatedAt_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string updatedAt = 11;</code>
+     * @return The bytes for updatedAt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUpdatedAtBytes() {
+      java.lang.Object ref = updatedAt_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        updatedAt_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ADDEDBY_FIELD_NUMBER = 12;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object addedBy_ = "";
+    /**
+     * <code>string addedBy = 12;</code>
+     * @return The addedBy.
+     */
+    @java.lang.Override
+    public java.lang.String getAddedBy() {
+      java.lang.Object ref = addedBy_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        addedBy_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string addedBy = 12;</code>
+     * @return The bytes for addedBy.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAddedByBytes() {
+      java.lang.Object ref = addedBy_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        addedBy_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int UPDATEDBY_FIELD_NUMBER = 13;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object updatedBy_ = "";
+    /**
+     * <code>string updatedBy = 13;</code>
+     * @return The updatedBy.
+     */
+    @java.lang.Override
+    public java.lang.String getUpdatedBy() {
+      java.lang.Object ref = updatedBy_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        updatedBy_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string updatedBy = 13;</code>
+     * @return The bytes for updatedBy.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUpdatedByBytes() {
+      java.lang.Object ref = updatedBy_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        updatedBy_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -413,7 +621,19 @@ public final class ProductProto {
         output.writeInt32(8, price_);
       }
       if (stock_ != 0) {
-        output.writeInt32(9, stock_);
+        output.writeSInt32(9, stock_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(addedAt_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, addedAt_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(updatedAt_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 11, updatedAt_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(addedBy_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 12, addedBy_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(updatedBy_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 13, updatedBy_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -449,7 +669,19 @@ public final class ProductProto {
       }
       if (stock_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(9, stock_);
+          .computeSInt32Size(9, stock_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(addedAt_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, addedAt_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(updatedAt_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(11, updatedAt_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(addedBy_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(12, addedBy_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(updatedBy_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(13, updatedBy_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -482,6 +714,14 @@ public final class ProductProto {
           != other.getPrice()) return false;
       if (getStock()
           != other.getStock()) return false;
+      if (!getAddedAt()
+          .equals(other.getAddedAt())) return false;
+      if (!getUpdatedAt()
+          .equals(other.getUpdatedAt())) return false;
+      if (!getAddedBy()
+          .equals(other.getAddedBy())) return false;
+      if (!getUpdatedBy()
+          .equals(other.getUpdatedBy())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -509,6 +749,14 @@ public final class ProductProto {
       hash = (53 * hash) + getPrice();
       hash = (37 * hash) + STOCK_FIELD_NUMBER;
       hash = (53 * hash) + getStock();
+      hash = (37 * hash) + ADDEDAT_FIELD_NUMBER;
+      hash = (53 * hash) + getAddedAt().hashCode();
+      hash = (37 * hash) + UPDATEDAT_FIELD_NUMBER;
+      hash = (53 * hash) + getUpdatedAt().hashCode();
+      hash = (37 * hash) + ADDEDBY_FIELD_NUMBER;
+      hash = (53 * hash) + getAddedBy().hashCode();
+      hash = (37 * hash) + UPDATEDBY_FIELD_NUMBER;
+      hash = (53 * hash) + getUpdatedBy().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -648,6 +896,10 @@ public final class ProductProto {
         brand_ = "";
         price_ = 0;
         stock_ = 0;
+        addedAt_ = "";
+        updatedAt_ = "";
+        addedBy_ = "";
+        updatedBy_ = "";
         return this;
       }
 
@@ -705,6 +957,18 @@ public final class ProductProto {
         if (((from_bitField0_ & 0x00000080) != 0)) {
           result.stock_ = stock_;
         }
+        if (((from_bitField0_ & 0x00000100) != 0)) {
+          result.addedAt_ = addedAt_;
+        }
+        if (((from_bitField0_ & 0x00000200) != 0)) {
+          result.updatedAt_ = updatedAt_;
+        }
+        if (((from_bitField0_ & 0x00000400) != 0)) {
+          result.addedBy_ = addedBy_;
+        }
+        if (((from_bitField0_ & 0x00000800) != 0)) {
+          result.updatedBy_ = updatedBy_;
+        }
       }
 
       @java.lang.Override
@@ -752,6 +1016,26 @@ public final class ProductProto {
         }
         if (other.getStock() != 0) {
           setStock(other.getStock());
+        }
+        if (!other.getAddedAt().isEmpty()) {
+          addedAt_ = other.addedAt_;
+          bitField0_ |= 0x00000100;
+          onChanged();
+        }
+        if (!other.getUpdatedAt().isEmpty()) {
+          updatedAt_ = other.updatedAt_;
+          bitField0_ |= 0x00000200;
+          onChanged();
+        }
+        if (!other.getAddedBy().isEmpty()) {
+          addedBy_ = other.addedBy_;
+          bitField0_ |= 0x00000400;
+          onChanged();
+        }
+        if (!other.getUpdatedBy().isEmpty()) {
+          updatedBy_ = other.updatedBy_;
+          bitField0_ |= 0x00000800;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -815,10 +1099,30 @@ public final class ProductProto {
                 break;
               } // case 64
               case 72: {
-                stock_ = input.readInt32();
+                stock_ = input.readSInt32();
                 bitField0_ |= 0x00000080;
                 break;
               } // case 72
+              case 82: {
+                addedAt_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000100;
+                break;
+              } // case 82
+              case 90: {
+                updatedAt_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000200;
+                break;
+              } // case 90
+              case 98: {
+                addedBy_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000400;
+                break;
+              } // case 98
+              case 106: {
+                updatedBy_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000800;
+                break;
+              } // case 106
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1262,7 +1566,7 @@ public final class ProductProto {
 
       private int stock_ ;
       /**
-       * <code>int32 stock = 9;</code>
+       * <code>sint32 stock = 9;</code>
        * @return The stock.
        */
       @java.lang.Override
@@ -1270,7 +1574,7 @@ public final class ProductProto {
         return stock_;
       }
       /**
-       * <code>int32 stock = 9;</code>
+       * <code>sint32 stock = 9;</code>
        * @param value The stock to set.
        * @return This builder for chaining.
        */
@@ -1282,12 +1586,300 @@ public final class ProductProto {
         return this;
       }
       /**
-       * <code>int32 stock = 9;</code>
+       * <code>sint32 stock = 9;</code>
        * @return This builder for chaining.
        */
       public Builder clearStock() {
         bitField0_ = (bitField0_ & ~0x00000080);
         stock_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object addedAt_ = "";
+      /**
+       * <code>string addedAt = 10;</code>
+       * @return The addedAt.
+       */
+      public java.lang.String getAddedAt() {
+        java.lang.Object ref = addedAt_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          addedAt_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string addedAt = 10;</code>
+       * @return The bytes for addedAt.
+       */
+      public com.google.protobuf.ByteString
+          getAddedAtBytes() {
+        java.lang.Object ref = addedAt_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          addedAt_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string addedAt = 10;</code>
+       * @param value The addedAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddedAt(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        addedAt_ = value;
+        bitField0_ |= 0x00000100;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string addedAt = 10;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAddedAt() {
+        addedAt_ = getDefaultInstance().getAddedAt();
+        bitField0_ = (bitField0_ & ~0x00000100);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string addedAt = 10;</code>
+       * @param value The bytes for addedAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddedAtBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        addedAt_ = value;
+        bitField0_ |= 0x00000100;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object updatedAt_ = "";
+      /**
+       * <code>string updatedAt = 11;</code>
+       * @return The updatedAt.
+       */
+      public java.lang.String getUpdatedAt() {
+        java.lang.Object ref = updatedAt_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          updatedAt_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string updatedAt = 11;</code>
+       * @return The bytes for updatedAt.
+       */
+      public com.google.protobuf.ByteString
+          getUpdatedAtBytes() {
+        java.lang.Object ref = updatedAt_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          updatedAt_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string updatedAt = 11;</code>
+       * @param value The updatedAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdatedAt(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        updatedAt_ = value;
+        bitField0_ |= 0x00000200;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string updatedAt = 11;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUpdatedAt() {
+        updatedAt_ = getDefaultInstance().getUpdatedAt();
+        bitField0_ = (bitField0_ & ~0x00000200);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string updatedAt = 11;</code>
+       * @param value The bytes for updatedAt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdatedAtBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        updatedAt_ = value;
+        bitField0_ |= 0x00000200;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object addedBy_ = "";
+      /**
+       * <code>string addedBy = 12;</code>
+       * @return The addedBy.
+       */
+      public java.lang.String getAddedBy() {
+        java.lang.Object ref = addedBy_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          addedBy_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string addedBy = 12;</code>
+       * @return The bytes for addedBy.
+       */
+      public com.google.protobuf.ByteString
+          getAddedByBytes() {
+        java.lang.Object ref = addedBy_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          addedBy_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string addedBy = 12;</code>
+       * @param value The addedBy to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddedBy(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        addedBy_ = value;
+        bitField0_ |= 0x00000400;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string addedBy = 12;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAddedBy() {
+        addedBy_ = getDefaultInstance().getAddedBy();
+        bitField0_ = (bitField0_ & ~0x00000400);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string addedBy = 12;</code>
+       * @param value The bytes for addedBy to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddedByBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        addedBy_ = value;
+        bitField0_ |= 0x00000400;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object updatedBy_ = "";
+      /**
+       * <code>string updatedBy = 13;</code>
+       * @return The updatedBy.
+       */
+      public java.lang.String getUpdatedBy() {
+        java.lang.Object ref = updatedBy_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          updatedBy_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string updatedBy = 13;</code>
+       * @return The bytes for updatedBy.
+       */
+      public com.google.protobuf.ByteString
+          getUpdatedByBytes() {
+        java.lang.Object ref = updatedBy_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          updatedBy_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string updatedBy = 13;</code>
+       * @param value The updatedBy to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdatedBy(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        updatedBy_ = value;
+        bitField0_ |= 0x00000800;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string updatedBy = 13;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUpdatedBy() {
+        updatedBy_ = getDefaultInstance().getUpdatedBy();
+        bitField0_ = (bitField0_ & ~0x00000800);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string updatedBy = 13;</code>
+       * @param value The bytes for updatedBy to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdatedByBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        updatedBy_ = value;
+        bitField0_ |= 0x00000800;
         onChanged();
         return this;
       }
@@ -2103,12 +2695,14 @@ public final class ProductProto {
   static {
     java.lang.String[] descriptorData = {
       "\n%com/zkart/dbFiles/proto/product.proto\"" +
-      "\206\001\n\007Product\022\n\n\002id\030\001 \001(\005\022\020\n\010category\030\002 \001(" +
+      "\316\001\n\007Product\022\n\n\002id\030\001 \001(\005\022\020\n\010category\030\002 \001(" +
       "\t\022\014\n\004name\030\003 \001(\t\022\023\n\013description\030\004 \001(\t\022\r\n\005" +
       "model\030\005 \001(\t\022\r\n\005brand\030\007 \001(\t\022\r\n\005price\030\010 \001(" +
-      "\005\022\r\n\005stock\030\t \001(\005\"&\n\010Products\022\032\n\010products" +
-      "\030\001 \003(\0132\010.ProductB\037\n\017com.zkart.modelB\014Pro" +
-      "ductProtob\006proto3"
+      "\005\022\r\n\005stock\030\t \001(\021\022\017\n\007addedAt\030\n \001(\t\022\021\n\tupd" +
+      "atedAt\030\013 \001(\t\022\017\n\007addedBy\030\014 \001(\t\022\021\n\tupdated" +
+      "By\030\r \001(\t\"&\n\010Products\022\032\n\010products\030\001 \003(\0132\010" +
+      ".ProductB\037\n\017com.zkart.modelB\014ProductProt" +
+      "ob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2119,7 +2713,7 @@ public final class ProductProto {
     internal_static_Product_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Product_descriptor,
-        new java.lang.String[] { "Id", "Category", "Name", "Description", "Model", "Brand", "Price", "Stock", });
+        new java.lang.String[] { "Id", "Category", "Name", "Description", "Model", "Brand", "Price", "Stock", "AddedAt", "UpdatedAt", "AddedBy", "UpdatedBy", });
     internal_static_Products_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_Products_fieldAccessorTable = new

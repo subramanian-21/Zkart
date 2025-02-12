@@ -11,7 +11,11 @@ message Product {
   string model = 5;
   string brand = 7;
   int32 price = 8;
-  int32 stock = 9;
+  sint32 stock = 9;
+  string addedAt = 10;
+  string updatedAt = 11;
+  string addedBy = 12;
+  string updatedBy = 13;
 }
 message Products{
   repeated Product products = 1;
