@@ -19,7 +19,7 @@ public class OrderView extends BaseScreen {
         try {
             header("Order Product");
             if(!ZkartRepository.isUserLogin) {
-                UserView.getInstance().login();
+                UserView.getInstance().login(true);
             }
             List<ProductProto.Product> products = new ArrayList<>();
             List<Integer> stocks = new ArrayList<>();
@@ -31,7 +31,7 @@ public class OrderView extends BaseScreen {
                 if(opt == 1) {
                    createOrder(products, stocks);
                 } else if (opt == 2) {
-                   ProductView.getInstance().viewAllProductsAdmin();
+                   ProductView.getInstance().userDisplay();
                 }else if(opt == 3) {
                     break;
                 }else {

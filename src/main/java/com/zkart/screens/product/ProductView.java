@@ -109,7 +109,7 @@ public class ProductView extends BaseScreen {
             System.out.println("** "+categoryString);
         }
         String category = getString("Enter Category to Search :");
-        if(!set.contains(category)) {
+        if(!set.contains(category.toLowerCase())) {
             alert("Invalid Category");
         }
         var products = ZkartRepository.searchProductOnCategory(category);
@@ -355,7 +355,7 @@ public class ProductView extends BaseScreen {
         List<ProductProto.Product>products = ZkartRepository.getAllProducts();
 
         for(var product : products) {
-            set.add(product.getCategory());
+            set.add(product.getCategory().toLowerCase());
         }
         return set;
     }

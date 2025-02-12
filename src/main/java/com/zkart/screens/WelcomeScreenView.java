@@ -20,50 +20,55 @@ public class WelcomeScreenView extends BaseScreen {
     }
     public void userScreenView () {
         while (true) {
-            header("Welcome to Z-Kart");
-            if (!ZkartRepository.isUserLogin) {
-                System.out.println("1 -> User Login");
-                System.out.println("2 -> User Sign up");
-            }
-            System.out.println("3 -> Search Product");
-            System.out.println("4 -> Order Product");
-            if (ZkartRepository.isUserLogin) {
-                System.out.println("5 -> My Orders");
-                System.out.println("6 -> My Coupons");
-                System.out.println("7 -> Logout");
-                System.out.println("8 -> Change Password");
-            }
-            System.out.println("9 -> Back");
-            System.out.println("10 -> Exit");
-            int opt = getInt("Choose Option :");
-
-            if (opt == 1 && !ZkartRepository.isUserLogin) {
-                UserView.getInstance().login();
-            } else if (opt == 2 && !ZkartRepository.isUserLogin) {
-                UserView.getInstance().signUp();
-                UserView.getInstance().login();
-            } else if (opt == 3) {
-                ProductView.getInstance().userDisplay();
-            } else if (opt == 4) {
-                OrderView.getInstance().userDisplay();
-            } else if (opt == 5 && ZkartRepository.isUserLogin) {
-                UserView.getInstance().myOrders();
-            } else if (opt == 6 && ZkartRepository.isUserLogin) {
-                UserView.getInstance().myCoupons();
-            } else if (opt == 7 && ZkartRepository.isUserLogin) {
-                ZkartRepository.logout();
-            } else if (opt == 8 && ZkartRepository.isUserLogin) {
-                UserView.getInstance().changePassword();
-            } else if (opt == 9) {
-                break;
-            } else if (opt == 10) {
-                alert("Thank you visit again.");
-                return;
-            } else {
-                System.out.println("Invalid Option");
-                if (!getBoolean("Do you want to continue ?")) {
-                    break;
+            try {
+                header("Welcome to Z-Kart");
+                if (!ZkartRepository.isUserLogin) {
+                    System.out.println("1 -> User Login");
+                    System.out.println("2 -> User Sign up");
                 }
+                System.out.println("3 -> Search Product");
+                System.out.println("4 -> Order Product");
+                if (ZkartRepository.isUserLogin) {
+                    System.out.println("5 -> My Orders");
+                    System.out.println("6 -> My Coupons");
+                    System.out.println("7 -> Logout");
+                    System.out.println("8 -> Change Password");
+                }
+                System.out.println("9 -> Back");
+                System.out.println("10 -> Exit");
+                int opt = getInt("Choose Option :");
+
+                if (opt == 1 && !ZkartRepository.isUserLogin) {
+                    UserView.getInstance().login(true);
+                } else if (opt == 2 && !ZkartRepository.isUserLogin) {
+                    UserView.getInstance().signUp();
+                    UserView.getInstance().login(true);
+                } else if (opt == 3) {
+                    ProductView.getInstance().userDisplay();
+                } else if (opt == 4) {
+                    OrderView.getInstance().userDisplay();
+                } else if (opt == 5 && ZkartRepository.isUserLogin) {
+                    UserView.getInstance().myOrders();
+                } else if (opt == 6 && ZkartRepository.isUserLogin) {
+                    UserView.getInstance().myCoupons();
+                } else if (opt == 7 && ZkartRepository.isUserLogin) {
+                    ZkartRepository.logout();
+                } else if (opt == 8 && ZkartRepository.isUserLogin) {
+                    UserView.getInstance().changePassword(true);
+                } else if (opt == 9) {
+                    break;
+                } else if (opt == 10) {
+                    alert("Thank you visit again.");
+                    System.exit(0);
+                    return;
+                } else {
+                    System.out.println("Invalid Option");
+                    if (!getBoolean("Do you want to continue ?")) {
+                        break;
+                    }
+                }
+            }catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -83,15 +88,16 @@ public class WelcomeScreenView extends BaseScreen {
 
                 int opt = getInt("Enter Option :");
                 if(opt == 1 && !ZkartRepository.isAdminLogin) {
-                    AdminView.getInstance().adminLogin();
+                    AdminView.getInstance().login(false);
                 }else if(opt == 2 && ZkartRepository.isAdminLogin) {
                     ProductView.getInstance().adminDisplay();
                 }else if(opt == 3 ){
-                    AdminView.getInstance().changePassword();
+                    AdminView.getInstance().changePassword(false);
                 }else if(opt == 4 ){
                     ZkartRepository.logout();
                     break;
                 }else if(opt == 5){
+                    System.exit(0);
                     return;
                 }else {
                     System.out.println("Invalid Option");

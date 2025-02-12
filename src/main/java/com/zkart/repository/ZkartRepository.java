@@ -239,12 +239,7 @@ public class ZkartRepository {
             }
         }
     }
-    public static int getProductsCount() {
-        return products.getProductsCount();
-    }
-    public static int getProductCount() {
-        return products.getProductsCount();
-    }
+
     public static ProductProto.Product getProductById(int id) throws Exception{
         if(id < 0 || id >= products.getProductsCount()) {
             throw new Exception("Invalid Product Id");
@@ -267,7 +262,6 @@ public class ZkartRepository {
         throw new InvalidCredentialsException();
     }
     public static boolean validateAdmin(String email, String password)  throws InitialAdminLoginException, InvalidCredentialsException {
-
         boolean temp = false;
 
         if(admin.getAdminUser().getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD)) && password.equals(DEFAULT_ADMIN_PASSWORD)) {
@@ -353,51 +347,54 @@ public class ZkartRepository {
                 .collect(Collectors.toList());
     }
 
-    public static boolean updateAdminPassword(String password) {
-        FileOutputStream fos = null;
-        try{
-            fos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "admin_db.txt"));
-            BaseUserProto.BaseUser user = admin.getAdminUser();
-            user = user.toBuilder().setPassword(PasswordHandler.encryptPassword(password)).addPrePasswords(PasswordHandler.encryptPassword(password)).build();
-            admin = admin.toBuilder().setAdminUser(user).build();
-            admin.writeTo(fos);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            if(fos != null) {
-                try {
-                fos.close();
-                }catch (IOException e) {
-                    throw new RuntimeException();
+    public static boolean updateUserPassword(String password, boolean isUser) {
+        if(isUser) {
+            if(!isUserLogin) {
+                return false;
+            }
+            FileOutputStream fos = null;
+            try{
+                fos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "user_db.txt"));
+                BaseUserProto.BaseUser temp = loggedInUser.getUserDetails();
+                temp = temp.toBuilder().setPassword(PasswordHandler.encryptPassword(password)).addPrePasswords(PasswordHandler.encryptPassword(password)).build();
+                loggedInUser = loggedInUser.toBuilder().setUserDetails(temp).build();
+                users = users.toBuilder().setUsers(loggedInUser.getUserDetails().getId(), loggedInUser).build();
+                users.writeTo(fos);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }finally {
+                if(fos != null) {
+                    try {
+                        fos.close();
+                    }catch (IOException e) {
+                        throw new RuntimeException();
+                    }
                 }
             }
+            return true;
         }
-        return true;
-    }
-    public static boolean updateUserPassword(String password) {
-        if(!isUserLogin) {
-            return false;
-        }
-        FileOutputStream fos = null;
-        try{
-            fos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "user_db.txt"));
-            BaseUserProto.BaseUser temp = loggedInUser.getUserDetails();
-            temp = temp.toBuilder().setPassword(PasswordHandler.encryptPassword(password)).addPrePasswords(PasswordHandler.encryptPassword(password)).build();
-            loggedInUser = loggedInUser.toBuilder().setUserDetails(temp).build();
-            users = users.toBuilder().setUsers(loggedInUser.getUserDetails().getId(), loggedInUser).build();
-            users.writeTo(fos);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            if(fos != null) {
-                try {
-                    fos.close();
-                }catch (IOException e) {
-                    throw new RuntimeException();
+        else  {
+            FileOutputStream fos = null;
+            try{
+                fos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "admin_db.txt"));
+                BaseUserProto.BaseUser user = admin.getAdminUser();
+                user = user.toBuilder().setPassword(PasswordHandler.encryptPassword(password)).addPrePasswords(PasswordHandler.encryptPassword(password)).build();
+                admin = admin.toBuilder().setAdminUser(user).build();
+                admin.writeTo(fos);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }finally {
+                if(fos != null) {
+                    try {
+                        fos.close();
+                    }catch (IOException e) {
+                        throw new RuntimeException();
+                    }
                 }
             }
+            return true;
         }
-        return true;
+
     }
     public static boolean addProduct(String category, String name, String description, String model, String brand, int price, int stock) throws Exception{
 

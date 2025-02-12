@@ -4,15 +4,14 @@ import com.zkart.model.CouponProto;
 import com.zkart.model.OrderProto;
 import com.zkart.repository.ZkartRepository;
 import com.zkart.screens.order.OrderView;
-import com.zkart.utils.BaseScreen;
+import com.zkart.screens.BaseUserView;
 import com.zkart.utils.PasswordHandler;
-import com.zkart.utils.exceptions.InvalidCredentialsException;
 import com.zkart.utils.exceptions.InvalidPasswordSyntaxException;
 import com.zkart.utils.exceptions.TerminatePageInterupt;
 
 import java.util.List;
 
-public class UserView extends BaseScreen {
+public class UserView extends BaseUserView {
     public static UserView instance;
     private UserViewModel viewModel;
     private UserView(){
@@ -24,31 +23,12 @@ public class UserView extends BaseScreen {
         }
         return instance;
     }
-
-    // login
-    public void login(){
-        try {
-            header("User Login");
-            String email = getString("Enter Email :");
-            String password = getString("Enter password :");
-
-            if (ZkartRepository.validateUser(email, password)) {
-                alert("Login Successful");
-            }
-        }catch (InvalidCredentialsException e){
-            alert("Invalid Email or Password");
-            if (getBoolean("Do you want to try again ?")) {
-                login();
-            }
-        }
-    }
-
     public void signUp(){
         try {
             header("User Sign Up");
 
             if(getBoolean("Do You already have an account ?")) {
-                login();
+                login(true);
                 return;
             }
             String name = getString("Enter Full Name :");
@@ -76,7 +56,7 @@ public class UserView extends BaseScreen {
         if(!ZkartRepository.signInEmailValidation(email)){
             System.out.println("Email Id Already Exists.");
             if(getBoolean("Do you want to Login ?")){
-                login();
+                login(true);
             }
             if(getBoolean("Do you want to try again ?")){
                 return getEmailInput();
@@ -100,65 +80,13 @@ public class UserView extends BaseScreen {
         }
         throw new TerminatePageInterupt();
     }
-
     // change password
-    public void changePassword(){
-        try {
-            if(!ZkartRepository.isUserLogin) {
-                login();
-            }
-            if(!ZkartRepository.isUserLogin) {
-                throw new TerminatePageInterupt();
-            }
-            String newPassword = getPasswords();
-            if(viewModel.validateAndChangePassword(newPassword)){
-                alert("Successfully changed password");
-            }else {
-                alert("Password validation failed");
-                System.out.println("* password must not be same as the last three passwords.");
-            }
-        }catch (InvalidPasswordSyntaxException | TerminatePageInterupt e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public String getPasswords() throws TerminatePageInterupt {
-        String newPassword = null;
-        while (true) {
-            try {
-                newPassword = getString("Enter New Password :");
-                if(PasswordHandler.validatePassword(newPassword)){
-                    break;
-                }
-            }catch (InvalidPasswordSyntaxException e) {
-                System.out.println("Invalid Password Syntax");
-                System.out.println(PasswordHandler.getValidPasswordSyntax());
-                if(!getBoolean("Do you want to try again ?")) {
-                    throw new TerminatePageInterupt();
-                }
-            }
-        }
-
-        while (true) {
-            String confirmPassword = getString("Confirm New Password :");
-            if(viewModel.validatePasswords(newPassword,confirmPassword)) {
-                return newPassword;
-            }else {
-                alert("Password Doesnt Match");
-                if(!getBoolean("Do you want to try again ?")){
-                    throw new TerminatePageInterupt();
-                }
-            }
-        }
-    }
-
     // my orders
-
     public void myOrders() {
 
         try {
             if(!ZkartRepository.isUserLogin) {
-               login();
+               login(true);
             }
             if(ZkartRepository.isUserLogin) {
                 header("My Orders");
@@ -175,13 +103,10 @@ public class UserView extends BaseScreen {
 
         }
     }
-
-
     // my coupons
-
-    public void myCoupons() {
+    public void myCoupons() throws Exception{
         if(!ZkartRepository.isUserLogin) {
-            login();
+            login(true);
         }
         if(ZkartRepository.isUserLogin) {
             header("My Coupons");
