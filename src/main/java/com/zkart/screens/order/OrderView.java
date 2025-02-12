@@ -30,6 +30,7 @@ public class OrderView extends BaseScreen {
                 int opt = getInt("Select Option :");
                 if(opt == 1) {
                    createOrder(products, stocks);
+                   return;
                 } else if (opt == 2) {
                    ProductView.getInstance().userDisplay();
                 }else if(opt == 3) {
@@ -97,24 +98,26 @@ public class OrderView extends BaseScreen {
         System.out.println();
     }
     public void createOrder(List<ProductProto.Product> products, List<Integer> stocks){
+        while (true) {
         try {
+
                 int id = getInt("Enter Product Id :");
                 ProductProto.Product product = ZkartRepository.getProductById(id);
-                if(product.getStock() != 0){
+                if(product.getStock() > 0){
                     int stock = getInt("Enter Count :");
                     if(stock > 0 && stock <= product.getStock()) {
                         products.add(product);
                         stocks.add(stock);
                     }else {
                         alert("Stock Unavailable");
-                        return;
+                        continue;
                     }
                 }else {
                     alert("Product Unavailable");
-                    return;
+                    continue;
                 }
                 if(getBoolean("Do you want to add more ?")) {
-                    return;
+                    continue;
                 }
                 boolean couponAvail = getBoolean("Do you want to apply any coupon? ");
                 String couponId = null;
@@ -147,13 +150,14 @@ public class OrderView extends BaseScreen {
                         return;
                     }
                     printOrderStatus(viewModel.orderProducts(products, stocks, couponId)) ;
+                    return;
                 }catch (InvalidCouponException e) {
                     alert(e.getMessage());
                 }
 
-
         }catch (Exception e) {
-            System.out.println(e.getMessage());
+            alert(e.getMessage());
+        }
         }
     }
     public void printOrderStatus(OrderStatusDTO order) {

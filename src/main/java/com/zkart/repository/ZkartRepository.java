@@ -51,6 +51,9 @@ public class ZkartRepository {
             // ADMIN INITIALIZATION
             try {
                 admin = AdminProto.Admin.parseFrom(adminFis);
+                if(admin.getAdminUser().getEmail().00isEmpty()) {
+                    throw new Exception("");
+                }
             }
             catch (Exception e) {
                 BaseUserProto.BaseUser tempUser = BaseUserProto.BaseUser.newBuilder().setId(0)
@@ -81,6 +84,9 @@ public class ZkartRepository {
             // PRODUCT INITIALIZATION
             try {
                 products =  ProductProto.Products.parseFrom(productFis);
+                if(products.getProductsCount() == 0) {
+                    throw new Exception();
+                }
             }catch (Exception e) {
                 FileOutputStream productFos = null;
                 BufferedReader bufferedReader = null;
@@ -135,6 +141,9 @@ public class ZkartRepository {
 
             try {
                 users = UserProto.Users.parseFrom(userFis);
+                if(users.getUsersCount() == 0) {
+                    throw new Exception();
+                }
             }catch (Exception e) {
                 FileOutputStream userFos = null;
                 BufferedReader userBr = null;
@@ -457,7 +466,6 @@ public class ZkartRepository {
         if(price < 0) {
             throw new Exception("Invalid Price Amount");
         }
-
         if(isAdminLogin) {
 
             ProductProto.Product product = products.getProducts(productId).toBuilder().setPrice(price).setUpdatedAt(DateHandler.getTimeStamp())

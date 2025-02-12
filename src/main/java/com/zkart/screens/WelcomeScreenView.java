@@ -9,8 +9,9 @@ import com.zkart.utils.BaseScreen;
 
 public class WelcomeScreenView extends BaseScreen {
     public void display(){
-        header("Z-kart Application");
         while (true) {
+            header("Z-kart Application");
+
             if(getBoolean("Are you a user ?")){
                 userScreenView();
             }else {

@@ -42,30 +42,41 @@ public class ProductView extends BaseScreen {
         }
     }
     public void adminDisplay() {
-        System.out.println("1 -> Add Product");
-        System.out.println("2 -> update product details");
-        System.out.println("3 -> update product stock");
-        System.out.println("4 -> Update Product Price");
-        System.out.println("5 -> Delete Product from view");
-        System.out.println("6 -> View All Products");
-        System.out.println("7 -> Critical stock Products");
-        int dealProductId = ProductViewModel.getDealProductId();
-        int opt = getInt("Choose Option :");
-        if(opt == 1 && ZkartRepository.isAdminLogin) {
-           addProduct();
-        }else if(opt == 2 && ZkartRepository.isAdminLogin){
-            updateProductDetails();
-        }else if(opt == 3 && ZkartRepository.isAdminLogin){
-            updateProductStock();
-        }else if(opt == 4 && ZkartRepository.isAdminLogin){
-            updateProductPrice();
-        }else if(opt == 5 && ZkartRepository.isAdminLogin) {
-           deleteProduct();
-        }
-        else if(opt == 6 && ZkartRepository.isAdminLogin){
-            viewAllProductsAdmin();
-        }else if(opt == 7 && ZkartRepository.isAdminLogin){
-           viewCriticalProducts();
+        while (true) {
+            header("Admin Product Operations");
+            System.out.println("1 -> Add Product");
+            System.out.println("2 -> update product details");
+            System.out.println("3 -> update product stock");
+            System.out.println("4 -> Update Product Price");
+            System.out.println("5 -> Delete Product from view");
+            System.out.println("6 -> View All Products");
+            System.out.println("7 -> Critical stock Products");
+            System.out.println("8 -> Back");
+            int dealProductId = ProductViewModel.getDealProductId();
+            int opt = getInt("Choose Option :");
+            if(opt == 1 && ZkartRepository.isAdminLogin) {
+                addProduct();
+            }else if(opt == 2 && ZkartRepository.isAdminLogin){
+                updateProductDetails();
+            }else if(opt == 3 && ZkartRepository.isAdminLogin){
+                updateProductStock();
+            }else if(opt == 4 && ZkartRepository.isAdminLogin){
+                updateProductPrice();
+            }else if(opt == 5 && ZkartRepository.isAdminLogin) {
+                deleteProduct();
+            }
+            else if(opt == 6 && ZkartRepository.isAdminLogin){
+                viewAllProductsAdmin();
+            }else if(opt == 7 && ZkartRepository.isAdminLogin){
+                viewCriticalProducts();
+            }else if(opt == 8){
+                break;
+            }else {
+                alert("Invalid Option");
+                if(!getBoolean("Do you want to continue ?")) {
+                    break;
+                }
+            }
         }
     }
 
@@ -226,6 +237,10 @@ public class ProductView extends BaseScreen {
             int productId = getInt("Enter product Id :");
             System.out.println("Current price of product :"+ZkartRepository.getProductById(productId).getPrice());
             int price = getInt("Enter Price to update :");
+            if(price < 0) {
+                alert("Invalid Price amount");
+                return;
+            }
             if(getBoolean("Do you confirm ?") && ZkartRepository.updateProductPrice(productId,  price));
             alert("Product price Updated Successfully");
         }catch (Exception e){
@@ -292,8 +307,10 @@ public class ProductView extends BaseScreen {
         System.out.print("Product Name :"+product.getName()+"     ");
         System.out.println("Category :"+product.getCategory());
         System.out.println("Description :"+product.getDescription());
-        if(product.getStock() <= 0) {
+        if(product.getStock() == 0) {
             System.out.println("Availablity : Out Of Stock");
+        }else if(product.getStock() < 0) {
+            System.out.println("Availablity : Not available for user to view");
         }else {
             System.out.println("Price :"+product.getPrice()+"   stock :"+ product.getStock());
         }
