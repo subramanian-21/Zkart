@@ -1,3 +1,3 @@
-0|Mobile|Apple 6S 2GB|A Mobile phone|6S|Apple|60000|10
-1|Mobile|Motorola G100 8GB|A Mobile Phone|G200|Motorola|12000|11
-2|Laptop|HP EliteBook 16GB|A laptop from HP|EliteBook|HP|56000|122
+0|mobile|Apple 6S 2GB|A Mobile phone|6S|Apple|60000|10
+1|mobile|Motorola G100 8GB|A Mobile Phone|G200|Motorola|12000|11
+2|laptop|HP EliteBook 16GB|A laptop from HP|EliteBook|HP|56000|122

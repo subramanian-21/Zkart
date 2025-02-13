@@ -23,11 +23,11 @@ public class ZkartRepository {
     public static final  int COUPON_DISCOUNT_PERCENT_END = 30;
     public static final int PRODUCT_CRITICAL_COUNT = 10;
 
-    private static ProductProto.Products products;
-    private static OrderProto.Orders orders;
+     static ProductProto.Products products;
+     static OrderProto.Orders orders;
     public static AdminProto.Admin admin;
-    private static UserProto.Users users;
-    private static CouponProto.Coupons coupons;
+     static UserProto.Users users;
+     static CouponProto.Coupons coupons;
 
     public static UserProto.User loggedInUser;
     public static boolean isAdminLogin;
@@ -248,49 +248,18 @@ public class ZkartRepository {
             }
         }
     }
+    private static ZkartRepository instance;
+
 
     public static ProductProto.Product getProductById(int id) throws Exception{
-        if(id < 0 || id >= products.getProductsCount()) {
-            throw new Exception("Invalid Product Id");
-        }
-        return products.getProducts(id);
+       return ProductRepository.getProductById(id);
     }
 
     public static boolean validateUser(String email, String password) throws InvalidCredentialsException {
-        List<UserProto.User> tempList = users.getUsersList();
-        for (UserProto.User user : tempList) {
-
-                String encrypt = PasswordHandler.encryptPassword(password);
-                if(user.getUserDetails().getEmail().equals(email) && user.getUserDetails().getPassword().equals(encrypt)) {
-                    loggedInUser = user;
-                    isAdminLogin = false;
-                    return isUserLogin = true;
-                }
-        }
-        loggedInUser = null;
-        throw new InvalidCredentialsException();
+       return UserRepository.validateUser(email, password);
     }
     public static boolean validateAdmin(String email, String password)  throws InitialAdminLoginException, InvalidCredentialsException {
-        boolean temp = false;
-
-        if(admin.getAdminUser().getPassword().equals(PasswordHandler.encryptPassword(DEFAULT_ADMIN_PASSWORD)) && password.equals(DEFAULT_ADMIN_PASSWORD)) {
-            System.out.println("Initial admin login");
-            isAdminLogin = true;
-            isUserLogin = false;
-            throw new InitialAdminLoginException();
-        }
-        temp = admin.getAdminUser().getEmail().equals(email)
-                && admin.getAdminUser().getPassword().equals(PasswordHandler.encryptPassword(password));
-
-        if(temp) {
-            isAdminLogin = true;
-            isUserLogin = false;
-            return true;
-        }else {
-            isAdminLogin = false;
-            isUserLogin = false;
-        }
-        throw new InvalidCredentialsException();
+        return UserRepository.validateAdmin(email, password);
     }
     public static void logout(){
         isAdminLogin = false;
@@ -298,403 +267,57 @@ public class ZkartRepository {
     }
 
     public static boolean userSignIn(String name, String email, String password) {
-        BaseUserProto.BaseUser temp = BaseUserProto.BaseUser.newBuilder().setId(users.getUsersCount())
-                .setFullname(name)
-                .setEmail(email)
-                .setPassword(PasswordHandler.encryptPassword(password))
-                .addPrePasswords(PasswordHandler.encryptPassword(password))
-                .build();
-        UserProto.User user = UserProto
-                .User
-                .newBuilder()
-                .setUserDetails(temp)
-                .build();
-        users = users.toBuilder().addUsers(user).build();
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(new File(DB_FILE_ROOT_PATH+"user_db.txt"));
-            users.writeTo(fos);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            if(fos != null) {
-                try {
-                    fos.close();
-                }catch (IOException e){
-                    throw new RuntimeException();
-                }
-            }
-        }
-        return true;
+       return UserRepository.userSignIn(name, email,password);
     }
     public static boolean signInEmailValidation(String email) {
-        List<UserProto.User> userList = users.getUsersList();
-
-        for(UserProto.User user : userList) {
-            if(user.getUserDetails().getEmail().equals(email)) {
-                return false;
-            }
-        }
-        return true;
+        return UserRepository.signInEmailValidation(email);
     }
 
     public static List<ProductProto.Product> getAllProducts(){
         return  products.getProductsList();
     }
     public static List<ProductProto.Product> searchProductOnCategory(String category) {
-        return products
-                .getProductsList()
-                .stream()
-                .filter(pro -> pro.getCategory().equalsIgnoreCase(category))
-                .collect(Collectors.toList());
+        return ProductRepository.searchProductOnCategory(category);
     }
     public static List<ProductProto.Product> searchProductOnName(String name) {
-        return products
-                .getProductsList()
-                .stream()
-                .filter(pro -> pro.getName().toLowerCase().contains(name.toLowerCase()))
-                .collect(Collectors.toList());
+       return ProductRepository.searchProductOnName(name);
     }
 
     public static boolean updateUserPassword(String password, boolean isUser) {
-        if(isUser) {
-            if(!isUserLogin) {
-                return false;
-            }
-            FileOutputStream fos = null;
-            try{
-                fos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "user_db.txt"));
-                BaseUserProto.BaseUser temp = loggedInUser.getUserDetails();
-                temp = temp.toBuilder().setPassword(PasswordHandler.encryptPassword(password)).addPrePasswords(PasswordHandler.encryptPassword(password)).build();
-                loggedInUser = loggedInUser.toBuilder().setUserDetails(temp).build();
-                users = users.toBuilder().setUsers(loggedInUser.getUserDetails().getId(), loggedInUser).build();
-                users.writeTo(fos);
-            }catch (Exception e) {
-                e.printStackTrace();
-            }finally {
-                if(fos != null) {
-                    try {
-                        fos.close();
-                    }catch (IOException e) {
-                        throw new RuntimeException();
-                    }
-                }
-            }
-            return true;
-        }
-        else  {
-            FileOutputStream fos = null;
-            try{
-                fos = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "admin_db.txt"));
-                BaseUserProto.BaseUser user = admin.getAdminUser();
-                user = user.toBuilder().setPassword(PasswordHandler.encryptPassword(password)).addPrePasswords(PasswordHandler.encryptPassword(password)).build();
-                admin = admin.toBuilder().setAdminUser(user).build();
-                admin.writeTo(fos);
-            }catch (Exception e) {
-                e.printStackTrace();
-            }finally {
-                if(fos != null) {
-                    try {
-                        fos.close();
-                    }catch (IOException e) {
-                        throw new RuntimeException();
-                    }
-                }
-            }
-            return true;
-        }
-
+        return UserRepository.updateUserPassword(password, isUser);
     }
     public static boolean addProduct(String category, String name, String description, String model, String brand, int price, int stock) throws Exception{
-
-       if(isAdminLogin) {
-
-           ProductProto.Product product = ProductProto
-                   .Product.newBuilder()
-                   .setId(products.getProductsCount())
-                   .setCategory(category)
-                   .setName(name)
-                   .setDescription(description)
-                   .setModel(model)
-                   .setBrand(brand)
-                   .setPrice(price)
-                   .setStock(stock)
-                   .setAddedBy(admin.getAdminUser().getEmail())
-                   .setAddedAt(DateHandler.getTimeStamp())
-                   .build();
-
-           products = products.toBuilder().addProducts(product).build();
-           FileOutputStream fos = null;
-           FileInputStream fis = null;
-           try {
-               String filePath = DB_FILE_ROOT_PATH + "product_db.txt";
-               fos = new FileOutputStream(new File(filePath));
-               products.writeTo(fos);
-           }catch (IOException e) {
-               e.printStackTrace();
-           }finally {
-               fos.close();
-           }
-           return true;
-       }
-       return false;
+        return ProductRepository.addProduct(category, name, description, model, brand, price, stock);
     }
     public static boolean updateProductStock(int productId, int stock) throws Exception {
-        if(stock < 0) {
-            throw new Exception("Invalid Stock Count");
-        }
-        if(isAdminLogin) {
-
-            ProductProto.Product product = products.getProducts(productId).toBuilder().setStock(stock).setUpdatedAt(DateHandler.getTimeStamp())
-                    .setUpdatedBy(admin.getAdminUser().getEmail()).build();
-            products = products.toBuilder().setProducts(productId, product).build();
-            FileOutputStream fos = null;
-            try {
-                String filePath = DB_FILE_ROOT_PATH + "product_db.txt";
-                fos = new FileOutputStream(new File(filePath));
-                products.writeTo(fos);
-            }catch (IOException e) {
-                e.printStackTrace();
-            }finally {
-                fos.close();
-            }
-            return true;
-        }
-        return false;
+       return ProductRepository.updateProductStock(productId, stock);
     }
     public static boolean updateProductPrice(int productId, int price) throws Exception {
-        if(price < 0) {
-            throw new Exception("Invalid Price Amount");
-        }
-        if(isAdminLogin) {
-
-            ProductProto.Product product = products.getProducts(productId).toBuilder().setPrice(price).setUpdatedAt(DateHandler.getTimeStamp())
-                    .setUpdatedBy(admin.getAdminUser().getEmail()).build();
-            products = products.toBuilder().setProducts(productId, product).build();
-            FileOutputStream fos = null;
-            try {
-                String filePath = DB_FILE_ROOT_PATH + "product_db.txt";
-                fos = new FileOutputStream(new File(filePath));
-                products.writeTo(fos);
-            }catch (IOException e) {
-                e.printStackTrace();
-            }finally {
-                fos.close();
-            }
-            return true;
-        }
-        return false;
+        return ProductRepository.updateProductPrice(productId, price);
     }
     public static boolean deleteProduct(int productId) throws Exception {
-        if(isAdminLogin) {
-
-            ProductProto.Product product = products.getProducts(productId).toBuilder().setStock(-1).setUpdatedAt(DateHandler.getTimeStamp())
-                    .setUpdatedBy(admin.getAdminUser().getEmail()).build();
-            products = products.toBuilder().setProducts(productId, product).build();
-            FileOutputStream fos = null;
-            try {
-                String filePath = DB_FILE_ROOT_PATH + "product_db.txt";
-                fos = new FileOutputStream(new File(filePath));
-                products.writeTo(fos);
-            }catch (IOException e) {
-                e.printStackTrace();
-            }finally {
-                fos.close();
-            }
-            return true;
-        }
-        return false;
+       return ProductRepository.deleteProduct(productId);
     }
     public static boolean updateProduct(int productId, String category, String name, String description, String model, String brand, int price, int stock) throws Exception {
-        if(price < 0 || stock < 0) throw new Exception("Invalid Price or count");
-        if(isAdminLogin) {
-
-            ProductProto.Product product = ProductProto
-                    .Product.newBuilder()
-                    .setId(productId)
-                    .setCategory(category)
-                    .setName(name)
-                    .setDescription(description)
-                    .setModel(model)
-                    .setBrand(brand)
-                    .setPrice(price)
-                    .setStock(stock)
-                    .setUpdatedAt(DateHandler.getTimeStamp())
-                    .setUpdatedBy(admin.getAdminUser().getEmail())
-                    .build();
-
-            products = products.toBuilder().setProducts(productId, product).build();
-            FileOutputStream fos = null;
-            FileInputStream fis = null;
-            try {
-                String filePath = DB_FILE_ROOT_PATH + "product_db.txt";
-                fos = new FileOutputStream(new File(filePath));
-                products.writeTo(fos);
-            }catch (IOException e) {
-                e.printStackTrace();
-            }finally {
-                fos.close();
-            }
-            return true;
-        }
-        return false;
+        return ProductRepository.updateProduct(productId, category, name, description,model, brand, price, stock);
     }
     public static UserProto.User getUserById(int userId) {
         return users.getUsers(userId);
     }
     public static List<ProductProto.Product> getCriticalStockProducts() {
-        List<ProductProto.Product> productList =products.getProductsList();
-
-        List<ProductProto.Product> tempList = new ArrayList<>();
-        for(int i = 0;i<productList.size();i++) {
-            if(productList.get(i).getStock() <= PRODUCT_CRITICAL_COUNT) {
-                tempList.add(productList.get(i));
-            }
-        }
-        return tempList;
+        return ProductRepository.getCriticalStockProducts();
     }
     public static boolean createOrder(int orderId, int userId, List<ProductProto.Product> productsList, List<Integer> stocks,List<OrderProto.ProductDetails> productDetailsList, int totalPrice) {
-        List<Integer> productIds = updateProductStockAndGetProductIdList(productsList, stocks);
-        OrderProto.Order order = OrderProto
-                .Order
-                .newBuilder()
-                .setUserId(userId)
-                .setTotalPrice(totalPrice)
-                .setFinalPrice(totalPrice)
-                .addAllProductDetailsList(productDetailsList)
-                .setIsCouponApplied(false)
-                .setId(orderId)
-                .setTimeStamps(DateHandler.getTimeStamp())
-                .build();
-        FileOutputStream fosOrder = null;
-        FileOutputStream fosProduct = null;
-        try {
-            fosOrder = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "order_db.txt"));
-            fosProduct = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "product_db.txt"));
-            orders = orders.toBuilder().addOrders(order).build();
-            orders.writeTo(fosOrder);
-            products.writeTo(fosProduct);
-        }
-        catch (IOException e) {
-            return false;
-        }
-        finally {
-            if(fosOrder != null) {
-                try {
-                    fosOrder.close();
-                }catch (IOException e) {
-                    throw new RuntimeException("Exception in FOS Order");
-                }
-            }
-            if(fosProduct != null) {
-                try {
-                    fosProduct.close();
-                }catch (IOException e) {
-                    throw new RuntimeException("Exception in FOSProduct");
-                }
-            }
-        }
-
-        return true;
+        return OrderRepository.createOrder(orderId, userId, productsList,  stocks, productDetailsList, totalPrice);
     }
     public static boolean createOrder(int orderId, int userId, List<ProductProto.Product> productsList, List<Integer> stocks,List<OrderProto.ProductDetails> productDetailsList, int totalPrice, int finalPrice, CouponProto.Coupon coupon) throws InvalidCouponException {
-        List<Integer> productIds = updateProductStockAndGetProductIdList(productsList, stocks);
-        OrderProto.Order order = OrderProto
-                .Order
-                .newBuilder()
-                .setUserId(userId)
-                .setTotalPrice(totalPrice)
-                .setFinalPrice(totalPrice)
-                .addAllProductDetailsList(productDetailsList)
-                .setIsCouponApplied(false)
-                .setCouponCode(coupon.getId())
-                .setDiscountPercent(coupon.getDiscountPercent())
-                .setFinalPrice(finalPrice)
-                .setTimeStamps(DateHandler.getTimeStamp())
-                .setId(orderId)
-                .build();
-        FileOutputStream fosOrder = null;
-        FileOutputStream fosProduct = null;
-        FileOutputStream fosCoupon = null;
-        try {
-            fosOrder = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "order_db.txt"));
-            fosProduct = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "product_db.txt"));
-            fosCoupon = new FileOutputStream(new File(DB_FILE_ROOT_PATH +"coupon_db.txt"));
-            coupon = coupon.toBuilder().setIsUsed(true).setUsedOnOrderId(orderId).build();
-            coupons = coupons.toBuilder().setCoupons(getCouponIndex(coupon.getId()), coupon).build();
-            orders = orders.toBuilder().addOrders(order).build();
-            orders.writeTo(fosOrder);
-            products.writeTo(fosProduct);
-            coupons.writeTo(fosCoupon);
-        }
-        catch (IOException e) {
-            return false;
-        }
-        finally {
-            if(fosOrder != null) {
-                try {
-                    fosOrder.close();
-                }catch (IOException e) {
-                    throw new RuntimeException("Exception in FOS Order");
-                }
-            }
-            if(fosProduct != null) {
-                try {
-                    fosProduct.close();
-                }catch (IOException e) {
-                    throw new RuntimeException("Exception in FOS Product");
-                }
-            }
-            if(fosCoupon != null) {
-                try {
-                    fosCoupon.close();
-                }catch (IOException e) {
-                    throw new RuntimeException("Exception in FOS coupon");
-                }
-            }
-        }
-        return true;
+        return OrderRepository.createOrder( orderId, userId, productsList, stocks, productDetailsList, totalPrice,finalPrice, coupon);
     }
     public static boolean createCoupon(int userId, int orderId) {
-        FileOutputStream fosCoupon = null;
-        try {
-            fosCoupon = new FileOutputStream(new File(DB_FILE_ROOT_PATH + "coupon_db.txt"));
-            CouponProto.Coupon coupon = CouponProto
-                        .Coupon
-                        .newBuilder()
-                        .setId(UniqueId.getCouponId(userId))
-                        .setDateIssued(DateHandler.getCurrentDate())
-                        .setValidTill(DateHandler.getDateAfter(COUPON_EXPIRATION_DAYS))
-                        .setUserId(userId)
-                        .setDiscountPercent(UniqueId.generateRandomInt(COUPON_DISCOUNT_PERCENT_START, COUPON_DISCOUNT_PERCENT_END))
-                        .setIsUsed(false)
-                        .setIssuedForOrderId(orderId)
-                        .build();
-                coupons = coupons.toBuilder().addCoupons(coupon).build();
-                coupons.writeTo(fosCoupon);
-                return true;
-        }
-        catch (Exception e) {
-            return false;
-        }
-        finally {
-            if(fosCoupon != null) {
-                try {
-                    fosCoupon.close();
-                }catch (IOException e) {
-                    throw new RuntimeException("Exception at FOS Coupon");
-                }
-            }
-        }
+        return OrderRepository.createCoupon(userId, orderId);
     }
     public static int getCouponIndex(String couponId) throws InvalidCouponException {
-        List<CouponProto.Coupon> couponList = coupons.getCouponsList();
-        for(int i = 0;i<couponList.size();i++) {
-            if(couponList.get(i).getId().equals(couponId)){
-                return i;
-            }
-        }
-        throw new InvalidCouponException();
+        return OrderRepository.getCouponIndex(couponId);
     }
     public static int getOrdersSize() {
         return ZkartRepository.orders.getOrdersCount();
@@ -730,14 +353,6 @@ public class ZkartRepository {
         return null;
     }
     public static List<Integer> updateProductStockAndGetProductIdList(List<ProductProto.Product> productsList, List<Integer> stocks) {
-        List<Integer> productIds = new ArrayList<>();
-        for(int i = 0;i<productsList.size();i++) {
-            ProductProto.Product product = productsList.get(i);
-            productIds.add(product.getId());
-            int newStock = product.getStock() - stocks.get(i);
-            product = product.toBuilder().setStock(newStock).build();
-            products = products.toBuilder().setProducts(product.getId(), product).build();
-        }
-        return productIds;
+       return ProductRepository.updateProductStockAndGetProductIdList(productsList,stocks);
     }
 }

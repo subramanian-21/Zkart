@@ -273,8 +273,8 @@ public class ProductView extends BaseScreen {
             if(getBoolean("Confirm Adding product") && ZkartRepository.updateProduct(productId, category, name, description, model, brand, price, stock))
                 alert("Product Updated Successfully");
         }catch (Exception e){
-            System.out.println(e.getMessage());
-            display();
+            alert(e.getMessage());
+            updateProductDetails();
         }
     }
     //update product price
