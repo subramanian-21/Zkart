@@ -57,6 +57,7 @@ public class WelcomeScreenView extends BaseScreen {
                 } else if (opt == 8 && ZkartRepository.isUserLogin) {
                     UserView.getInstance().changePassword(true);
                 } else if (opt == 9) {
+                    ZkartRepository.logout();
                     break;
                 } else if (opt == 10) {
                     alert("Thank you visit again.");

@@ -10,6 +10,7 @@ import com.zkart.utils.exceptions.InvalidPasswordSyntaxException;
 import com.zkart.utils.exceptions.TerminatePageInterupt;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class BaseUserView extends BaseScreen {
     public void login(boolean isUser) throws TerminatePageInterupt{

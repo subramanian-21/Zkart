@@ -51,7 +51,7 @@ public class ZkartRepository {
             // ADMIN INITIALIZATION
             try {
                 admin = AdminProto.Admin.parseFrom(adminFis);
-                if(admin.getAdminUser().getEmail().00isEmpty()) {
+                if(admin.getAdminUser().getEmail().isEmpty()) {
                     throw new Exception("");
                 }
             }

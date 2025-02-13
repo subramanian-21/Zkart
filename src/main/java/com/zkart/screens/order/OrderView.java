@@ -12,7 +12,9 @@ import com.zkart.utils.BaseScreen;
 import com.zkart.utils.exceptions.InvalidCouponException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class OrderView extends BaseScreen {
     public void userDisplay() {
@@ -22,6 +24,7 @@ public class OrderView extends BaseScreen {
                 UserView.getInstance().login(true);
             }
             List<ProductProto.Product> products = new ArrayList<>();
+            Set<Integer> productIds = new HashSet<>();
             List<Integer> stocks = new ArrayList<>();
             while(true) {
                 System.out.println("1 -> Book Product By Id :");
@@ -29,7 +32,7 @@ public class OrderView extends BaseScreen {
                 System.out.println("3 -> Back");
                 int opt = getInt("Select Option :");
                 if(opt == 1) {
-                   createOrder(products, stocks);
+                   createOrder(products,productIds, stocks);
                    return;
                 } else if (opt == 2) {
                    ProductView.getInstance().userDisplay();
@@ -97,17 +100,38 @@ public class OrderView extends BaseScreen {
         System.out.println("=================================================");
         System.out.println();
     }
-    public void createOrder(List<ProductProto.Product> products, List<Integer> stocks){
+    public void createOrder(List<ProductProto.Product> products,Set<Integer> productIds, List<Integer> stocks){
         while (true) {
         try {
-
                 int id = getInt("Enter Product Id :");
+                if(productIds.contains(id)) {
+                alert("Product already added");
+                if(!getBoolean("Do you want to enter again ?")) {
+                    if(getBoolean("proceed to checkout ?")) {
+                        String couponId = getCouponId();
+                        try {
+                            if (!getBoolean("Do you want to confirm Order ?")){
+                                return;
+                            }
+                            printOrderStatus(viewModel.orderProducts(products, stocks, couponId)) ;
+                            return;
+                        }catch (InvalidCouponException e) {
+                            alert(e.getMessage());
+                        }
+                        return;
+                    }
+                    break;
+                }
+                continue;
+            }
                 ProductProto.Product product = ZkartRepository.getProductById(id);
+
                 if(product.getStock() > 0){
                     int stock = getInt("Enter Count :");
                     if(stock > 0 && stock <= product.getStock()) {
                         products.add(product);
                         stocks.add(stock);
+                        productIds.add(product.getId());
                     }else {
                         alert("Stock Unavailable");
                         continue;
@@ -119,32 +143,7 @@ public class OrderView extends BaseScreen {
                 if(getBoolean("Do you want to add more ?")) {
                     continue;
                 }
-                boolean couponAvail = getBoolean("Do you want to apply any coupon? ");
-                String couponId = null;
-                if(couponAvail) {
-                    while (true) {
-                        System.out.println("1 -> Enter Coupon Id");
-                        System.out.println("2 -> Go to my Coupons");
-                        System.out.println("3 -> Back");
-                        int tempOpt = getInt("Choose Option :");
-                        if (tempOpt == 1) {
-                            couponId = getString("Enter coupon Id :");
-                            CouponProto.Coupon coupon = ZkartRepository.getCoupon(couponId);
-                            if (coupon == null) {
-                                alert("Invalid Coupon");
-                                continue;
-                            }
-                            System.out.println("Coupon Code :" + coupon.getId());
-                            System.out.println("Coupon Discount :" + coupon.getDiscountPercent() + "%");
-
-                            alert("Coupon Applied Successfully");
-                        } else if (tempOpt == 2) {
-                            UserView.getInstance().myCoupons();
-                        } else {
-                            break;
-                        }
-                    }
-                }
+                String couponId = getCouponId();
                 try {
                     if (!getBoolean("Do you want to confirm Order ?")){
                         return;
@@ -159,6 +158,35 @@ public class OrderView extends BaseScreen {
             alert(e.getMessage());
         }
         }
+    }
+    public String getCouponId() throws Exception{
+        boolean couponAvail = getBoolean("Do you want to apply any coupon? ");
+        String couponId = null;
+        if(couponAvail) {
+            while (true) {
+                System.out.println("1 -> Enter Coupon Id");
+                System.out.println("2 -> Go to my Coupons");
+                System.out.println("3 -> Back");
+                int tempOpt = getInt("Choose Option :");
+                if (tempOpt == 1) {
+                    couponId = getString("Enter coupon Id :");
+                    CouponProto.Coupon coupon = ZkartRepository.getCoupon(couponId);
+                    if (coupon == null) {
+                        alert("Invalid Coupon");
+                        continue;
+                    }
+                    System.out.println("Coupon Code :" + coupon.getId());
+                    System.out.println("Coupon Discount :" + coupon.getDiscountPercent() + "%");
+
+                    alert("Coupon Applied Successfully");
+                } else if (tempOpt == 2) {
+                    UserView.getInstance().myCoupons();
+                } else {
+                    break;
+                }
+            }
+        }
+        return couponId;
     }
     public void printOrderStatus(OrderStatusDTO order) {
         if(!order.isOrderSuccess) {

@@ -59,7 +59,7 @@ public class OrderViewModel {
                 throw new IncompleteCouponCreationException();
             }
             System.out.println("****** Coupon Obtained For this order *******");
-            System.out.println("Check My Coupons");
+            System.out.println("* Check My Coupons");
         }
         if(couponCode != null) {
             CouponProto.Coupon coupon = ZkartRepository.getCoupon(couponCode);

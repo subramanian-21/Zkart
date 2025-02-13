@@ -176,8 +176,32 @@ public class ProductView extends BaseScreen {
             String description = getString("Enter Product Description :");
             String model = getString("Enter Product Model :");
             String brand = getString("Enter Product Brand :");
-            int price = getInt("Enter Product Price :");
-            int stock = getInt("Enter Product Count :");
+            int price = 0;
+            while (true) {
+                price = getInt("Enter Product Price :");;
+                if(price < 0) {
+                    alert("Invalid Price");
+                    if(!getBoolean("Do you want to try again ?")) {
+                        return;
+                    }
+                }else {
+                    break;
+                }
+            }
+
+            int stock = 0;
+
+            while (true) {
+                stock = getInt("Enter Stock count :");;
+                if(stock < 0) {
+                    alert("Invalid stock");
+                    if(!getBoolean("Do you want to try again ?")) {
+                        return;
+                    }
+                }else {
+                    break;
+                }
+            }
             if(getBoolean("confirm add :")) {
                 if(ZkartRepository.addProduct(category, name, description, model, brand, price, stock))
                     alert("Product Added Successfully");
@@ -219,8 +243,32 @@ public class ProductView extends BaseScreen {
             String description = getString("Enter Product Description :");
             String model = getString("Enter Product Model :");
             String brand = getString("Enter Product Brand :");
-            int price = getInt("Enter Product Price :");
-            int stock = getInt("Enter Product Count :");
+            int price = 0;
+            while (true) {
+                price = getInt("Enter Product Price :");;
+                if(price < 0) {
+                    alert("Invalid Price");
+                    if(!getBoolean("Do you want to try again ?")) {
+                        return;
+                    }
+                }else {
+                    break;
+                }
+            }
+
+            int stock = 0;
+
+            while (true) {
+                stock = getInt("Enter Stock count :");;
+                if(stock < 0) {
+                    alert("Invalid stock");
+                    if(!getBoolean("Do you want to try again ?")) {
+                        return;
+                    }
+                }else {
+                    break;
+                }
+            }
 
             if(getBoolean("Confirm Adding product") && ZkartRepository.updateProduct(productId, category, name, description, model, brand, price, stock))
                 alert("Product Updated Successfully");
